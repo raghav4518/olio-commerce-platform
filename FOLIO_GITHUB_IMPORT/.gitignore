@@ -1,0 +1,17 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Local development / generated output
+node_modules/
+dist/
+build/
+.coverage/
+playwright-report/
+test-results/
+.DS_Store
+Thumbs.db

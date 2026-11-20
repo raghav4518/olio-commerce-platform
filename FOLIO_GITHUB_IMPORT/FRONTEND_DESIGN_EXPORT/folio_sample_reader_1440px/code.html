@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Reader: The Art of Slow Thinking — FOLIO</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- READER TOP BAR -->
+    <header class="sticky top-0 z-40 bg-surface-white border-b border-outline">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop h-16 flex items-center justify-between gap-gutter-md">
+        <div class="flex items-center gap-gutter-md">
+          <a href="../product-details/ProductDetails.html" class="inline-flex items-center gap-1.5 font-label text-label-md text-on-surface hover:text-on-surface-muted">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_back</span>
+            <span>Back to Book</span>
+          </a>
+          <span class="px-2.5 py-0.5 bg-surface-hero border border-outline rounded font-label text-label-sm text-on-surface-muted">SAMPLE PREVIEW</span>
+        </div>
+
+        <div class="hidden md:flex flex-col items-center">
+          <span class="font-title text-title-sm text-on-surface">The Art of Slow Thinking</span>
+          <span class="font-body text-body-sm text-on-surface-muted">Chapter I — The Illusion of Speed</span>
+        </div>
+
+        <!-- Typography Controls & Purchase CTA -->
+        <div class="flex items-center gap-gutter-sm">
+          <div class="flex items-center border border-outline rounded bg-surface-secondary px-1" role="group" aria-label="Font size">
+            <button id="font-dec" type="button" aria-label="Decrease text size" class="px-2 py-1 font-label text-label-sm hover:text-primary">A-</button>
+            <button id="font-inc" type="button" aria-label="Increase text size" class="px-2 py-1 font-label text-label-md hover:text-primary">A+</button>
+          </div>
+          <a href="../shopping-cart/ShoppingCart.html" class="px-gutter-md py-2 bg-primary text-on-primary rounded font-label text-label-md hover:bg-on-surface">Buy Full Edition — ₹499</a>
+        </div>
+      </div>
+      <!-- Reading Progress Bar -->
+      <div class="w-full h-1 bg-surface-hero">
+        <div id="reader-progress" class="h-1 bg-primary w-1/3 transition-all duration-state-change"></div>
+      </div>
+    </header>
+
+    <!-- DEDICATED READING CANVAS -->
+    <main class="flex-1 py-section-sm px-page-margin">
+      <article class="max-w-2xl mx-auto bg-surface-white border border-outline rounded p-8 md:p-14 shadow-sm flex flex-col gap-gutter-lg">
+        <header class="border-b border-outline pb-gutter-lg">
+          <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted">Sample Excerpt · Page 1 of 3</span>
+          <h1 class="font-headline text-headline-lg text-on-surface mt-2">Chapter I — The Illusion of Speed</h1>
+          <p class="font-body text-body-sm text-on-surface-muted mt-1">Clara Vance</p>
+        </header>
+
+        <div id="reader-prose" class="font-headline text-title-md leading-relaxed text-on-surface flex flex-col gap-6">
+          <p>
+            Speed is an illusion of progress. In an environment designed to reward immediate replies, we begin to mistake velocity for understanding—skimming headlines, collecting fragments, and moving on before a thought has had time to cast a shadow.
+          </p>
+          <p>
+            When we allow an idea a full afternoon to settle—unhurried by notifications or immediate verdicts—its true geometry begins to surface. Questions that looked settled at nine in the morning reveal quiet contradictions by four.
+          </p>
+          <p>
+            This book is an argument for deliberate slowness: not as nostalgia, but as a practical discipline for anyone who makes things, leads teams, or wishes to remember what they read.
+          </p>
+        </div>
+
+        <!-- Preview Boundary Notice (No full-book access without entitlement) -->
+        <div class="mt-gutter-lg p-gutter-xl bg-surface-hero border border-outline rounded text-center flex flex-col items-center gap-gutter-sm">
+          <span class="material-symbols-outlined text-[28px] text-on-surface-muted" aria-hidden="true">lock_open</span>
+          <h2 class="font-headline text-title-md md:text-title-lg text-on-surface">End of Free Sample Preview</h2>
+          <p class="font-body text-body-sm text-on-surface-muted max-w-md">
+            Full chapters (II–VIII) and downloadable EPUB/PDF editions unlock immediately after purchase.
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-gutter-sm pt-2">
+            <a href="../shopping-cart/ShoppingCart.html" class="px-gutter-lg py-3 bg-primary text-on-primary rounded font-label text-label-lg hover:bg-on-surface">Continue to Purchase — ₹499</a>
+            <a href="../product-details/ProductDetails.html" class="px-gutter-lg py-3 bg-surface-white border border-outline rounded font-label text-label-lg text-on-surface hover:border-primary">Return to Details</a>
+          </div>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      let size = 21;
+      const prose = document.getElementById('reader-prose');
+      document.getElementById('font-inc').addEventListener('click', () => {
+        if (size < 26) { size += 2; prose.style.fontSize = size + 'px'; }
+      });
+      document.getElementById('font-dec').addEventListener('click', () => {
+        if (size > 17) { size -= 2; prose.style.fontSize = size + 'px'; }
+      });
+    })();
+  </script>
+
+
+</body></html>

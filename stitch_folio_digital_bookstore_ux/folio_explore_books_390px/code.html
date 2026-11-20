@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Books — FOLIO Mobile</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[884px] flex flex-col max-w-[390px] mx-auto overflow-x-hidden" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <header class="sticky top-0 z-40 bg-surface border-b border-outline">
+      <div class="px-page-margin h-16 grid grid-cols-3 items-center">
+        <a href="../home-mobile/FolioHomepageMobile.html" aria-label="Menu" class="w-11 h-11 rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-[22px]">menu</span></a>
+        <div class="flex justify-center">
+          <a href="../home-mobile/FolioHomepageMobile.html" aria-label="FOLIO Home">
+            <svg width="82" height="28" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+          </a>
+        </div>
+        <div class="flex justify-end gap-1">
+          <a href="../search-results-mobile/SearchResultsMobile.html" aria-label="Search" class="w-11 h-11 rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">search</span></a>
+          <button type="button" aria-label="Bag" class="w-11 h-11 rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">shopping_bag</span></button>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <section class="bg-surface-hero border-b border-outline px-page-margin py-6 flex flex-col gap-gutter-md">
+        <nav aria-label="Breadcrumb" class="flex items-center gap-2 font-label text-label-md text-on-surface-muted">
+          <a href="../home-mobile/FolioHomepageMobile.html">Home</a>
+          <span>/</span>
+          <span class="text-on-surface">Explore Books</span>
+        </nav>
+        <h1 class="font-headline text-display-lg-mobile text-on-surface" data-design-text-token="display-lg-mobile">Explore Books</h1>
+        <div class="relative flex items-center">
+          <span class="material-symbols-outlined text-[20px] text-on-surface-muted absolute left-3.5" aria-hidden="true">search</span>
+          <input id="m-cat-search" type="search" placeholder="Search titles or authors..." class="w-full pl-11 pr-4 py-2.5 bg-surface-white border border-outline rounded text-body-md">
+        </div>
+        <div class="flex items-center justify-between gap-2">
+          <button id="m-open-filters" type="button" class="flex-1 py-2.5 bg-surface-white border border-outline rounded font-label text-label-md flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px]">tune</span>
+            <span>Filters</span>
+          </button>
+          <select id="m-cat-sort" class="flex-1 py-2.5 px-3 bg-surface-white border border-outline rounded font-label text-label-md">
+            <option value="relevance">Sort: Relevance</option>
+            <option value="price-asc">Price: Low–High</option>
+            <option value="price-desc">Price: High–Low</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="px-page-margin py-gutter-lg flex flex-col gap-gutter-md">
+        <div class="flex items-center justify-between">
+          <span id="m-cat-count" class="font-body text-body-sm text-on-surface-muted tabular-nums">6 editions</span>
+          <div class="flex items-center gap-1 border border-outline rounded p-0.5 bg-surface-white">
+            <button id="m-view-grid" type="button" aria-label="Grid view" class="p-1.5 bg-surface-hero rounded-sm"><span class="material-symbols-outlined text-[18px]">grid_view</span></button>
+            <button id="m-view-list" type="button" aria-label="List view" class="p-1.5 text-on-surface-muted"><span class="material-symbols-outlined text-[18px]">view_list</span></button>
+          </div>
+        </div>
+
+        <div id="m-cat-grid" class="flex flex-col gap-gutter-md">
+          <article class="bg-surface-white border border-outline rounded p-gutter-md flex gap-gutter-md items-center">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrDuxkcX_GLekPPiqq6GjqioVqfL3A5bj1gEiwZ_NmMlxltuid8gI5wfUVC_dgMTA_2Zf0I7CR4EhX2xRZ8ONgJhH8G-dgIZSZ4HTi0Qiv48ClyphZHO4XoEYaOv1A_gUbO0DBoPinjbDic2u7qEpPxH0xVGeb2QGKQlBUGHUaOHYWrcr0gDJ2Lp6XJJSGLLBD0j_Xd9Ewg3QgvBoXP6lafI1SPIRkR_TmhIm2Cf3-hE5MKhnLK8t8ec" alt="The Art of Slow Thinking" class="w-20 aspect-[2/3] object-cover rounded-sm shadow">
+            <div class="flex-1 min-w-0 flex flex-col gap-1">
+              <h2 class="font-title text-title-md text-on-surface">The Art of Slow Thinking</h2>
+              <p class="font-body text-body-sm text-on-surface-muted">Clara Vance</p>
+              <div class="flex items-center justify-between pt-2">
+                <span class="font-body text-title-sm tabular-nums">$18.00</span>
+                <button type="button" class="m-wish-btn w-9 h-9 rounded-full border border-outline flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">bookmark_border</span></button>
+              </div>
+            </div>
+          </article>
+          <article class="bg-surface-white border border-outline rounded p-gutter-md flex gap-gutter-md items-center">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrCgAOPZ9Zl5OI6cUIYB3zmb1_mbIH0_BcZOU09xg6X51iJMzkP4e1hH4m7kOhOn17p8M35c7PSub0lco0KvEKV8ruFun0K71VLd-iwDaQTIOnUQAZaBW02_3VHhm5WEdYfGYjo0_lU7USCcKsQGf9KNgYVtL4mz6v6LhNiArG0RgvVoTescEPuR_C8zkWhVWhbfmhLnmsE7mqhtyQentUS6YgK0vK_P6pAfEVczqPSeinLUDqYzDw" alt="Letters from a Quiet Room" class="w-20 aspect-[2/3] object-cover rounded-sm shadow">
+            <div class="flex-1 min-w-0 flex flex-col gap-1">
+              <h2 class="font-title text-title-md text-on-surface">Letters from a Quiet Room</h2>
+              <p class="font-body text-body-sm text-on-surface-muted">Henrik Lindholm</p>
+              <div class="flex items-center justify-between pt-2">
+                <span class="font-body text-title-sm tabular-nums">$14.50</span>
+                <button type="button" class="m-wish-btn w-9 h-9 rounded-full border border-outline flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">bookmark_border</span></button>
+              </div>
+            </div>
+          </article>
+          <article class="bg-surface-white border border-outline rounded p-gutter-md flex gap-gutter-md items-center">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrByTGIUH9UquYzGhxf3qF2CL0YZernTjUEaxYQBbTEqIBESJDPnWboHepNc7pdWSEsYJeIZpAZWUq16qvM7cTgZ8SAzMBSbq5Cewo5XsB_N4dvr1HIB6Zl3Ms1MsW46pq05-ex3_SII8QyZIzJtmY-IEc9miYOSvXyv9MJT7gcT7_y6T4XzikTtrblObFGvb0buNpEZim4beEkQ1YTLf_0zfk5XJ4vShLhKdCSfIGM2LC0NkQ" alt="Form, Space &amp; Silence" class="w-20 aspect-[2/3] object-cover rounded-sm shadow">
+            <div class="flex-1 min-w-0 flex flex-col gap-1">
+              <h2 class="font-title text-title-md text-on-surface">Form, Space &amp; Silence</h2>
+              <p class="font-body text-body-sm text-on-surface-muted">Naomi Takahashi</p>
+              <div class="flex items-center justify-between pt-2">
+                <span class="font-body text-title-sm tabular-nums">$22.00</span>
+                <button type="button" class="m-wish-btn w-9 h-9 rounded-full border border-outline flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">bookmark_border</span></button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <button type="button" class="w-full py-3 bg-surface-white border border-outline rounded font-label text-label-lg mt-2">Load More Editions</button>
+      </section>
+    </main>
+
+    <footer class="bg-surface-secondary border-t border-outline px-page-margin py-gutter-lg text-center font-body text-body-sm text-on-surface-muted">
+      © 2026 FOLIO Digital Bookstore.
+    </footer>
+  </div>
+
+  <!-- MOBILE FILTER DRAWER -->
+  <dialog id="m-filter-drawer" class="m-0 ml-auto h-full max-h-[884px] w-full max-w-[320px] bg-surface-white p-0 border-l border-outline backdrop:bg-on-surface/30" data-stitch-vh="max-h-[884px]===max-h-screen">
+    <div class="flex flex-col h-full">
+      <header class="flex items-center justify-between px-page-margin py-gutter-md border-b border-outline">
+        <h2 class="font-headline text-title-lg">Filters</h2>
+        <button id="m-close-filters" type="button" class="w-10 h-10 rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </header>
+      <div class="p-page-margin flex-1 flex flex-col gap-gutter-lg overflow-y-auto">
+        <div>
+          <h3 class="font-label text-label-md uppercase tracking-wider text-on-surface-muted mb-2">Category</h3>
+          <div class="flex flex-col gap-2 font-body text-body-sm">
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded-sm border-outline"> Philosophy</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded-sm border-outline"> Fiction</label>
+            <label class="flex items-center gap-2"><input type="checkbox" class="rounded-sm border-outline"> Creativity</label>
+          </div>
+        </div>
+      </div>
+      <footer class="p-page-margin border-t border-outline">
+        <button id="m-apply-filters" type="button" class="w-full py-3 bg-primary text-on-primary rounded font-label text-label-lg">Apply Filters</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      const dlg = document.getElementById('m-filter-drawer');
+      document.getElementById('m-open-filters').addEventListener('click', () => dlg.showModal());
+      document.getElementById('m-close-filters').addEventListener('click', () => dlg.close());
+      document.getElementById('m-apply-filters').addEventListener('click', () => dlg.close());
+      document.querySelectorAll('.m-wish-btn').forEach(btn => btn.addEventListener('click', () => {
+        const ic = btn.querySelector('.material-symbols-outlined');
+        ic.textContent = ic.textContent === 'bookmark' ? 'bookmark_border' : 'bookmark';
+      }));
+    })();
+  </script>
+
+
+</body></html>

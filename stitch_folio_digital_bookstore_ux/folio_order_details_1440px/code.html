@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Details — FOLIO</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 bg-surface border-b border-outline">
+      <div class="max-w-[1320px] mx-auto px-page-margin md:px-page-margin-desktop h-20 grid grid-cols-3 items-center">
+        <a href="../account-orders/MyOrders.html" class="font-label text-label-md text-on-surface-muted hover:text-on-surface inline-flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_back</span>
+          <span>All Orders</span>
+        </a>
+        <div class="flex justify-center">
+          <a href="../home-desktop/FolioHomepageDesktop.html" aria-label="FOLIO Home">
+            <svg width="94" height="32" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+          </a>
+        </div>
+        <div class="flex items-center justify-end gap-gutter-xs">
+          <a href="../shopping-cart/ShoppingCart.html" aria-label="Shopping bag" class="w-11 h-11 rounded-full flex items-center justify-center hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">shopping_bag</span>
+          </a>
+          <a href="../account-profile/Profile.html" class="px-3 py-1 bg-surface-hero border border-outline rounded-full font-label text-label-sm">Ananya S.</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- MOBILE ACCOUNT NAV -->
+    <nav aria-label="Account sections mobile" class="md:hidden border-b border-outline bg-surface-secondary px-page-margin py-3 overflow-x-auto">
+      <div class="flex items-center gap-2 min-w-max">
+        <a href="../account-dashboard/AccountDashboard.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Dashboard</a>
+        <a href="../account-library/MyLibrary.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Library</a>
+        <a href="../account-orders/MyOrders.html" class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-label text-label-sm">My Orders</a>
+        <a href="../account-wishlist/Wishlist.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Wishlist</a>
+        <a href="../account-reviews/MyReviews.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Reviews</a>
+        <a href="../account-notifications/Notifications.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Notifications</a>
+        <a href="../account-profile/Profile.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Profile</a>
+      </div>
+    </nav>
+
+    <div class="max-w-[1320px] w-full mx-auto px-page-margin md:px-page-margin-desktop py-section-sm grid grid-cols-1 md:grid-cols-12 gap-gutter-xl flex-1">
+      <!-- DESKTOP ACCOUNT SIDEBAR -->
+      <aside class="hidden md:flex md:col-span-3 flex-col gap-gutter-xs border-r border-outline pr-gutter-lg">
+        <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted px-3 mb-1">Reader Account</span>
+        <a href="../account-dashboard/AccountDashboard.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">home</span><span>Dashboard</span>
+        </a>
+        <a href="../account-library/MyLibrary.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">library_books</span><span>My Library</span>
+        </a>
+        <a href="../account-reading-history/ReadingHistory.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">history</span><span>Reading History</span>
+        </a>
+        <a href="../account-downloads/AccountDownloads.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span><span>Downloads</span>
+        </a>
+        <a href="../account-bookmarks/BookmarksNotes.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bookmark</span><span>Bookmarks &amp; Notes</span>
+        </a>
+        <div class="my-2 border-t border-outline"></div>
+        <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted px-3 mb-1">Orders &amp; Settings</span>
+        <a href="../account-orders/MyOrders.html" class="px-3 py-2.5 rounded bg-surface-hero font-label text-label-lg text-on-surface flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">receipt_long</span><span>My Orders</span>
+        </a>
+        <a href="../account-wishlist/Wishlist.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">favorite</span><span>Wishlist (3)</span>
+        </a>
+        <a href="../account-reviews/MyReviews.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">rate_review</span><span>My Reviews</span>
+        </a>
+        <a href="../account-notifications/Notifications.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">notifications</span><span>Notifications</span>
+        </a>
+        <a href="../account-profile/Profile.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">person</span><span>Profile</span>
+        </a>
+        <a href="../account-security/Security.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">shield</span><span>Security</span>
+        </a>
+        <a href="../account-preferences/Preferences.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">tune</span><span>Preferences</span>
+        </a>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="md:col-span-9 flex flex-col gap-gutter-xl">
+        <!-- ORDER HEADER -->
+        <header class="flex flex-col md:flex-row md:items-end justify-between gap-gutter-md border-b border-outline pb-gutter-lg">
+          <div class="flex flex-col gap-1">
+            <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted">Order Details</span>
+            <h1 class="font-headline text-display-lg-mobile md:text-display-lg text-on-surface tabular-nums" data-design-text-token="display-lg">Order FOL-2026-8419</h1>
+            <p class="font-body text-body-md text-on-surface-muted tabular-nums">Placed on 14 November 2026 at 18:42 IST · Digital fulfillment completed</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-gutter-sm">
+            <button type="button" id="downloadInvoiceBtn" class="px-gutter-md py-2.5 border border-outline bg-surface-white rounded font-label text-label-md text-on-surface hover:border-primary inline-flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">description</span>
+              <span>Download Invoice</span>
+            </button>
+            <a href="../account-support-new/CreateSupportRequest.html" class="px-gutter-md py-2.5 border border-outline bg-surface-white rounded font-label text-label-md text-on-surface-muted hover:text-on-surface inline-flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">support_agent</span>
+              <span>Order Support</span>
+            </a>
+          </div>
+        </header>
+
+        <!-- INVOICE FEEDBACK BANNER -->
+        <div id="invoiceStatus" class="hidden border border-outline bg-surface-hero rounded p-gutter-md flex items-center justify-between gap-gutter-md">
+          <div class="flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px] text-success" aria-hidden="true">check_circle</span>
+            <span class="font-body text-body-sm text-on-surface" id="invoiceStatusText">Tax invoice INV-FOL-2026-8419.pdf is ready.</span>
+          </div>
+          <button type="button" id="dismissInvoiceStatus" class="font-label text-label-sm text-on-surface-muted hover:text-on-surface">Dismiss</button>
+        </div>
+
+        <!-- DIGITAL ACCESS STATUS -->
+        <section class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col md:flex-row md:items-center justify-between gap-gutter-md">
+          <div class="flex items-start gap-3">
+            <span class="material-symbols-outlined text-[22px] text-success mt-0.5" aria-hidden="true">verified</span>
+            <div>
+              <h2 class="font-title text-title-md text-on-surface">Digital Access Active</h2>
+              <p class="font-body text-body-sm text-on-surface-muted">All editions in this order are unlocked in your FOLIO Library and synced for web and mobile reading.</p>
+            </div>
+          </div>
+          <a href="../account-library/MyLibrary.html" class="px-gutter-lg py-2.5 bg-primary text-on-primary rounded font-label text-label-md text-center shrink-0">Go to My Library</a>
+        </section>
+
+        <!-- INDIVIDUAL PRODUCTS -->
+        <section class="flex flex-col gap-gutter-md">
+          <h2 class="font-headline text-headline-md text-on-surface">Purchased Editions (2)</h2>
+          <div class="border border-outline rounded bg-surface-white divide-y divide-outline">
+            <!-- Item 1 -->
+            <div class="p-gutter-lg flex flex-col md:flex-row md:items-center justify-between gap-gutter-md">
+              <div class="flex items-center gap-gutter-md">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrDuxkcX_GLekPPiqq6GjqioVqfL3A5bj1gEiwZ_NmMlxltuid8gI5wfUVC_dgMTA_2Zf0I7CR4EhX2xRZ8ONgJhH8G-dgIZSZ4HTi0Qiv48ClyphZHO4XoEYaOv1A_gUbO0DBoPinjbDic2u7qEpPxH0xVGeb2QGKQlBUGHUaOHYWrcr0gDJ2Lp6XJJSGLLBD0j_Xd9Ewg3QgvBoXP6lafI1SPIRkR_TmhIm2Cf3-hE5MKhnLK8t8ec" alt="The Art of Slow Thinking" class="w-16 aspect-[2/3] object-cover rounded-sm border border-outline shrink-0">
+                <div class="flex flex-col gap-1">
+                  <a href="../product-details/ProductDetails.html" class="font-title text-title-lg text-on-surface hover:underline">The Art of Slow Thinking</a>
+                  <p class="font-body text-body-sm text-on-surface-muted">Clara Vance · Digital Edition (Web Reader &amp; EPUB)</p>
+                  <span class="font-label text-label-sm text-success">Unlocked in Library</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between md:justify-end gap-gutter-lg">
+                <span class="font-body text-body-md font-semibold text-on-surface tabular-nums">₹599.00</span>
+                <a href="../ebook-reader-desktop/EbookReaderDesktop.html" class="px-gutter-md py-2 bg-primary text-on-primary rounded font-label text-label-md">Read Now</a>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="p-gutter-lg flex flex-col md:flex-row md:items-center justify-between gap-gutter-md">
+              <div class="flex items-center gap-gutter-md">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrBTrwlybMTjYj0IOVf9pG1A-9-YKXcjAOy4EQK-0euLlLE1maWKvdNoLU5RdwmkkmT7vuECLg2wDazpuCx2tfA64dJAz_qcICRExwFxBUN3t_-3_JIJW9L8blQh6kH6IfrOi6UFsbAGC1XEk-JyoKpjDX35kBTqyx7zGHGmmE4QuhUE8C2jo0lUukK4HOHj7ENwIwq-sLV_UY4xxUcOAiRo_axTNIRk3tEq_GyntVurEtiJfLs" alt="On Attention &amp; Deep Craft" class="w-16 aspect-[2/3] object-cover rounded-sm border border-outline shrink-0">
+                <div class="flex flex-col gap-1">
+                  <a href="../product-details/ProductDetails.html" class="font-title text-title-lg text-on-surface hover:underline">On Attention &amp; Deep Craft</a>
+                  <p class="font-body text-body-sm text-on-surface-muted">Julian Mercer · Digital Edition (Web Reader only)</p>
+                  <span class="font-label text-label-sm text-success">Unlocked in Library</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between md:justify-end gap-gutter-lg">
+                <span class="font-body text-body-md font-semibold text-on-surface tabular-nums">₹499.00</span>
+                <a href="../ebook-reader-desktop/EbookReaderDesktop.html" class="px-gutter-md py-2 bg-primary text-on-primary rounded font-label text-label-md">Read Now</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PRICE BREAKDOWN & PAYMENT METADATA -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-gutter-lg">
+          <div class="border border-outline rounded bg-surface-white p-gutter-lg flex flex-col gap-gutter-md">
+            <h2 class="font-headline text-title-lg text-on-surface">Payment &amp; Reference</h2>
+            <dl class="flex flex-col gap-gutter-sm font-body text-body-sm">
+              <div class="flex justify-between py-1 border-b border-outline">
+                <dt class="text-on-surface-muted">Payment Method</dt>
+                <dd class="text-on-surface font-medium">UPI (ananya@okaxis)</dd>
+              </div>
+              <div class="flex justify-between py-1 border-b border-outline">
+                <dt class="text-on-surface-muted">Transaction Reference</dt>
+                <dd class="text-on-surface tabular-nums">TXN-9842-7710-4421</dd>
+              </div>
+              <div class="flex justify-between py-1 border-b border-outline">
+                <dt class="text-on-surface-muted">Payment Status</dt>
+                <dd class="text-success font-medium">Settled</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-muted">Billing Email</dt>
+                <dd class="text-on-surface">ananya.sen@example.in</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="border border-outline rounded bg-surface-white p-gutter-lg flex flex-col gap-gutter-md">
+            <h2 class="font-headline text-title-lg text-on-surface">Price Breakdown</h2>
+            <dl class="flex flex-col gap-gutter-sm font-body text-body-sm">
+              <div class="flex justify-between">
+                <dt class="text-on-surface-muted">Subtotal (2 items)</dt>
+                <dd class="text-on-surface tabular-nums">₹1,198.00</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-on-surface-muted">Member Code (QUIET10)</dt>
+                <dd class="text-success tabular-nums">−₹100.00</dd>
+              </div>
+              <div class="flex justify-between">
+                <dt class="text-on-surface-muted">GST (0% Digital Books)</dt>
+                <dd class="text-on-surface tabular-nums">₹0.00</dd>
+              </div>
+              <div class="flex justify-between pt-gutter-sm border-t border-outline font-body text-body-md font-semibold">
+                <dt class="text-on-surface">Total Paid</dt>
+                <dd class="text-on-surface tabular-nums">₹1,098.00</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const btn = document.getElementById('downloadInvoiceBtn');
+      const status = document.getElementById('invoiceStatus');
+      const statusText = document.getElementById('invoiceStatusText');
+      const dismiss = document.getElementById('dismissInvoiceStatus');
+
+      btn.addEventListener('click', () => {
+        btn.disabled = true;
+        btn.classList.add('opacity-60');
+        status.classList.remove('hidden');
+        statusText.textContent = 'Preparing tax invoice INV-FOL-2026-8419…';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.classList.remove('opacity-60');
+          statusText.textContent = 'Tax invoice INV-FOL-2026-8419.pdf generated and saved to your downloads.';
+        }, 450);
+      });
+
+      dismiss.addEventListener('click', () => {
+        status.classList.add('hidden');
+      });
+    })();
+  </script>
+
+
+</body></html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Ebooks — FOLIO Admin</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex bg-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- DESKTOP ADMIN SIDEBAR -->
+    <aside class="hidden lg:flex lg:w-64 shrink-0 flex-col justify-between border-r border-outline bg-surface-white min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-gutter-md p-gutter-md">
+        <div class="flex items-center justify-between px-2 py-1 border-b border-outline pb-3">
+          <a href="../admin-dashboard/AdminDashboard.html" class="flex items-center gap-2" aria-label="FOLIO Admin">
+            <svg width="78" height="26" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path><text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text></svg>
+            <span class="px-2 py-0.5 rounded bg-primary text-on-primary font-label text-label-sm">Admin</span>
+          </a>
+        </div>
+        <nav aria-label="Admin primary" class="flex flex-col gap-1">
+          <a href="../admin-dashboard/AdminDashboard.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Overview</span></a>
+          <details open class="group">
+            <summary class="px-3 py-2 rounded bg-surface-hero font-label text-label-md text-on-surface flex items-center justify-between cursor-pointer list-none">
+              <span class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">menu_book</span><span>Catalog</span></span>
+              <span class="material-symbols-outlined text-[16px]">expand_more</span>
+            </summary>
+            <div class="pl-8 pr-2 py-1 flex flex-col gap-1">
+              <a href="../admin-catalog/AdminCatalog.html" class="py-1.5 font-body text-body-sm font-medium text-on-surface">All Ebooks</a>
+              <a href="../admin-ebook-form/AdminEbookForm.html" class="py-1.5 font-body text-body-sm text-on-surface-muted hover:text-on-surface">Add New Ebook</a>
+              <a href="../admin-categories-collections/AdminCategoriesCollections.html" class="py-1.5 font-body text-body-sm text-on-surface-muted hover:text-on-surface">Categories &amp; Collections</a>
+            </div>
+          </details>
+          <a href="../admin-orders/AdminOrders.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Orders</span></a>
+          <a href="../admin-customers/AdminCustomers.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">group</span><span>Customers</span></a>
+          <a href="../admin-finance/AdminFinance.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Payments &amp; Finance</span></a>
+          <a href="../admin-marketing/AdminMarketing.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">sell</span><span>Marketing</span></a>
+          <a href="../admin-website/AdminWebsite.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">web</span><span>Website &amp; Content</span></a>
+          <a href="../admin-analytics/AdminAnalytics.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">monitoring</span><span>Analytics &amp; Reports</span></a>
+          <a href="../admin-support/AdminSupport.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">support_agent</span><span>Support</span></a>
+          <a href="../admin-team/AdminTeam.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">admin_panel_settings</span><span>Team &amp; Permissions</span></a>
+          <a href="../admin-security/AdminSecurity.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">shield</span><span>Security &amp; Audit Logs</span></a>
+          <a href="../admin-settings/AdminSettings.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">settings</span><span>Settings</span></a>
+        </nav>
+      </div>
+      <div class="p-gutter-md border-t border-outline flex items-center justify-between">
+        <div><p class="font-label text-label-md text-on-surface">Vikram Mehta</p><p class="font-body text-body-sm text-on-surface-muted">Owner</p></div>
+        <a href="../auth-login-desktop/LoginDesktop.html" aria-label="Log out" class="p-2 rounded hover:bg-surface-hero text-on-surface-muted"><span class="material-symbols-outlined text-[18px]">logout</span></a>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0">
+      <header class="sticky top-0 z-30 bg-surface border-b border-outline px-page-margin md:px-gutter-xl h-16 flex items-center justify-between gap-gutter-md">
+        <div class="flex items-center gap-3">
+          <a href="../admin-dashboard/AdminDashboard.html" class="lg:hidden w-10 h-10 rounded flex items-center justify-center border border-outline bg-surface-white" aria-label="Back to Overview"><span class="material-symbols-outlined text-[20px]">arrow_back</span></a>
+          <div><span class="font-label text-label-sm text-on-surface-muted">Catalog / </span><span class="font-title text-title-sm text-on-surface">All Ebooks</span></div>
+        </div>
+        <a href="../admin-ebook-form/AdminEbookForm.html" class="px-gutter-md py-2 bg-primary text-on-primary rounded font-label text-label-sm whitespace-nowrap">+ Add New Ebook</a>
+      </header>
+
+      <main class="p-page-margin md:p-gutter-xl flex flex-col gap-gutter-lg max-w-[1360px] w-full mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter-md">
+          <div>
+            <h1 class="font-headline text-headline-lg-mobile md:text-headline-lg text-on-surface">Ebook Catalog</h1>
+            <p class="font-body text-body-md text-on-surface-muted">Manage editions, pricing, publication states, and sales performance.</p>
+          </div>
+          <div id="bulkBar" class="hidden items-center gap-2 border border-outline bg-surface-hero rounded px-3 py-2">
+            <span id="bulkCount" class="font-label text-label-sm text-on-surface">0 selected</span>
+            <button type="button" class="font-label text-label-sm underline">Set Draft</button>
+            <button type="button" class="font-label text-label-sm text-error underline">Archive</button>
+          </div>
+        </div>
+
+        <!-- FILTERS -->
+        <section class="grid grid-cols-1 md:grid-cols-12 gap-gutter-md">
+          <div class="md:col-span-6 relative">
+            <span class="material-symbols-outlined text-[18px] text-on-surface-muted absolute left-3 top-1/2 -translate-y-1/2" aria-hidden="true">search</span>
+            <input id="catSearch" type="search" placeholder="Search by title or author..." class="w-full pl-9 pr-3 py-2 bg-surface-white border border-outline rounded font-body text-body-sm focus:border-primary focus:ring-0">
+          </div>
+          <div class="md:col-span-3">
+            <select id="catFilter" class="w-full py-2 px-3 bg-surface-white border border-outline rounded font-body text-body-sm focus:border-primary focus:ring-0">
+              <option value="all">All Categories</option>
+              <option value="Philosophy">Philosophy</option>
+              <option value="Architecture">Architecture</option>
+              <option value="Fiction">Fiction</option>
+            </select>
+          </div>
+          <div class="md:col-span-3">
+            <select id="statusFilter" class="w-full py-2 px-3 bg-surface-white border border-outline rounded font-body text-body-sm focus:border-primary focus:ring-0">
+              <option value="all">All Statuses</option>
+              <option value="Published">Published</option>
+              <option value="Scheduled">Scheduled</option>
+              <option value="Draft">Draft</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- DATA TABLE -->
+        <section class="border border-outline rounded bg-surface-white overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-outline bg-surface-secondary font-label text-label-sm text-on-surface-muted">
+                <th class="p-3 w-10"><input type="checkbox" id="selectAllBooks" aria-label="Select all ebooks" class="rounded-sm border-outline text-primary focus:ring-0"></th>
+                <th class="p-3">Edition</th>
+                <th class="p-3">Category</th>
+                <th class="p-3">Author</th>
+                <th class="p-3">Price</th>
+                <th class="p-3">Status</th>
+                <th class="p-3">Sales</th>
+                <th class="p-3">Added</th>
+                <th class="p-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline font-body text-body-sm">
+              <tr class="cat-row" data-cat="Philosophy" data-status="Published">
+                <td class="p-3"><input type="checkbox" class="row-check rounded-sm border-outline text-primary focus:ring-0" aria-label="Select The Art of Slow Thinking"></td>
+                <td class="p-3"><div class="flex items-center gap-3"><img src="https://lh3.googleusercontent.com/aida/ALJJyrDuxkcX_GLekPPiqq6GjqioVqfL3A5bj1gEiwZ_NmMlxltuid8gI5wfUVC_dgMTA_2Zf0I7CR4EhX2xRZ8ONgJhH8G-dgIZSZ4HTi0Qiv48ClyphZHO4XoEYaOv1A_gUbO0DBoPinjbDic2u7qEpPxH0xVGeb2QGKQlBUGHUaOHYWrcr0gDJ2Lp6XJJSGLLBD0j_Xd9Ewg3QgvBoXP6lafI1SPIRkR_TmhIm2Cf3-hE5MKhnLK8t8ec" alt class="w-9 aspect-[2/3] object-cover rounded-sm border border-outline shrink-0"><a href="../admin-ebook-details/AdminEbookDetails.html" class="font-medium text-on-surface hover:underline">The Art of Slow Thinking</a></div></td>
+                <td class="p-3 text-on-surface-muted">Philosophy</td>
+                <td class="p-3">Clara Vance</td>
+                <td class="p-3 tabular-nums">₹599.00</td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-success">Published</span></td>
+                <td class="p-3 tabular-nums">312</td>
+                <td class="p-3 tabular-nums text-on-surface-muted">12 Aug 2026</td>
+                <td class="p-3 text-right space-x-2"><a href="../admin-ebook-details/AdminEbookDetails.html" class="font-label text-label-sm underline">View</a><a href="../admin-ebook-form/AdminEbookForm.html" class="font-label text-label-sm underline text-on-surface-muted">Edit</a></td>
+              </tr>
+              <tr class="cat-row" data-cat="Architecture" data-status="Published">
+                <td class="p-3"><input type="checkbox" class="row-check rounded-sm border-outline text-primary focus:ring-0" aria-label="Select Form, Space &amp; Silence"></td>
+                <td class="p-3"><div class="flex items-center gap-3"><img src="https://lh3.googleusercontent.com/aida/ALJJyrAWXq1VoteFqXvMtpnhLLzhxDkPeIX13b9HcULUS4_vtLlXPbaukoOLzBzJ4UpmBigVOwBKtmClg_EEfcY5yVGayAs5XA7NV7Kzli26StqgpcyF6cAQWZpQ6tpGG5ccbjyWCtmogxn5hnCeuGt6YlL14yw3tKUL7DA-LKc4d4O32ddMG3BEsWOSXagWppQACHQbqOkJGP_5etfg4Lj5KL9zM_dQsnLJYyVKOEbY1ZFx9EVJ-A" alt class="w-9 aspect-[2/3] object-cover rounded-sm border border-outline shrink-0"><a href="../admin-ebook-details/AdminEbookDetails.html" class="font-medium text-on-surface hover:underline">Form, Space &amp; Silence</a></div></td>
+                <td class="p-3 text-on-surface-muted">Architecture</td>
+                <td class="p-3">Elena Rostova</td>
+                <td class="p-3 tabular-nums">₹599.00</td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-success">Published</span></td>
+                <td class="p-3 tabular-nums">189</td>
+                <td class="p-3 tabular-nums text-on-surface-muted">04 Sep 2026</td>
+                <td class="p-3 text-right space-x-2"><a href="../admin-ebook-details/AdminEbookDetails.html" class="font-label text-label-sm underline">View</a><a href="../admin-ebook-form/AdminEbookForm.html" class="font-label text-label-sm underline text-on-surface-muted">Edit</a></td>
+              </tr>
+              <tr class="cat-row" data-cat="Fiction" data-status="Draft">
+                <td class="p-3"><input type="checkbox" class="row-check rounded-sm border-outline text-primary focus:ring-0" aria-label="Select Monograph on Stillness"></td>
+                <td class="p-3"><div class="flex items-center gap-3"><img src="https://lh3.googleusercontent.com/aida/ALJJyrCfSEf2rAtilb92ud6tHJ84sfJ_nXOQfWn1lTiMJjTAyaiCw-87lzIDxfxxj7iDM1N_1Fy9qijGBb265V4XBkkqVHJ4iI038Hxh_jhnvHPVOg0F8GLbvp_67TrJ6PxEbmtTkRMc-HCsFm0Ozt3bux23mfDP0S1xvaRPYYB1S3Sn7YQGFj0UujeUeSnARiTyRKMXSD0qvjDtHJ7YWHZN78RC9FkJtsdLmsCzQv_Tr7Dxi1nLg-oYK29yXV8" alt class="w-9 aspect-[2/3] object-cover rounded-sm border border-outline shrink-0"><a href="../admin-ebook-details/AdminEbookDetails.html" class="font-medium text-on-surface hover:underline">Monograph on Stillness</a></div></td>
+                <td class="p-3 text-on-surface-muted">Fiction</td>
+                <td class="p-3">Naomi Takahashi</td>
+                <td class="p-3 tabular-nums">₹699.00</td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded-full bg-surface-secondary border border-outline font-label text-label-sm text-on-surface-muted">Draft</span></td>
+                <td class="p-3 tabular-nums">0</td>
+                <td class="p-3 tabular-nums text-on-surface-muted">18 Nov 2026</td>
+                <td class="p-3 text-right space-x-2"><a href="../admin-ebook-details/AdminEbookDetails.html" class="font-label text-label-sm underline">View</a><a href="../admin-ebook-form/AdminEbookForm.html" class="font-label text-label-sm underline text-on-surface-muted">Edit</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- PAGINATION -->
+        <div class="flex items-center justify-between font-body text-body-sm text-on-surface-muted">
+          <span class="tabular-nums">Showing 1–3 of 64 editions</span>
+          <div class="flex items-center gap-2">
+            <button type="button" disabled class="px-3 py-1.5 border border-outline rounded bg-surface-hero text-on-surface-muted cursor-not-allowed">Previous</button>
+            <button type="button" class="px-3 py-1.5 border border-outline rounded bg-surface-white text-on-surface hover:border-primary">Next</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const checks = Array.from(document.querySelectorAll('.row-check'));
+      const selectAll = document.getElementById('selectAllBooks');
+      const bulkBar = document.getElementById('bulkBar');
+      const bulkCount = document.getElementById('bulkCount');
+
+      function updateBulk() {
+        const n = checks.filter((c) => c.checked).length;
+        bulkCount.textContent = n + ' selected';
+        bulkBar.classList.toggle('hidden', n === 0);
+        bulkBar.classList.toggle('flex', n > 0);
+      }
+      selectAll.addEventListener('change', () => { checks.forEach((c) => (c.checked = selectAll.checked)); updateBulk(); });
+      checks.forEach((c) => c.addEventListener('change', updateBulk));
+    })();
+  </script>
+
+
+</body></html>

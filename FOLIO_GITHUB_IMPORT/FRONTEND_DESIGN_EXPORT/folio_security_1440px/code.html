@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security — FOLIO</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 bg-surface border-b border-outline">
+      <div class="max-w-[1320px] mx-auto px-page-margin md:px-page-margin-desktop h-20 grid grid-cols-3 items-center">
+        <a href="../home-desktop/FolioHomepageDesktop.html" class="font-label text-label-md text-on-surface-muted hover:text-on-surface inline-flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_back</span>
+          <span>Bookstore</span>
+        </a>
+        <div class="flex justify-center">
+          <a href="../home-desktop/FolioHomepageDesktop.html" aria-label="FOLIO Home">
+            <svg width="94" height="32" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+          </a>
+        </div>
+        <div class="flex items-center justify-end gap-gutter-xs">
+          <a href="../shopping-cart/ShoppingCart.html" aria-label="Shopping bag" class="w-11 h-11 rounded-full flex items-center justify-center hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">shopping_bag</span>
+          </a>
+          <a href="../account-profile/Profile.html" class="px-3 py-1 bg-surface-hero border border-outline rounded-full font-label text-label-sm">Ananya S.</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- MOBILE ACCOUNT NAV -->
+    <nav aria-label="Account sections mobile" class="md:hidden border-b border-outline bg-surface-secondary px-page-margin py-3 overflow-x-auto">
+      <div class="flex items-center gap-2 min-w-max">
+        <a href="../account-dashboard/AccountDashboard.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Dashboard</a>
+        <a href="../account-library/MyLibrary.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Library</a>
+        <a href="../account-orders/MyOrders.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">My Orders</a>
+        <a href="../account-wishlist/Wishlist.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Wishlist</a>
+        <a href="../account-profile/Profile.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Profile</a>
+        <a href="../account-security/Security.html" class="px-3 py-1.5 rounded-full bg-primary text-on-primary font-label text-label-sm">Security</a>
+        <a href="../account-preferences/Preferences.html" class="px-3 py-1.5 rounded-full border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted">Preferences</a>
+      </div>
+    </nav>
+
+    <div class="max-w-[1320px] w-full mx-auto px-page-margin md:px-page-margin-desktop py-section-sm grid grid-cols-1 md:grid-cols-12 gap-gutter-xl flex-1">
+      <!-- DESKTOP ACCOUNT SIDEBAR -->
+      <aside class="hidden md:flex md:col-span-3 flex-col gap-gutter-xs border-r border-outline pr-gutter-lg">
+        <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted px-3 mb-1">Reader Account</span>
+        <a href="../account-dashboard/AccountDashboard.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">home</span><span>Dashboard</span>
+        </a>
+        <a href="../account-library/MyLibrary.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">library_books</span><span>My Library</span>
+        </a>
+        <a href="../account-reading-history/ReadingHistory.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">history</span><span>Reading History</span>
+        </a>
+        <a href="../account-downloads/AccountDownloads.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span><span>Downloads</span>
+        </a>
+        <a href="../account-bookmarks/BookmarksNotes.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bookmark</span><span>Bookmarks &amp; Notes</span>
+        </a>
+        <div class="my-2 border-t border-outline"></div>
+        <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted px-3 mb-1">Orders &amp; Settings</span>
+        <a href="../account-orders/MyOrders.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">receipt_long</span><span>My Orders</span>
+        </a>
+        <a href="../account-wishlist/Wishlist.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">favorite</span><span>Wishlist (3)</span>
+        </a>
+        <a href="../account-reviews/MyReviews.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">rate_review</span><span>My Reviews</span>
+        </a>
+        <a href="../account-notifications/Notifications.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">notifications</span><span>Notifications</span>
+        </a>
+        <a href="../account-profile/Profile.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">person</span><span>Profile</span>
+        </a>
+        <a href="../account-security/Security.html" class="px-3 py-2.5 rounded bg-surface-hero font-label text-label-lg text-on-surface flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">shield</span><span>Security</span>
+        </a>
+        <a href="../account-preferences/Preferences.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">tune</span><span>Preferences</span>
+        </a>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="md:col-span-9 flex flex-col gap-gutter-xl">
+        <header class="border-b border-outline pb-gutter-lg flex flex-col gap-1">
+          <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted">Account Protection</span>
+          <h1 class="font-headline text-display-lg-mobile md:text-display-lg text-on-surface" data-design-text-token="display-lg">Security</h1>
+          <p class="font-body text-body-md text-on-surface-muted">Manage your password, two-factor authentication, and active reading sessions.</p>
+        </header>
+
+        <!-- PASSWORD CHANGE -->
+        <section class="border border-outline rounded bg-surface-white p-gutter-lg flex flex-col gap-gutter-md">
+          <h2 class="font-headline text-title-lg text-on-surface">Change Password</h2>
+          <div id="pwdSuccess" class="hidden border border-outline bg-surface-hero rounded p-gutter-sm font-body text-body-sm text-success">Password updated successfully.</div>
+          <form id="pwdForm" class="grid grid-cols-1 md:grid-cols-3 gap-gutter-md items-end" novalidate>
+            <div>
+              <label for="curPwd" class="block font-label text-label-md text-on-surface mb-1.5">Current Password</label>
+              <input id="curPwd" type="password" placeholder="••••••••" class="w-full py-2.5 px-3 bg-surface-white border border-outline rounded font-body text-body-sm focus:border-primary focus:ring-0">
+            </div>
+            <div>
+              <label for="newPwd" class="block font-label text-label-md text-on-surface mb-1.5">New Password</label>
+              <input id="newPwd" type="password" placeholder="Min. 8 characters" class="w-full py-2.5 px-3 bg-surface-white border border-outline rounded font-body text-body-sm focus:border-primary focus:ring-0">
+            </div>
+            <div>
+              <button type="submit" id="savePwdBtn" class="w-full py-2.5 bg-primary text-on-primary rounded font-label text-label-md hover:bg-on-surface">Update Password</button>
+            </div>
+          </form>
+          <p id="pwdError" class="hidden font-body text-body-sm text-error">Enter your current password and a new password of at least 8 characters.</p>
+        </section>
+
+        <!-- TWO-FACTOR AUTHENTICATION -->
+        <section class="border border-outline rounded bg-surface-white p-gutter-lg flex flex-col md:flex-row md:items-center justify-between gap-gutter-md">
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center gap-2">
+              <h2 class="font-headline text-title-md md:text-title-lg text-on-surface">Two-Factor Authentication</h2>
+              <span id="tfaBadge" class="px-2.5 py-0.5 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-success shrink-0">Enabled</span>
+            </div>
+            <p class="font-body text-body-sm text-on-surface-muted">Authenticator app verification is required when signing in from new devices.</p>
+          </div>
+          <button type="button" id="toggleTfaBtn" class="px-gutter-md py-2 border border-outline rounded font-label text-label-md text-on-surface hover:border-primary shrink-0">Configure 2FA</button>
+        </section>
+
+        <!-- ACTIVE SESSIONS -->
+        <section class="flex flex-col gap-gutter-md">
+          <div class="flex items-center justify-between gap-2">
+            <h2 class="font-headline text-headline-md text-on-surface">Active Sessions</h2>
+            <button type="button" id="revokeOthersBtn" class="font-label text-label-md underline underline-offset-4 text-on-surface-muted hover:text-error shrink-0">Sign out others</button>
+          </div>
+          <div class="border border-outline rounded bg-surface-white divide-y divide-outline">
+            <div class="p-gutter-md flex items-center justify-between gap-gutter-md">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[22px] text-on-surface" aria-hidden="true">laptop_mac</span>
+                <div>
+                  <p class="font-title text-title-sm text-on-surface">MacBook Pro · Safari · Bengaluru, IN</p>
+                  <p class="font-body text-body-sm text-success">Current session · Active now</p>
+                </div>
+              </div>
+            </div>
+            <div class="session-other p-gutter-md flex items-center justify-between gap-gutter-md">
+              <div class="flex items-center gap-3 min-w-0">
+                <span class="material-symbols-outlined text-[22px] text-on-surface-muted shrink-0" aria-hidden="true">smartphone</span>
+                <div class="min-w-0">
+                  <p class="font-title text-title-sm text-on-surface">iPhone 15 · FOLIO Mobile · Bengaluru, IN</p>
+                  <p class="font-body text-body-sm text-on-surface-muted tabular-nums">Last synced 14 mins ago</p>
+                </div>
+              </div>
+              <button type="button" class="revoke-one px-gutter-md py-1.5 border border-outline rounded font-label text-label-sm text-on-surface-muted hover:text-error hover:border-error shrink-0 whitespace-nowrap">Sign Out</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ACCOUNT SECURITY HISTORY -->
+        <section class="flex flex-col gap-gutter-sm">
+          <h2 class="font-headline text-title-lg text-on-surface">Security History</h2>
+          <div class="border border-outline rounded bg-surface-secondary divide-y divide-outline font-body text-body-sm">
+            <div class="p-gutter-md flex justify-between gap-gutter-md">
+              <span class="text-on-surface">Signed in via Password + 2FA (MacBook Pro)</span>
+              <span class="text-on-surface-muted tabular-nums shrink-0">19 Nov 2026</span>
+            </div>
+            <div class="p-gutter-md flex justify-between gap-gutter-md">
+              <span class="text-on-surface">Authenticator app verified</span>
+              <span class="text-on-surface-muted tabular-nums shrink-0">02 Oct 2026</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const pwdForm = document.getElementById('pwdForm');
+      const pwdErr = document.getElementById('pwdError');
+      const pwdOk = document.getElementById('pwdSuccess');
+      const curPwd = document.getElementById('curPwd');
+      const newPwd = document.getElementById('newPwd');
+      const savePwdBtn = document.getElementById('savePwdBtn');
+
+      pwdForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        pwdOk.classList.add('hidden');
+        if (!curPwd.value.trim() || newPwd.value.trim().length < 8) {
+          pwdErr.classList.remove('hidden');
+          return;
+        }
+        pwdErr.classList.add('hidden');
+        savePwdBtn.disabled = true;
+        savePwdBtn.textContent = 'Updating…';
+        setTimeout(() => {
+          savePwdBtn.disabled = false;
+          savePwdBtn.textContent = 'Update Password';
+          curPwd.value = '';
+          newPwd.value = '';
+          pwdOk.classList.remove('hidden');
+        }, 400);
+      });
+
+      document.querySelectorAll('.revoke-one').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const row = btn.closest('.session-other');
+          if (row) row.classList.add('hidden');
+        });
+      });
+
+      document.getElementById('revokeOthersBtn').addEventListener('click', () => {
+        document.querySelectorAll('.session-other').forEach((row) => row.classList.add('hidden'));
+      });
+    })();
+  </script>
+
+
+</body></html>

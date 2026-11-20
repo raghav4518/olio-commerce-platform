@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — FOLIO</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <header class="sticky top-0 z-40 bg-surface border-b border-outline">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop h-20 grid grid-cols-3 items-center">
+        <a href="../shopping-cart/ShoppingCart.html" class="font-label text-label-md text-on-surface-muted hover:text-on-surface inline-flex items-center gap-1">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          <span>Back to Bag</span>
+        </a>
+        <div class="flex justify-center">
+          <a href="../home-desktop/FolioHomepageDesktop.html" aria-label="FOLIO Home">
+            <svg width="94" height="32" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+          </a>
+        </div>
+        <div class="flex justify-end items-center gap-1.5 font-label text-label-md text-on-surface-muted">
+          <span class="material-symbols-outlined text-[18px]">verified_user</span>
+          <span>Encrypted Checkout</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 py-section-sm">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop">
+        <nav aria-label="Breadcrumb" class="flex items-center gap-2 font-label text-label-md text-on-surface-muted mb-gutter-md">
+          <a href="../shopping-cart/ShoppingCart.html" class="hover:text-on-surface">Bag</a>
+          <span>/</span>
+          <span class="text-on-surface">Checkout</span>
+        </nav>
+
+        <h1 class="font-headline text-display-lg text-on-surface mb-gutter-xl" data-design-text-token="display-lg">Digital Checkout</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter-xl items-start">
+          <!-- LEFT: CUSTOMER & PAYMENT FORM -->
+          <div class="md:col-span-7 flex flex-col gap-gutter-xl">
+            <!-- Step 1: Account / Guest Email -->
+            <section class="bg-surface-white border border-outline rounded p-gutter-xl flex flex-col gap-gutter-md">
+              <div class="flex items-center justify-between border-b border-outline pb-gutter-sm">
+                <h2 class="font-headline text-title-lg text-on-surface">1. Reader Account &amp; Delivery Email</h2>
+                <button type="button" class="font-label text-label-md underline underline-offset-4 text-on-surface">Sign in</button>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted">Continue as a guest or sign in. Your digital editions and invoice will be linked to this email.</p>
+              <label class="flex flex-col gap-1.5">
+                <span class="font-label text-label-md text-on-surface">Email address</span>
+                <input type="email" value="ananya.sharma@example.in" required class="w-full px-gutter-md py-3 bg-surface-white border border-outline rounded text-body-md focus:border-primary focus:ring-primary">
+              </label>
+            </section>
+
+            <!-- Step 2: India-first Payment Method -->
+            <section class="bg-surface-white border border-outline rounded p-gutter-xl flex flex-col gap-gutter-md">
+              <div class="border-b border-outline pb-gutter-sm">
+                <h2 class="font-headline text-title-lg text-on-surface">2. Payment Method</h2>
+                <p class="font-body text-body-sm text-on-surface-muted mt-1">Select a payment option. Processed via your configured India payment provider.</p>
+              </div>
+
+              <div class="flex flex-col gap-gutter-sm">
+                <!-- UPI -->
+                <label class="border border-primary bg-surface-secondary rounded p-gutter-md flex flex-col gap-3 cursor-pointer">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <input type="radio" name="pay-method" value="upi" checked class="text-primary focus:ring-primary">
+                      <span class="font-title text-title-sm text-on-surface">UPI (GPay, PhonePe, Paytm, BHIM)</span>
+                    </div>
+                    <span class="font-label text-label-sm text-on-surface-muted">Instant</span>
+                  </div>
+                  <input type="text" placeholder="Enter UPI ID (e.g. name@upi)" class="w-full px-3 py-2 bg-surface-white border border-outline rounded text-body-sm">
+                </label>
+
+                <!-- Card -->
+                <label class="border border-outline bg-surface-white rounded p-gutter-md flex items-center justify-between cursor-pointer hover:border-primary">
+                  <div class="flex items-center gap-3">
+                    <input type="radio" name="pay-method" value="card" class="text-primary focus:ring-primary">
+                    <span class="font-title text-title-sm text-on-surface">Credit or Debit Card (RuPay, Visa, Mastercard)</span>
+                  </div>
+                </label>
+
+                <!-- Net Banking -->
+                <label class="border border-outline bg-surface-white rounded p-gutter-md flex items-center justify-between cursor-pointer hover:border-primary">
+                  <div class="flex items-center gap-3">
+                    <input type="radio" name="pay-method" value="netbanking" class="text-primary focus:ring-primary">
+                    <span class="font-title text-title-sm text-on-surface">Net Banking (All major Indian banks)</span>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Terms Acceptance -->
+              <label class="flex items-center gap-2.5 pt-gutter-sm cursor-pointer">
+                <input id="terms-check" type="checkbox" checked class="rounded-sm border-outline text-primary focus:ring-primary">
+                <span class="font-body text-body-sm text-on-surface-muted">I accept the FOLIO Digital Edition Terms &amp; Refund Policy.</span>
+              </label>
+
+              <p id="checkout-error" class="hidden font-body text-body-sm text-error" role="alert">Please accept the Digital Edition Terms &amp; Refund Policy before continuing.</p>
+
+              <div class="pt-gutter-sm flex flex-wrap items-center gap-gutter-md">
+                <button id="pay-submit-btn" type="button" class="flex-1 py-3.5 px-gutter-lg bg-primary text-on-primary rounded font-label text-label-lg text-center hover:bg-on-surface">
+                  Pay ₹1,098.00 Securely
+                </button>
+                <a href="../payment-failed/PaymentFailed.html" class="py-3.5 px-gutter-md bg-surface-white border border-outline rounded font-label text-label-md text-on-surface-muted hover:border-primary">
+                  Simulate Failure
+                </a>
+              </div>
+            </section>
+          </div>
+
+          <!-- RIGHT: ORDER SUMMARY -->
+          <aside class="md:col-span-5 bg-surface-white border border-outline rounded p-gutter-xl flex flex-col gap-gutter-lg">
+            <h2 class="font-headline text-title-lg text-on-surface border-b border-outline pb-gutter-sm">Order Summary (2 Editions)</h2>
+            <div class="flex flex-col gap-gutter-md">
+              <div class="flex items-center gap-3">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrA6lqWrf4A9QWouDya7f-Apz9asEm6LCBwseDOQYqT-yzAuSUO1vH6hyPosHfV_FVdTnmaV3VyQTRmiWiV2lVwIkzAXi89dP2CdF5G3YQ7J1IAklrm7ZI7vnHlwyu9j8lHEumO7rbJP2xsusjxlQmPBscEqVFYEa7jghtwA3dttu-VrsvE1_mOqf3JAB7E3c4wDDVVDPjIdZqMysoq-DbHeaBVu8fiRqekYP3Npb0RdMLC2yi7FAdEN" alt class="w-12 aspect-[2/3] object-cover rounded-sm border border-outline">
+                <div class="flex-1 min-w-0">
+                  <p class="font-title text-title-sm text-on-surface truncate">The Art of Slow Thinking</p>
+                  <p class="font-body text-body-sm text-on-surface-muted">Clara Vance · Digital Edition</p>
+                </div>
+                <span class="font-body text-body-md tabular-nums shrink-0">₹499.00</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrBTrwlybMTjYj0IOVf9pG1A-9-YKXcjAOy4EQK-0euLlLE1maWKvdNoLU5RdwmkkmT7vuECLg2wDazpuCx2tfA64dJAz_qcICRExwFxBUN3t_-3_JIJW9L8blQh6kH6IfrOi6UFsbAGC1XEk-JyoKpjDX35kBTqyx7zGHGmmE4QuhUE8C2jo0lUukK4HOHj7ENwIwq-sLV_UY4xxUcOAiRo_axTNIRk3tEq_GyntVurEtiJfLs" alt class="w-12 aspect-[2/3] object-cover rounded-sm border border-outline">
+                <div class="flex-1 min-w-0">
+                  <p class="font-title text-title-sm text-on-surface truncate">On Attention &amp; Deep Craft</p>
+                  <p class="font-body text-body-sm text-on-surface-muted">Julian Mercer · Digital Edition</p>
+                </div>
+                <span class="font-body text-body-md tabular-nums shrink-0">₹599.00</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-2 font-body text-body-sm border-t border-outline pt-gutter-md">
+              <div class="flex justify-between text-on-surface-muted"><span>Edition Subtotal</span><span class="tabular-nums">₹1,249.00</span></div>
+              <div class="flex justify-between text-on-surface-muted"><span>Edition Discount</span><span class="tabular-nums">-₹151.00</span></div>
+              <div class="flex justify-between text-on-surface-muted"><span>GST (Digital Books · Configurable)</span><span class="tabular-nums">₹0.00</span></div>
+              <div class="flex justify-between items-center font-headline text-title-lg md:text-headline-md text-on-surface pt-gutter-sm border-t border-outline">
+                <span>Total Payable</span>
+                <span class="tabular-nums">₹1,098.00</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (function () {
+      const btn = document.getElementById('pay-submit-btn');
+      const terms = document.getElementById('terms-check');
+      const err = document.getElementById('checkout-error');
+      let submitting = false;
+      btn?.addEventListener('click', () => {
+        if (submitting) return;
+        if (!terms.checked) {
+          err.classList.remove('hidden');
+          return;
+        }
+        err.classList.add('hidden');
+        submitting = true;
+        btn.disabled = true;
+        btn.textContent = 'Processing Payment...';
+        window.location.href = '../payment-pending/PaymentPending.html';
+      });
+    })();
+  </script>
+
+
+</body></html>

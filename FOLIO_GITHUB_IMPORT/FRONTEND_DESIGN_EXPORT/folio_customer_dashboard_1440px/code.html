@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard — FOLIO</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 bg-surface border-b border-outline">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop h-20 grid grid-cols-3 items-center">
+        <a href="../home-desktop/FolioHomepageDesktop.html" class="font-label text-label-md text-on-surface-muted hover:text-on-surface inline-flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          <span>Bookstore</span>
+        </a>
+        <div class="flex justify-center">
+          <a href="../home-desktop/FolioHomepageDesktop.html" aria-label="FOLIO Home">
+            <svg width="94" height="32" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+          </a>
+        </div>
+        <div class="flex items-center justify-end gap-gutter-xs">
+          <a href="../shopping-cart/ShoppingCart.html" aria-label="Shopping bag" class="w-11 h-11 rounded-full flex items-center justify-center hover:bg-surface-hero"><span class="material-symbols-outlined text-[20px]">shopping_bag</span></a>
+          <span class="px-3 py-1 bg-surface-hero border border-outline rounded-full font-label text-label-sm">Ananya S.</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-[1320px] w-full mx-auto px-page-margin-desktop py-section-sm grid grid-cols-1 md:grid-cols-12 gap-gutter-xl flex-1">
+      <!-- ACCOUNT SIDEBAR RAIL -->
+      <aside class="md:col-span-3 flex flex-col gap-gutter-sm border-r border-outline pr-gutter-lg">
+        <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted px-3 mb-1">Reader Account</span>
+        <a href="../account-dashboard/AccountDashboard.html" class="px-3 py-2.5 rounded bg-surface-hero font-label text-label-lg text-on-surface flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]">home</span><span>Dashboard</span>
+        </a>
+        <a href="../account-library/MyLibrary.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]">library_books</span><span>My Library</span>
+        </a>
+        <a href="../account-reading-history/ReadingHistory.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]">history</span><span>Reading History</span>
+        </a>
+        <a href="../account-downloads/AccountDownloads.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]">download</span><span>Downloads</span>
+        </a>
+        <a href="../account-bookmarks/BookmarksNotes.html" class="px-3 py-2.5 rounded font-label text-label-lg text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-3">
+          <span class="material-symbols-outlined text-[18px]">bookmark</span><span>Bookmarks &amp; Notes</span>
+        </a>
+        <div class="my-2 border-t border-outline"></div>
+        <a href="../account-orders/MyOrders.html" class="px-3 py-2 rounded font-body text-body-sm text-on-surface-muted hover:text-on-surface">My Orders</a>
+        <a href="../account-wishlist/Wishlist.html" class="px-3 py-2 rounded font-body text-body-sm text-on-surface-muted hover:text-on-surface">Wishlist (3)</a>
+        <a href="../account-support/SupportTickets.html" class="px-3 py-2 rounded font-body text-body-sm text-on-surface-muted hover:text-on-surface">Support Tickets</a>
+        <a href="../account-profile/Profile.html" class="px-3 py-2 rounded font-body text-body-sm text-on-surface-muted hover:text-on-surface">Profile &amp; Settings</a>
+      </aside>
+
+      <!-- MAIN DASHBOARD -->
+      <main class="md:col-span-9 flex flex-col gap-gutter-xl">
+        <!-- Personalized Greeting + Notifications -->
+        <section class="bg-surface-hero border border-outline rounded p-gutter-xl flex flex-col md:flex-row md:items-center justify-between gap-gutter-lg">
+          <div class="flex flex-col gap-1 min-w-0">
+            <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted">Welcome back</span>
+            <h1 class="font-headline text-display-lg-mobile md:text-display-lg text-on-surface" data-design-text-token="display-lg">Good evening, Ananya</h1>
+            <p class="font-body text-body-md text-on-surface-muted text-pretty">Your reading position is synced across desktop and mobile.</p>
+          </div>
+          <div class="bg-surface-white border border-outline rounded p-gutter-md max-w-xs flex items-start gap-3">
+            <span class="material-symbols-outlined text-[20px] text-on-surface-muted mt-0.5">notifications</span>
+            <div class="text-body-sm">
+              <p class="font-medium text-on-surface">Edition ready</p>
+              <p class="text-on-surface-muted">Order FOL-2026-8419 unlocked 2 new titles in your library.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Continue Reading -->
+        <section class="flex flex-col gap-gutter-md">
+          <div class="flex items-center justify-between">
+            <h2 class="font-headline text-headline-md text-on-surface">Continue Reading</h2>
+            <a href="../account-reading-history/ReadingHistory.html" class="font-label text-label-md underline underline-offset-4">Reading history</a>
+          </div>
+          <div class="bg-surface-white border border-outline rounded p-gutter-xl flex flex-col md:flex-row items-center gap-gutter-xl">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrA6lqWrf4A9QWouDya7f-Apz9asEm6LCBwseDOQYqT-yzAuSUO1vH6hyPosHfV_FVdTnmaV3VyQTRmiWiV2lVwIkzAXi89dP2CdF5G3YQ7J1IAklrm7ZI7vnHlwyu9j8lHEumO7rbJP2xsusjxlQmPBscEqVFYEa7jghtwA3dttu-VrsvE1_mOqf3JAB7E3c4wDDVVDPjIdZqMysoq-DbHeaBVu8fiRqekYP3Npb0RdMLC2yi7FAdEN" alt="The Art of Slow Thinking" class="w-28 aspect-[2/3] object-cover rounded-sm shadow-md shrink-0">
+            <div class="flex-1 flex flex-col gap-gutter-sm w-full min-w-0">
+              <span class="font-label text-label-sm uppercase tracking-wider text-on-surface-muted">Chapter III · Page 42 of 186</span>
+              <h3 class="font-title text-title-lg text-on-surface">The Art of Slow Thinking</h3>
+              <p class="font-body text-body-sm text-on-surface-muted text-balance">Clara Vance · Synced 14 mins ago</p>
+              <div class="w-full h-1.5 bg-surface-hero rounded overflow-hidden mt-1">
+                <div class="h-full bg-primary w-[23%]"></div>
+              </div>
+              <div class="flex items-center justify-between pt-2">
+                <span class="font-body text-body-sm text-on-surface-muted tabular-nums">23% complete</span>
+                <a href="../ebook-reader-desktop/EbookReaderDesktop.html" class="px-gutter-lg py-2.5 bg-primary text-on-primary rounded font-label text-label-md hover:bg-on-surface">Continue Reading</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recently Purchased Ebooks -->
+        <section class="flex flex-col gap-gutter-md">
+          <div class="flex items-center justify-between">
+            <h2 class="font-headline text-headline-md text-on-surface">Recently Purchased</h2>
+            <a href="../account-library/MyLibrary.html" class="font-label text-label-md underline underline-offset-4">View My Library</a>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-lg">
+            <article class="bg-surface-white border border-outline rounded p-gutter-md flex flex-col justify-between gap-gutter-md">
+              <div class="bg-surface-hero rounded-sm p-gutter-md flex items-center justify-center aspect-[4/5]"><img src="https://lh3.googleusercontent.com/aida/ALJJyrA6lqWrf4A9QWouDya7f-Apz9asEm6LCBwseDOQYqT-yzAuSUO1vH6hyPosHfV_FVdTnmaV3VyQTRmiWiV2lVwIkzAXi89dP2CdF5G3YQ7J1IAklrm7ZI7vnHlwyu9j8lHEumO7rbJP2xsusjxlQmPBscEqVFYEa7jghtwA3dttu-VrsvE1_mOqf3JAB7E3c4wDDVVDPjIdZqMysoq-DbHeaBVu8fiRqekYP3Npb0RdMLC2yi7FAdEN" alt="The Art of Slow Thinking" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow"></div>
+              <div><h3 class="font-title text-title-md text-on-surface">The Art of Slow Thinking</h3><p class="font-body text-body-sm text-on-surface-muted">23% read</p></div>
+              <a href="../ebook-reader-desktop/EbookReaderDesktop.html" class="w-full py-2 bg-primary text-on-primary rounded font-label text-label-md text-center">Read Now</a>
+            </article>
+            <article class="bg-surface-white border border-outline rounded p-gutter-md flex flex-col justify-between gap-gutter-md">
+              <div class="bg-surface-hero rounded-sm p-gutter-md flex items-center justify-center aspect-[4/5]"><img src="https://lh3.googleusercontent.com/aida/ALJJyrBTrwlybMTjYj0IOVf9pG1A-9-YKXcjAOy4EQK-0euLlLE1maWKvdNoLU5RdwmkkmT7vuECLg2wDazpuCx2tfA64dJAz_qcICRExwFxBUN3t_-3_JIJW9L8blQh6kH6IfrOi6UFsbAGC1XEk-JyoKpjDX35kBTqyx7zGHGmmE4QuhUE8C2jo0lUukK4HOHj7ENwIwq-sLV_UY4xxUcOAiRo_axTNIRk3tEq_GyntVurEtiJfLs" alt="On Attention &amp; Deep Craft" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow"></div>
+              <div><h3 class="font-title text-title-md text-on-surface">On Attention &amp; Deep Craft</h3><p class="font-body text-body-sm text-on-surface-muted">Unread · Web Reader</p></div>
+              <a href="../ebook-reader-desktop/EbookReaderDesktop.html" class="w-full py-2 bg-primary text-on-primary rounded font-label text-label-md text-center">Start Reading</a>
+            </article>
+            <article class="bg-surface-white border border-outline rounded p-gutter-md flex flex-col justify-between gap-gutter-md">
+              <div class="bg-surface-hero rounded-sm p-gutter-md flex items-center justify-center aspect-[4/5]"><img src="https://lh3.googleusercontent.com/aida/ALJJyrAWXq1VoteFqXvMtpnhLLzhxDkPeIX13b9HcULUS4_vtLlXPbaukoOLzBzJ4UpmBigVOwBKtmClg_EEfcY5yVGayAs5XA7NV7Kzli26StqgpcyF6cAQWZpQ6tpGG5ccbjyWCtmogxn5hnCeuGt6YlL14yw3tKUL7DA-LKc4d4O32ddMG3BEsWOSXagWppQACHQbqOkJGP_5etfg4Lj5KL9zM_dQsnLJYyVKOEbY1ZFx9EVJ-A" alt="Form, Space &amp; Silence" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow"></div>
+              <div><h3 class="font-title text-title-md text-on-surface">Form, Space &amp; Silence</h3><p class="font-body text-body-sm text-on-surface-muted">Finished</p></div>
+              <a href="../ebook-reader-desktop/EbookReaderDesktop.html" class="w-full py-2 border border-outline rounded font-label text-label-md text-center hover:border-primary">Read Again</a>
+            </article>
+          </div>
+        </section>
+
+        <!-- Recently Viewed & Recommended -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-gutter-lg pt-gutter-sm border-t border-outline">
+          <div class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col gap-gutter-sm">
+            <h2 class="font-headline text-title-lg text-on-surface">Recently Viewed</h2>
+            <a href="../product-details/ProductDetails.html" class="flex items-center gap-3 pt-2 hover:underline">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrCgAOPZ9Zl5OI6cUIYB3zmb1_mbIH0_BcZOU09xg6X51iJMzkP4e1hH4m7kOhOn17p8M35c7PSub0lco0KvEKV8ruFun0K71VLd-iwDaQTIOnUQAZaBW02_3VHhm5WEdYfGYjo0_lU7USCcKsQGf9KNgYVtL4mz6v6LhNiArG0RgvVoTescEPuR_C8zkWhVWhbfmhLnmsE7mqhtyQentUS6YgK0vK_P6pAfEVczqPSeinLUDqYzDw" alt class="w-12 aspect-[2/3] object-cover rounded-sm">
+              <div><p class="font-title text-title-sm text-on-surface">Letters from a Quiet Room</p><p class="font-body text-body-sm text-on-surface-muted">Henrik Lindholm · ₹449.00</p></div>
+            </a>
+          </div>
+          <div class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col gap-gutter-sm">
+            <h2 class="font-headline text-title-lg text-on-surface">Recommended for You</h2>
+            <a href="../product-details/ProductDetails.html" class="flex items-center gap-3 pt-2 hover:underline">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrBuIqhxqcI0-f-XDS6ZZBXdrOvh_8dIgRYLlZGAdUTF85Kv4Qm2Yz3bn6M__7B0uptPihDeoyFCQG5ix78cqgqswLOxQDAmFVCo4fXMivRXhT_oKAnZvCCZRDqbHaIUkmvAmyKAix3yc4YskmbjkFrr68nrbEiU0qmX-LD37O6wUXJueSbayjsRVYjnCK-W2fLbExBQPglx-UrnPJMM_3Nf_dJOUMGc0VZM1-vg2BMtd5PNAxvq4EZu4A" alt class="w-12 aspect-[2/3] object-cover rounded-sm">
+              <div><p class="font-title text-title-sm text-on-surface">Architecture of Quiet Places</p><p class="font-body text-body-sm text-on-surface-muted">Clara Vance · ₹549.00</p></div>
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+
+</body></html>

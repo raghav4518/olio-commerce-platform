@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview Dashboard — FOLIO Admin</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex bg-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- DESKTOP ADMIN SIDEBAR -->
+    <aside id="adminSidebar" class="hidden lg:flex lg:w-64 shrink-0 flex-col justify-between border-r border-outline bg-surface-white min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-gutter-md p-gutter-md">
+        <div class="flex items-center justify-between px-2 py-1 border-b border-outline pb-3">
+          <a href="../admin-dashboard/AdminDashboard.html" class="flex items-center gap-2" aria-label="FOLIO Admin">
+            <svg width="78" height="26" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+            <span class="px-2 py-0.5 rounded bg-primary text-on-primary font-label text-label-sm">Admin</span>
+          </a>
+        </div>
+
+        <nav aria-label="Admin primary" class="flex flex-col gap-1">
+          <a href="../admin-dashboard/AdminDashboard.html" class="px-3 py-2 rounded bg-surface-hero font-label text-label-md text-on-surface flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">dashboard</span><span>Overview</span>
+          </a>
+
+          <details open class="group">
+            <summary class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center justify-between cursor-pointer list-none">
+              <span class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">menu_book</span><span>Catalog</span></span>
+              <span class="material-symbols-outlined text-[16px]" aria-hidden="true">expand_more</span>
+            </summary>
+            <div class="pl-8 pr-2 py-1 flex flex-col gap-1">
+              <a href="../admin-catalog/AdminCatalog.html" class="py-1.5 font-body text-body-sm text-on-surface-muted hover:text-on-surface">All Ebooks</a>
+              <a href="../admin-ebook-form/AdminEbookForm.html" class="py-1.5 font-body text-body-sm text-on-surface-muted hover:text-on-surface">Add New Ebook</a>
+              <a href="../admin-categories-collections/AdminCategoriesCollections.html" class="py-1.5 font-body text-body-sm text-on-surface-muted hover:text-on-surface">Categories &amp; Collections</a>
+            </div>
+          </details>
+
+          <a href="../admin-orders/AdminOrders.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">receipt_long</span><span>Orders</span>
+          </a>
+          <a href="../admin-customers/AdminCustomers.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">group</span><span>Customers</span>
+          </a>
+          <a href="../admin-finance/AdminFinance.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">account_balance</span><span>Payments &amp; Finance</span>
+          </a>
+          <a href="../admin-marketing/AdminMarketing.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">sell</span><span>Marketing</span>
+          </a>
+          <a href="../admin-website/AdminWebsite.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">web</span><span>Website &amp; Content</span>
+          </a>
+          <a href="../admin-analytics/AdminAnalytics.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">monitoring</span><span>Analytics &amp; Reports</span>
+          </a>
+          <a href="../admin-support/AdminSupport.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">support_agent</span><span>Support</span>
+          </a>
+          <a href="../admin-notifications/AdminNotifications.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">notifications</span><span>Notifications</span>
+          </a>
+          <a href="../admin-team/AdminTeam.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">admin_panel_settings</span><span>Team &amp; Permissions</span>
+          </a>
+          <a href="../admin-security/AdminSecurity.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">shield</span><span>Security &amp; Audit Logs</span>
+          </a>
+          <a href="../admin-settings/AdminSettings.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">settings</span><span>Settings</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="p-gutter-md border-t border-outline flex items-center justify-between gap-2">
+        <div class="min-w-0">
+          <p class="font-label text-label-md text-on-surface truncate">Vikram Mehta</p>
+          <p class="font-body text-body-sm text-on-surface-muted">Owner</p>
+        </div>
+        <a href="../auth-login-desktop/LoginDesktop.html" aria-label="Log out" class="p-2 rounded hover:bg-surface-hero text-on-surface-muted hover:text-on-surface">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN SHELL -->
+    <div class="flex-1 flex flex-col min-w-0">
+      <!-- TOP BAR -->
+      <header class="sticky top-0 z-30 bg-surface border-b border-outline px-page-margin md:px-gutter-xl h-16 flex items-center justify-between gap-gutter-md">
+        <div class="flex items-center gap-3">
+          <button type="button" id="openAdminDrawer" aria-label="Open admin menu" class="lg:hidden w-10 h-10 rounded flex items-center justify-center border border-outline bg-surface-white">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">menu</span>
+          </button>
+          <div>
+            <span class="font-label text-label-sm text-on-surface-muted hidden md:inline">Admin / </span>
+            <span class="font-title text-title-sm text-on-surface">Overview</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-gutter-sm">
+          <div class="hidden md:block relative w-64">
+            <span class="material-symbols-outlined text-[18px] text-on-surface-muted absolute left-3 top-1/2 -translate-y-1/2" aria-hidden="true">search</span>
+            <input type="search" placeholder="Search orders, ebooks, customers..." aria-label="Global admin search" class="w-full pl-9 pr-3 py-1.5 bg-surface-white border border-outline rounded font-body text-body-sm focus:border-primary focus:ring-0">
+          </div>
+          <a href="../admin-notifications/AdminNotifications.html" aria-label="Admin notifications" class="relative w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">notifications</span>
+            <span class="w-2 h-2 rounded-full bg-error absolute top-2 right-2"></span>
+          </a>
+          <a href="../admin-ebook-form/AdminEbookForm.html" class="px-gutter-md py-2 bg-primary text-on-primary rounded font-label text-label-sm whitespace-nowrap hover:bg-on-surface">+ New Ebook</a>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <main class="p-page-margin md:p-gutter-xl flex flex-col gap-gutter-xl max-w-[1360px] w-full mx-auto">
+        <!-- Welcome & Date Filters -->
+        <section class="flex flex-col md:flex-row md:items-end justify-between gap-gutter-md">
+          <div>
+            <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted tabular-nums">Thursday, 19 November 2026</span>
+            <h1 class="font-headline text-display-lg-mobile md:text-headline-lg text-on-surface" data-design-text-token="headline-lg">Welcome back, Vikram</h1>
+          </div>
+          <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Date range filter">
+            <button type="button" class="range-btn px-3 py-1.5 rounded border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted" data-range="today">Today</button>
+            <button type="button" class="range-btn px-3 py-1.5 rounded border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted" data-range="7d">7 Days</button>
+            <button type="button" class="range-btn px-3 py-1.5 rounded bg-primary text-on-primary font-label text-label-sm" data-range="30d">30 Days</button>
+            <button type="button" class="range-btn px-3 py-1.5 rounded border border-outline bg-surface-white font-label text-label-sm text-on-surface-muted" data-range="90d">90 Days</button>
+          </div>
+        </section>
+
+        <!-- PENDING ACTIONS & ALERTS -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-gutter-md">
+          <a href="../admin-support/AdminSupport.html" class="border border-outline bg-surface-hero rounded p-gutter-md flex items-center justify-between gap-gutter-md hover:border-primary">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-[20px] text-error" aria-hidden="true">priority_high</span>
+              <div>
+                <p class="font-title text-title-sm text-on-surface">2 escalated support tickets</p>
+                <p class="font-body text-body-sm text-on-surface-muted">Pending NetBanking &amp; refund reviews require attention.</p>
+              </div>
+            </div>
+            <span class="font-label text-label-sm underline">Review</span>
+          </a>
+          <a href="../admin-orders/AdminOrders.html" class="border border-outline bg-surface-hero rounded p-gutter-md flex items-center justify-between gap-gutter-md hover:border-primary">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-[20px] text-on-surface-muted" aria-hidden="true">pending_actions</span>
+              <div>
+                <p class="font-title text-title-sm text-on-surface">3 pending payment verifications</p>
+                <p class="font-body text-body-sm text-on-surface-muted">Awaiting bank settlement confirmation.</p>
+              </div>
+            </div>
+            <span class="font-label text-label-sm underline">Inspect</span>
+          </a>
+        </section>
+
+        <!-- KPI METRIC CARDS -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-gutter-md">
+          <article class="border border-outline rounded bg-surface-white p-gutter-md flex flex-col gap-1">
+            <span class="font-label text-label-sm text-on-surface-muted">Net Revenue</span>
+            <p id="kpiRev" class="font-headline text-headline-md text-on-surface tabular-nums">₹4,82,910</p>
+            <span class="font-label text-label-sm text-success tabular-nums">+14.2% vs prior</span>
+          </article>
+          <article class="border border-outline rounded bg-surface-white p-gutter-md flex flex-col gap-1">
+            <span class="font-label text-label-sm text-on-surface-muted">Total Orders</span>
+            <p id="kpiOrders" class="font-headline text-headline-md text-on-surface tabular-nums">842</p>
+            <span class="font-label text-label-sm text-success tabular-nums">+9.8% vs prior</span>
+          </article>
+          <article class="border border-outline rounded bg-surface-white p-gutter-md flex flex-col gap-1">
+            <span class="font-label text-label-sm text-on-surface-muted">Active Customers</span>
+            <p id="kpiCust" class="font-headline text-headline-md text-on-surface tabular-nums">1,924</p>
+            <span class="font-label text-label-sm text-on-surface-muted tabular-nums">+118 new</span>
+          </article>
+          <article class="border border-outline rounded bg-surface-white p-gutter-md flex flex-col gap-1">
+            <span class="font-label text-label-sm text-on-surface-muted">Published Ebooks</span>
+            <p class="font-headline text-headline-md text-on-surface tabular-nums">64</p>
+            <span class="font-label text-label-sm text-on-surface-muted">4 drafts</span>
+          </article>
+          <article class="border border-outline rounded bg-surface-white p-gutter-md flex flex-col gap-1">
+            <span class="font-label text-label-sm text-on-surface-muted">Avg. Order Value</span>
+            <p id="kpiAov" class="font-headline text-headline-md text-on-surface tabular-nums">₹573.50</p>
+            <span class="font-label text-label-sm text-success tabular-nums">+3.9% vs prior</span>
+          </article>
+        </section>
+
+        <!-- CHARTS: REVENUE TREND & SALES BY CATEGORY -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg">
+          <div class="lg:col-span-8 border border-outline rounded bg-surface-white p-gutter-lg flex flex-col gap-gutter-md">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="font-title text-title-md md:text-title-lg text-on-surface">Revenue &amp; Orders Trend</h2>
+              <a href="../admin-analytics/AdminAnalytics.html" class="font-label text-label-sm underline underline-offset-4 text-on-surface-muted hover:text-on-surface shrink-0">Full Analytics</a>
+            </div>
+            <div class="grid grid-cols-7 gap-2 items-end h-44 pt-4 border-b border-outline pb-2">
+              <div class="flex flex-col items-center gap-1 h-full justify-end"><div class="w-full bg-surface-hero border border-outline rounded-t h-[45%]"></div><span class="font-label text-label-sm text-on-surface-muted">W1</span></div>
+              <div class="flex flex-col items-center gap-1 h-full justify-end"><div class="w-full bg-surface-hero border border-outline rounded-t h-[62%]"></div><span class="font-label text-label-sm text-on-surface-muted">W2</span></div>
+              <div class="flex flex-col items-center gap-1 h-full justify-end"><div class="w-full bg-surface-hero border border-outline rounded-t h-[54%]"></div><span class="font-label text-label-sm text-on-surface-muted">W3</span></div>
+              <div class="flex flex-col items-center gap-1 h-full justify-end"><div class="w-full bg-surface-hero border border-outline rounded-t h-[78%]"></div><span class="font-label text-label-sm text-on-surface-muted">W4</span></div>
+              <div class="flex flex-col items-center gap-1 h-full justify-end"><div class="w-full bg-surface-hero border border-outline rounded-t h-[70%]"></div><span class="font-label text-label-sm text-on-surface-muted">W5</span></div>
+              <div class="flex flex-col items-center gap-1 h-full justify-end"><div class="w-full bg-surface-hero border border-outline rounded-t h-[86%]"></div><span class="font-label text-label-sm text-on-surface-muted">W6</span></div>
+              <div class="flex flex-col items-center gap-1 h-full justify-end"><div class="w-full bg-primary rounded-t h-[95%]"></div><span class="font-label text-label-sm text-on-surface font-medium">Now</span></div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 border border-outline rounded bg-surface-white p-gutter-lg flex flex-col gap-gutter-md">
+            <h2 class="font-title text-title-lg text-on-surface">Sales by Category</h2>
+            <div class="flex flex-col gap-gutter-sm">
+              <div><div class="flex justify-between font-body text-body-sm mb-1"><span>Philosophy &amp; Essays</span><span class="tabular-nums">42%</span></div><div class="h-2 bg-surface-hero rounded overflow-hidden"><div class="h-full bg-primary w-[42%]"></div></div></div>
+              <div><div class="flex justify-between font-body text-body-sm mb-1"><span>Design &amp; Architecture</span><span class="tabular-nums">31%</span></div><div class="h-2 bg-surface-hero rounded overflow-hidden"><div class="h-full bg-primary w-[31%]"></div></div></div>
+              <div><div class="flex justify-between font-body text-body-sm mb-1"><span>Literary Fiction</span><span class="tabular-nums">18%</span></div><div class="h-2 bg-surface-hero rounded overflow-hidden"><div class="h-full bg-accent w-[18%]"></div></div></div>
+              <div><div class="flex justify-between font-body text-body-sm mb-1"><span>Systems &amp; Craft</span><span class="tabular-nums">9%</span></div><div class="h-2 bg-surface-hero rounded overflow-hidden"><div class="h-full bg-accent w-[9%]"></div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RECENT ORDERS & TOP EBOOKS -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg">
+          <div class="lg:col-span-8 border border-outline rounded bg-surface-white p-gutter-lg flex flex-col gap-gutter-md overflow-x-auto">
+            <div class="flex items-center justify-between">
+              <h2 class="font-title text-title-lg text-on-surface">Recent Orders</h2>
+              <a href="../admin-orders/AdminOrders.html" class="font-label text-label-sm underline underline-offset-4">All Orders</a>
+            </div>
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-outline font-label text-label-sm text-on-surface-muted">
+                  <th class="py-2 pr-3">Order ID</th>
+                  <th class="py-2 pr-3">Customer</th>
+                  <th class="py-2 pr-3">Amount</th>
+                  <th class="py-2 pr-3">Payment</th>
+                  <th class="py-2 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-outline font-body text-body-sm">
+                <tr>
+                  <td class="py-3 pr-3 tabular-nums font-medium">FOL-2026-8419</td>
+                  <td class="py-3 pr-3"><a href="../admin-customer-details/AdminCustomerDetails.html" class="hover:underline">Ananya Sen</a></td>
+                  <td class="py-3 pr-3 tabular-nums">₹1,098.00</td>
+                  <td class="py-3 pr-3"><span class="px-2 py-0.5 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-success">Paid · UPI</span></td>
+                  <td class="py-3 text-right"><a href="../admin-order-details/AdminOrderDetails.html" class="font-label text-label-sm underline">Inspect</a></td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-3 tabular-nums font-medium">FOL-2026-8418</td>
+                  <td class="py-3 pr-3"><a href="../admin-customer-details/AdminCustomerDetails.html" class="hover:underline">Rohan Kulkarni</a></td>
+                  <td class="py-3 pr-3 tabular-nums">₹599.00</td>
+                  <td class="py-3 pr-3"><span class="px-2 py-0.5 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-success">Paid · Card</span></td>
+                  <td class="py-3 text-right"><a href="../admin-order-details/AdminOrderDetails.html" class="font-label text-label-sm underline">Inspect</a></td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-3 tabular-nums font-medium">FOL-2026-8417</td>
+                  <td class="py-3 pr-3"><a href="../admin-customer-details/AdminCustomerDetails.html" class="hover:underline">Meera Nair</a></td>
+                  <td class="py-3 pr-3 tabular-nums">₹499.00</td>
+                  <td class="py-3 pr-3"><span class="px-2 py-0.5 rounded-full bg-surface-secondary border border-outline font-label text-label-sm text-on-surface-muted">Pending</span></td>
+                  <td class="py-3 text-right"><a href="../admin-order-details/AdminOrderDetails.html" class="font-label text-label-sm underline">Inspect</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="lg:col-span-4 border border-outline rounded bg-surface-white p-gutter-lg flex flex-col gap-gutter-md">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="font-title text-title-md md:text-title-lg text-on-surface">Top-Selling Ebooks</h2>
+              <a href="../admin-catalog/AdminCatalog.html" class="font-label text-label-sm underline underline-offset-4 shrink-0">Catalog</a>
+            </div>
+            <div class="flex flex-col gap-3">
+              <a href="../admin-ebook-details/AdminEbookDetails.html" class="flex items-center justify-between gap-3 hover:bg-surface-secondary p-1.5 rounded">
+                <div class="flex items-center gap-3 min-w-0">
+                  <img src="https://lh3.googleusercontent.com/aida/ALJJyrA6lqWrf4A9QWouDya7f-Apz9asEm6LCBwseDOQYqT-yzAuSUO1vH6hyPosHfV_FVdTnmaV3VyQTRmiWiV2lVwIkzAXi89dP2CdF5G3YQ7J1IAklrm7ZI7vnHlwyu9j8lHEumO7rbJP2xsusjxlQmPBscEqVFYEa7jghtwA3dttu-VrsvE1_mOqf3JAB7E3c4wDDVVDPjIdZqMysoq-DbHeaBVu8fiRqekYP3Npb0RdMLC2yi7FAdEN" alt="The Art of Slow Thinking" class="w-10 aspect-[2/3] object-cover rounded-sm border border-outline shrink-0">
+                  <div class="min-w-0"><p class="font-title text-title-sm text-on-surface truncate">The Art of Slow Thinking</p><p class="font-body text-body-sm text-on-surface-muted">Clara Vance</p></div>
+                </div>
+                <span class="font-label text-label-sm tabular-nums shrink-0">312 sold</span>
+              </a>
+              <a href="../admin-ebook-details/AdminEbookDetails.html" class="flex items-center justify-between gap-3 hover:bg-surface-secondary p-1.5 rounded">
+                <div class="flex items-center gap-3 min-w-0">
+                  <img src="https://lh3.googleusercontent.com/aida/ALJJyrBTrwlybMTjYj0IOVf9pG1A-9-YKXcjAOy4EQK-0euLlLE1maWKvdNoLU5RdwmkkmT7vuECLg2wDazpuCx2tfA64dJAz_qcICRExwFxBUN3t_-3_JIJW9L8blQh6kH6IfrOi6UFsbAGC1XEk-JyoKpjDX35kBTqyx7zGHGmmE4QuhUE8C2jo0lUukK4HOHj7ENwIwq-sLV_UY4xxUcOAiRo_axTNIRk3tEq_GyntVurEtiJfLs" alt="On Attention &amp; Deep Craft" class="w-10 aspect-[2/3] object-cover rounded-sm border border-outline shrink-0">
+                  <div class="min-w-0"><p class="font-title text-title-sm text-on-surface truncate">On Attention &amp; Deep Craft</p><p class="font-body text-body-sm text-on-surface-muted">Julian Mercer</p></div>
+                </div>
+                <span class="font-label text-label-sm tabular-nums shrink-0">248 sold</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- RECENT CUSTOMERS & ACTIVITY FEED -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-gutter-lg">
+          <div class="border border-outline rounded bg-surface-white p-gutter-lg flex flex-col gap-gutter-sm">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="font-title text-title-md md:text-title-lg text-on-surface">Recent Customers</h2>
+              <a href="../admin-customers/AdminCustomers.html" class="font-label text-label-sm underline underline-offset-4 shrink-0">All Customers</a>
+            </div>
+            <div class="divide-y divide-outline font-body text-body-sm">
+              <div class="py-2.5 flex justify-between"><span>Ananya Sen · ananya.sen@example.in</span><span class="text-on-surface-muted tabular-nums">19 Nov 2026</span></div>
+              <div class="py-2.5 flex justify-between"><span>Kabir Rao · kabir.rao@example.in</span><span class="text-on-surface-muted tabular-nums">18 Nov 2026</span></div>
+            </div>
+          </div>
+          <div class="border border-outline rounded bg-surface-white p-gutter-lg flex flex-col gap-gutter-sm">
+            <div class="flex items-center justify-between">
+              <h2 class="font-title text-title-lg text-on-surface">Recent Activity</h2>
+              <a href="../admin-security/AdminSecurity.html" class="font-label text-label-sm underline underline-offset-4">Audit Logs</a>
+            </div>
+            <div class="divide-y divide-outline font-body text-body-sm">
+              <div class="py-2.5 flex justify-between"><span>Coupon QUIET10 updated by Priya N.</span><span class="text-on-surface-muted tabular-nums">22m ago</span></div>
+              <div class="py-2.5 flex justify-between"><span>Order FOL-2026-8419 settled via UPI</span><span class="text-on-surface-muted tabular-nums">1h ago</span></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- MOBILE / TABLET DRAWER -->
+  <dialog id="adminDrawer" class="m-0 h-full max-h-[1024px] w-72 bg-surface-white p-0 border-r border-outline backdrop:bg-on-surface/30" data-stitch-vh="max-h-[1024px]===max-h-screen">
+    <div class="flex flex-col h-full p-gutter-md justify-between">
+      <div class="flex flex-col gap-gutter-md overflow-y-auto">
+        <div class="flex items-center justify-between border-b border-outline pb-3">
+          <span class="font-title text-title-md">FOLIO Admin</span>
+          <button type="button" id="closeAdminDrawer" aria-label="Close menu" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-surface-hero"><span class="material-symbols-outlined text-[20px]">close</span></button>
+        </div>
+        <nav class="flex flex-col gap-1 font-label text-label-md">
+          <a href="../admin-dashboard/AdminDashboard.html" class="px-3 py-2 rounded bg-surface-hero text-on-surface">Overview</a>
+          <a href="../admin-catalog/AdminCatalog.html" class="px-3 py-2 rounded text-on-surface-muted">All Ebooks</a>
+          <a href="../admin-orders/AdminOrders.html" class="px-3 py-2 rounded text-on-surface-muted">Orders</a>
+          <a href="../admin-customers/AdminCustomers.html" class="px-3 py-2 rounded text-on-surface-muted">Customers</a>
+          <a href="../admin-finance/AdminFinance.html" class="px-3 py-2 rounded text-on-surface-muted">Payments &amp; Finance</a>
+          <a href="../admin-marketing/AdminMarketing.html" class="px-3 py-2 rounded text-on-surface-muted">Marketing</a>
+          <a href="../admin-website/AdminWebsite.html" class="px-3 py-2 rounded text-on-surface-muted">Website &amp; Content</a>
+          <a href="../admin-analytics/AdminAnalytics.html" class="px-3 py-2 rounded text-on-surface-muted">Analytics</a>
+          <a href="../admin-support/AdminSupport.html" class="px-3 py-2 rounded text-on-surface-muted">Support</a>
+          <a href="../admin-team/AdminTeam.html" class="px-3 py-2 rounded text-on-surface-muted">Team &amp; Permissions</a>
+          <a href="../admin-security/AdminSecurity.html" class="px-3 py-2 rounded text-on-surface-muted">Security &amp; Audit Logs</a>
+          <a href="../admin-settings/AdminSettings.html" class="px-3 py-2 rounded text-on-surface-muted">Settings</a>
+        </nav>
+      </div>
+      <a href="../auth-login-desktop/LoginDesktop.html" class="pt-3 border-t border-outline font-label text-label-sm text-on-surface-muted">Log out (Vikram Mehta)</a>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      const dlg = document.getElementById('adminDrawer');
+      document.getElementById('openAdminDrawer').addEventListener('click', () => dlg.showModal());
+      document.getElementById('closeAdminDrawer').addEventListener('click', () => dlg.close());
+
+      const kpiData = {
+        today: { rev: '₹18,450', orders: '32', cust: '1,924', aov: '₹576.50' },
+        '7d': { rev: '₹1,14,200', orders: '198', cust: '1,924', aov: '₹576.70' },
+        '30d': { rev: '₹4,82,910', orders: '842', cust: '1,924', aov: '₹573.50' },
+        '90d': { rev: '₹13,94,600', orders: '2,410', cust: '1,924', aov: '₹578.60' }
+      };
+
+      document.querySelectorAll('.range-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.range-btn').forEach((b) => {
+            b.classList.remove('bg-primary', 'text-on-primary');
+            b.classList.add('border', 'border-outline', 'bg-surface-white', 'text-on-surface-muted');
+          });
+          btn.classList.add('bg-primary', 'text-on-primary');
+          btn.classList.remove('border', 'border-outline', 'bg-surface-white', 'text-on-surface-muted');
+          const d = kpiData[btn.dataset.range];
+          if (d) {
+            document.getElementById('kpiRev').textContent = d.rev;
+            document.getElementById('kpiOrders').textContent = d.orders;
+            document.getElementById('kpiCust').textContent = d.cust;
+            document.getElementById('kpiAov').textContent = d.aov;
+          }
+        });
+      });
+    })();
+  </script>
+
+
+</body></html>

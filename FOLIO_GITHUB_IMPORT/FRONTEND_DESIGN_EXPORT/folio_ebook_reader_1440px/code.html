@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reading: The Art of Slow Thinking — FOLIO Reader</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }
+    .theme-paper { background-color: #FAFAF9; color: #171717; }
+    .theme-sepia { background-color: #F4EFE6; color: #2D261E; }
+    .theme-night { background-color: #181918; color: #E5E5E0; }
+  </style>
+</head>
+<body id="reader-body" class="theme-paper font-body antialiased transition-colors duration-200">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- UNOBTRUSIVE TOP READER BAR -->
+    <header class="sticky top-0 z-40 border-b border-outline bg-surface-white/95 text-on-surface">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop h-16 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <button id="btn-exit-reader" type="button" class="inline-flex items-center gap-1.5 font-label text-label-md text-on-surface hover:text-on-surface-muted">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <span>Library</span>
+          </button>
+          <button id="btn-toc" type="button" aria-label="Table of contents" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]">toc</span>
+          </button>
+        </div>
+
+        <div class="text-center">
+          <p class="font-title text-title-sm text-on-surface">The Art of Slow Thinking</p>
+          <p id="reader-chap" class="font-body text-body-sm text-on-surface-muted">Chapter III — Designing a Quiet Hour</p>
+        </div>
+
+        <div class="flex items-center gap-1.5">
+          <span id="sync-status" class="hidden md:inline-flex items-center gap-1 font-label text-label-sm text-on-surface-muted mr-2">
+            <span class="material-symbols-outlined text-[15px]">cloud_done</span>
+            <span>Position saved</span>
+          </span>
+          <button id="btn-bookmark" type="button" aria-label="Bookmark this page" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-surface-hero">
+            <span id="bm-icon" class="material-symbols-outlined text-[20px]">bookmark_border</span>
+          </button>
+          <button id="btn-note" type="button" aria-label="Add highlight or note" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]">edit_note</span>
+          </button>
+          <button id="btn-settings" type="button" aria-label="Typography and theme settings" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]">text_fields</span>
+          </button>
+          <button id="btn-fullscreen" type="button" aria-label="Toggle fullscreen" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]">fullscreen</span>
+          </button>
+        </div>
+      </div>
+      <div class="w-full h-1 bg-surface-hero"><div id="prog-bar" class="h-1 bg-primary w-[23%]"></div></div>
+    </header>
+
+    <!-- COMFORTABLE LONG-SESSION READING AREA -->
+    <main class="flex-1 flex items-center justify-center px-page-margin py-12">
+      <article id="reading-canvas" class="max-w-2xl w-full font-headline text-title-md leading-relaxed flex flex-col gap-6">
+        <p>
+          To design a quiet hour is not to retreat from responsibility; it is to refuse the habit of reacting before an observation has matured. In the studio as in the library, the finest work begins in an unhurried margin.
+        </p>
+        <p>
+          <mark id="sample-highlight" class="bg-surface-hero text-on-surface px-1 rounded-sm">When we read slowly, we are not merely decoding words—we are testing our own assumptions against another mind’s patience.</mark>
+        </p>
+        <p>
+          Notice how differently a chapter feels when you close the adjacent tabs, set a comfortable measure across the page, and allow your eye to move at the pace of speech rather than the pace of a feed.
+        </p>
+      </article>
+    </main>
+
+    <!-- BOTTOM PAGE CONTROLS -->
+    <footer class="border-t border-outline bg-surface-white/95 text-on-surface">
+      <div class="max-w-[1320px] mx-auto px-page-margin md:px-page-margin-desktop h-14 flex items-center justify-between gap-2">
+        <button id="prev-page" type="button" class="inline-flex items-center gap-1 font-label text-label-md hover:text-on-surface-muted shrink-0 whitespace-nowrap">
+          <span class="material-symbols-outlined text-[18px]">chevron_left</span><span>Previous</span>
+        </button>
+        <span id="page-indicator" class="font-body text-body-sm text-on-surface-muted tabular-nums">Page 42 of 186 · 23%</span>
+        <button id="next-page" type="button" class="inline-flex items-center gap-1 font-label text-label-md hover:text-on-surface-muted shrink-0 whitespace-nowrap">
+          <span>Next</span><span class="material-symbols-outlined text-[18px]">chevron_right</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- TYPOGRAPHY & THEME SETTINGS DIALOG -->
+  <dialog id="settings-dlg" class="m-auto w-full max-w-sm bg-surface-white text-on-surface border border-outline rounded p-gutter-lg shadow-2xl backdrop:bg-on-surface/20">
+    <div class="flex flex-col gap-gutter-md">
+      <div class="flex items-center justify-between border-b border-outline pb-2">
+        <h2 class="font-headline text-title-lg">Reading Appearance</h2>
+        <button id="close-settings" type="button" class="w-8 h-8 rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">close</span></button>
+      </div>
+      <div>
+        <span class="font-label text-label-sm uppercase tracking-wider text-on-surface-muted">Theme</span>
+        <div class="grid grid-cols-3 gap-2 mt-1.5">
+          <button type="button" data-theme="theme-paper" class="theme-btn py-2 border border-primary bg-surface rounded font-label text-label-md text-on-surface">Paper</button>
+          <button type="button" data-theme="theme-sepia" class="theme-btn py-2 border border-outline bg-surface-hero rounded font-label text-label-md text-on-surface">Sepia</button>
+          <button type="button" data-theme="theme-night" class="theme-btn py-2 border border-outline bg-primary text-on-primary rounded font-label text-label-md">Night</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <button id="font-serif" type="button" class="py-2 border border-primary rounded font-headline text-title-sm">Serif</button>
+        <button id="font-sans" type="button" class="py-2 border border-outline rounded font-body text-body-sm">Sans-serif</button>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="font-label text-label-md">Font Size</span>
+        <div class="flex gap-2">
+          <button id="r-dec" type="button" class="px-3 py-1 border border-outline rounded">A-</button>
+          <button id="r-inc" type="button" class="px-3 py-1 border border-outline rounded">A+</button>
+        </div>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="font-label text-label-md">Line Spacing &amp; Margins</span>
+        <button id="r-wide" type="button" class="px-3 py-1 border border-outline rounded font-label text-label-sm">Toggle Comfort</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- TOC DRAWER -->
+  <dialog id="toc-dlg" class="m-0 mr-auto h-full max-h-[1024px] w-80 bg-surface-white text-on-surface p-0 border-r border-outline backdrop:bg-on-surface/20" data-stitch-vh="max-h-[1024px]===max-h-screen">
+    <div class="p-gutter-lg flex flex-col gap-gutter-md">
+      <div class="flex items-center justify-between border-b border-outline pb-2">
+        <h2 class="font-headline text-title-lg">Contents</h2>
+        <button id="close-toc" type="button" class="w-8 h-8 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">close</span></button>
+      </div>
+      <nav class="flex flex-col gap-2 font-body text-body-sm">
+        <button type="button" class="toc-jump text-left py-1.5 text-on-surface-muted hover:text-on-surface" data-page="1">Chapter I — The Illusion of Speed (p. 1)</button>
+        <button type="button" class="toc-jump text-left py-1.5 text-on-surface-muted hover:text-on-surface" data-page="22">Chapter II — Marginalia &amp; Memory (p. 22)</button>
+        <button type="button" class="toc-jump text-left py-1.5 font-medium text-on-surface" data-page="42">Chapter III — Designing a Quiet Hour (p. 42)</button>
+        <button type="button" class="toc-jump text-left py-1.5 text-on-surface-muted hover:text-on-surface" data-page="88">Chapter IV — Decisions That Age Well (p. 88)</button>
+      </nav>
+    </div>
+  </dialog>
+
+  <!-- ACCIDENTAL NAVIGATION GUARD MODAL -->
+  <dialog id="exit-guard" class="m-auto w-full max-w-sm bg-surface-white text-on-surface border border-outline rounded p-gutter-lg shadow-2xl backdrop:bg-on-surface/30">
+    <h2 class="font-headline text-title-lg">Leave Reader?</h2>
+    <p class="font-body text-body-sm text-on-surface-muted mt-1">Your current position (Page <span id="guard-pg">42</span>) is saved and synced.</p>
+    <div class="flex justify-end gap-2 mt-4">
+      <button id="stay-reading" type="button" class="px-4 py-2 border border-outline rounded font-label text-label-md">Stay</button>
+      <a href="../account-library/MyLibrary.html" class="px-4 py-2 bg-primary text-on-primary rounded font-label text-label-md">Return to Library</a>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      let page = 42, total = 186, fSize = 20;
+      const body = document.getElementById('reader-body');
+      const canvas = document.getElementById('reading-canvas');
+      function updatePage() {
+        const pct = Math.round((page / total) * 100);
+        document.getElementById('page-indicator').textContent = 'Page ' + page + ' of ' + total + ' · ' + pct + '%';
+        document.getElementById('prog-bar').style.width = pct + '%';
+        document.getElementById('guard-pg').textContent = page;
+      }
+      document.getElementById('prev-page').addEventListener('click', () => { if (page > 1) { page--; updatePage(); } });
+      document.getElementById('next-page').addEventListener('click', () => { if (page < total) { page++; updatePage(); } });
+
+      document.getElementById('btn-bookmark').addEventListener('click', () => {
+        const ic = document.getElementById('bm-icon');
+        ic.textContent = ic.textContent === 'bookmark' ? 'bookmark_border' : 'bookmark';
+      });
+
+      const sDlg = document.getElementById('settings-dlg');
+      document.getElementById('btn-settings').addEventListener('click', () => sDlg.showModal());
+      document.getElementById('close-settings').addEventListener('click', () => sDlg.close());
+      document.querySelectorAll('.theme-btn').forEach(b => b.addEventListener('click', () => {
+        body.className = b.dataset.theme + ' font-body antialiased transition-colors duration-200';
+      }));
+      document.getElementById('font-serif').addEventListener('click', () => { canvas.classList.add('font-headline'); canvas.classList.remove('font-body'); });
+      document.getElementById('font-sans').addEventListener('click', () => { canvas.classList.add('font-body'); canvas.classList.remove('font-headline'); });
+      document.getElementById('r-inc').addEventListener('click', () => { if (fSize < 28) { fSize += 2; canvas.style.fontSize = fSize + 'px'; } });
+      document.getElementById('r-dec').addEventListener('click', () => { if (fSize > 16) { fSize -= 2; canvas.style.fontSize = fSize + 'px'; } });
+      document.getElementById('r-wide').addEventListener('click', () => canvas.classList.toggle('max-w-xl'));
+
+      const tDlg = document.getElementById('toc-dlg');
+      document.getElementById('btn-toc').addEventListener('click', () => tDlg.showModal());
+      document.getElementById('close-toc').addEventListener('click', () => tDlg.close());
+      document.querySelectorAll('.toc-jump').forEach(b => b.addEventListener('click', () => { page = Number(b.dataset.page); updatePage(); tDlg.close(); }));
+
+      const guard = document.getElementById('exit-guard');
+      document.getElementById('btn-exit-reader').addEventListener('click', () => guard.showModal());
+      document.getElementById('stay-reading').addEventListener('click', () => guard.close());
+    })();
+  </script>
+
+
+</body></html>

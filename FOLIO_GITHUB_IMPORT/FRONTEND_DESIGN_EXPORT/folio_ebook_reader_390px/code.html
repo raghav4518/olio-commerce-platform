@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reading — FOLIO Mobile Reader</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body id="m-r-body" class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[884px] flex flex-col max-w-[390px] mx-auto" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <header class="sticky top-0 z-40 h-14 px-page-margin border-b border-outline bg-surface-white flex items-center justify-between">
+      <a href="../account-library/MyLibrary.html" aria-label="Back to library" class="w-10 h-10 flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">arrow_back</span></a>
+      <span class="font-title text-title-sm truncate max-w-[180px]">The Art of Slow Thinking</span>
+      <div class="flex items-center gap-1">
+        <button id="m-bm" type="button" aria-label="Bookmark" class="w-10 h-10 flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">bookmark_border</span></button>
+        <button id="m-theme-cycle" type="button" aria-label="Switch reading theme" class="w-10 h-10 flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">contrast</span></button>
+      </div>
+    </header>
+    <div class="w-full h-1 bg-surface-hero"><div class="h-1 bg-primary w-[23%]"></div></div>
+
+    <main class="flex-1 px-page-margin py-8 flex flex-col gap-5 font-headline text-title-md leading-relaxed">
+      <span class="font-body text-label-sm uppercase tracking-wider text-on-surface-muted">Chapter III · Page 42 of 186</span>
+      <p>
+        To design a quiet hour is not to retreat from responsibility; it is to refuse the habit of reacting before an observation has matured.
+      </p>
+      <p>
+        When we read slowly, we are not merely decoding words—we are testing our own assumptions against another mind’s patience.
+      </p>
+    </main>
+
+    <footer class="h-14 px-page-margin border-t border-outline bg-surface-white flex items-center justify-between">
+      <button type="button" class="w-11 h-11 flex items-center justify-center" aria-label="Previous page"><span class="material-symbols-outlined text-[22px]">chevron_left</span></button>
+      <span class="font-body text-body-sm text-on-surface-muted tabular-nums">42 / 186 · Synced</span>
+      <button type="button" class="w-11 h-11 flex items-center justify-center" aria-label="Next page"><span class="material-symbols-outlined text-[22px]">chevron_right</span></button>
+    </footer>
+  </div>
+  <script>
+    const themes = ['bg-surface text-on-surface', 'bg-surface-hero text-on-surface', 'bg-primary text-on-primary'];
+    let ti = 0;
+    document.getElementById('m-theme-cycle').addEventListener('click', () => {
+      ti = (ti + 1) % 3;
+      document.getElementById('m-r-body').className = themes[ti] + ' font-body antialiased';
+    });
+    document.getElementById('m-bm').addEventListener('click', (e) => {
+      const ic = e.currentTarget.querySelector('.material-symbols-outlined');
+      ic.textContent = ic.textContent === 'bookmark' ? 'bookmark_border' : 'bookmark';
+    });
+  </script>
+
+
+</body></html>

@@ -1,0 +1,457 @@
+openapi: 3.2.1
+info:
+  title: Ebook Commerce Platform API
+  version: 1.0.0
+  description: >-
+    Initial API contract baseline for the Customer, Owner/Admin and Support/Operations
+    interfaces. This is a starter contract and MUST be expanded to cover all endpoint
+    inventories in backend/04-API-CONTRACTS.md before feature implementation is considered
+    contract-complete. Provider-specific webhook schemas are intentionally not fabricated.
+servers:
+  - url: https://api.example.invalid/api/v1
+    description: Placeholder; replace after domain and environment approval.
+tags:
+  - name: Public Catalog
+  - name: Authentication
+  - name: Customer
+  - name: Cart and Checkout
+  - name: Customer Library
+  - name: Admin Catalog
+  - name: Admin Commerce
+  - name: Support
+  - name: Webhooks
+paths:
+  /public/ebooks:
+    get:
+      tags: [Public Catalog]
+      operationId: listPublicEbooks
+      summary: Search and list published ebooks
+      parameters:
+        - in: query
+          name: q
+          schema: { type: string, maxLength: 120 }
+        - in: query
+          name: category
+          schema: { type: string }
+        - in: query
+          name: cursor
+          schema: { type: string }
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 100, default: 24 }
+      responses:
+        '200':
+          description: Public ebook page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EbookCollection'
+        '400': { $ref: '#/components/responses/Problem' }
+        '429': { $ref: '#/components/responses/Problem' }
+  /public/ebooks/{slug}:
+    get:
+      tags: [Public Catalog]
+      operationId: getPublicEbook
+      summary: Get published ebook detail by slug
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Ebook detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ebook'
+        '404': { $ref: '#/components/responses/Problem' }
+  /auth/sessions:
+    post:
+      tags: [Authentication]
+      operationId: createSession
+      summary: Authenticate and create browser session
+      description: >-
+        Apply rate limits, generic failure messages, credential verification, session
+        rotation and MFA challenge policy. Use Secure HttpOnly cookies for browser sessions
+        if cookie authentication is selected. Never return password or session secrets.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string, minLength: 1, writeOnly: true }
+      responses:
+        '200':
+          description: Session established or MFA continuation required
+          headers:
+            Set-Cookie:
+              description: Secure session cookie when cookie-based sessions are used.
+              schema: { type: string }
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      authenticated: { type: boolean }
+                      mfaRequired: { type: boolean }
+                      user: { $ref: '#/components/schemas/CurrentUser' }
+        '400': { $ref: '#/components/responses/Problem' }
+        '401': { $ref: '#/components/responses/Problem' }
+        '429': { $ref: '#/components/responses/Problem' }
+  /auth/sessions/current:
+    delete:
+      tags: [Authentication]
+      operationId: deleteCurrentSession
+      summary: Revoke current session
+      security: [{ browserSession: [] }]
+      responses:
+        '204': { description: Session revoked }
+        '401': { $ref: '#/components/responses/Problem' }
+  /me:
+    get:
+      tags: [Customer]
+      operationId: getCurrentAccount
+      summary: Get current account summary
+      security: [{ browserSession: [] }]
+      responses:
+        '200':
+          description: Current account
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data: { $ref: '#/components/schemas/CurrentUser' }
+        '401': { $ref: '#/components/responses/Problem' }
+  /me/cart:
+    get:
+      tags: [Cart and Checkout]
+      operationId: getCurrentCart
+      summary: Get current customer's cart
+      security: [{ browserSession: [] }]
+      responses:
+        '200':
+          description: Cart state
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Cart' }
+        '401': { $ref: '#/components/responses/Problem' }
+  /me/checkout-sessions:
+    post:
+      tags: [Cart and Checkout]
+      operationId: createCheckoutSession
+      summary: Revalidate cart and create checkout session/order
+      security: [{ browserSession: [] }]
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - $ref: '#/components/parameters/RequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                couponCode: { type: string, maxLength: 64 }
+                # Billing/tax fields are intentionally omitted until D-004 and the
+                # approved jurisdiction/checkout data requirements are resolved.
+      responses:
+        '201':
+          description: Checkout session created; payment is not yet confirmed
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CheckoutSession' }
+        '400': { $ref: '#/components/responses/Problem' }
+        '401': { $ref: '#/components/responses/Problem' }
+        '409': { $ref: '#/components/responses/Problem' }
+        '429': { $ref: '#/components/responses/Problem' }
+  /me/orders:
+    get:
+      tags: [Customer]
+      operationId: listMyOrders
+      summary: List the current customer's orders
+      security: [{ browserSession: [] }]
+      responses:
+        '200':
+          description: Customer order collection
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderCollection' }
+        '401': { $ref: '#/components/responses/Problem' }
+  /me/library:
+    get:
+      tags: [Customer Library]
+      operationId: listMyLibrary
+      summary: List active purchased ebook entitlements
+      security: [{ browserSession: [] }]
+      responses:
+        '200':
+          description: Customer library
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EntitlementCollection' }
+        '401': { $ref: '#/components/responses/Problem' }
+  /me/library/{entitlementId}/download-grants:
+    post:
+      tags: [Customer Library]
+      operationId: createDownloadGrant
+      summary: Create short-lived authorization for an entitled file
+      security: [{ browserSession: [] }]
+      parameters:
+        - in: path
+          name: entitlementId
+          required: true
+          schema: { type: string, format: uuid }
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [format]
+              properties:
+                format: { type: string, enum: [pdf, epub] }
+      responses:
+        '201':
+          description: Short-lived scoped grant; exact URL/token delivery design is implementation-specific
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: object
+                    required: [expiresAt]
+                    properties:
+                      downloadUrl: { type: string, format: uri }
+                      expiresAt: { type: string, format: date-time }
+        '401': { $ref: '#/components/responses/Problem' }
+        '403': { $ref: '#/components/responses/Problem' }
+        '404': { $ref: '#/components/responses/Problem' }
+  /admin/ebooks:
+    post:
+      tags: [Admin Catalog]
+      operationId: createAdminEbook
+      summary: Create ebook draft
+      security: [{ browserSession: [] }]
+      description: Requires catalog.create; backend permission check is mandatory.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [title, slug]
+              properties:
+                title: { type: string, minLength: 1, maxLength: 240 }
+                slug: { type: string, minLength: 1, maxLength: 180 }
+                description: { type: string }
+                authorId: { type: string, format: uuid }
+      responses:
+        '201':
+          description: Draft created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Ebook' }
+        '401': { $ref: '#/components/responses/Problem' }
+        '403': { $ref: '#/components/responses/Problem' }
+        '409': { $ref: '#/components/responses/Problem' }
+  /support/queue:
+    get:
+      tags: [Support]
+      operationId: getSupportQueue
+      summary: List support tickets within staff scope
+      security: [{ browserSession: [] }]
+      description: Requires support.queue.read; results must be filtered server-side to permitted scope.
+      responses:
+        '200':
+          description: Support queue
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SupportTicketCollection' }
+        '401': { $ref: '#/components/responses/Problem' }
+        '403': { $ref: '#/components/responses/Problem' }
+components:
+  securitySchemes:
+    browserSession:
+      type: apiKey
+      in: cookie
+      name: __Host-ebook_session
+      description: >-
+        Placeholder cookie name for the proposed server-side session model. Set Secure,
+        HttpOnly, Path=/, SameSite policy and CSRF controls. Do not treat this scheme
+        declaration as a substitute for implementation security review.
+  parameters:
+    IdempotencyKey:
+      in: header
+      name: Idempotency-Key
+      required: true
+      schema: { type: string, minLength: 16, maxLength: 128 }
+      description: Unique stable key for a logical command retry; scope by principal and operation.
+    RequestId:
+      in: header
+      name: X-Request-ID
+      required: false
+      schema: { type: string, maxLength: 128 }
+  responses:
+    Problem:
+      description: RFC 9457 Problem Details response
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+  schemas:
+    Problem:
+      type: object
+      required: [type, title, status]
+      properties:
+        type: { type: string, format: uri-reference }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+        instance: { type: string, format: uri-reference }
+        code: { type: string }
+        requestId: { type: string }
+        errors:
+          type: array
+          items:
+            type: object
+            required: [field, code]
+            properties:
+              field: { type: string }
+              code: { type: string }
+              message: { type: string }
+    Money:
+      type: object
+      required: [amountMinor, currency]
+      properties:
+        amountMinor: { type: integer, format: int64 }
+        currency: { type: string, minLength: 3, maxLength: 3 }
+    CurrentUser:
+      type: object
+      required: [id, status]
+      properties:
+        id: { type: string, format: uuid }
+        displayName: { type: string }
+        email: { type: string, format: email }
+        emailVerified: { type: boolean }
+        status: { type: string, enum: [active, pending_verification, suspended] }
+    Ebook:
+      type: object
+      required: [id, slug, title, status]
+      properties:
+        id: { type: string, format: uuid }
+        slug: { type: string }
+        title: { type: string }
+        subtitle: { type: string }
+        description: { type: string }
+        status: { type: string, enum: [draft, scheduled, published, archived] }
+        coverUrl: { type: string, format: uri }
+        displayPrice: { $ref: '#/components/schemas/Money' }
+    EbookCollection:
+      type: object
+      required: [data, meta]
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Ebook' }
+        meta:
+          type: object
+          properties:
+            nextCursor: { type: [string, "null"] }
+            hasMore: { type: boolean }
+    Cart:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          properties:
+            id: { type: string, format: uuid }
+            status: { type: string }
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  ebookId: { type: string, format: uuid }
+                  quantity: { type: integer, minimum: 1 }
+                  currentDisplayPrice: { $ref: '#/components/schemas/Money' }
+    CheckoutSession:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [id, status, expiresAt, total]
+          properties:
+            id: { type: string, format: uuid }
+            status: { type: string, enum: [created, awaiting_payment, paid, expired, failed, cancelled] }
+            expiresAt: { type: string, format: date-time }
+            total: { $ref: '#/components/schemas/Money' }
+            paymentAction:
+              type: object
+              description: Provider-safe action metadata; never include secret credentials.
+              additionalProperties: false
+              properties:
+                kind: { type: string, enum: [redirect, hosted_fields, none] }
+                redirectUrl: { type: string, format: uri }
+                expiresAt: { type: string, format: date-time }
+    OrderCollection:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string, format: uuid }
+              orderNumber: { type: string }
+              status: { type: string }
+              total: { $ref: '#/components/schemas/Money' }
+              placedAt: { type: string, format: date-time }
+    EntitlementCollection:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required: [id, ebookId, status]
+            properties:
+              id: { type: string, format: uuid }
+              ebookId: { type: string, format: uuid }
+              status: { type: string, enum: [pending, active, suspended, revoked, expired] }
+              grantedAt: { type: string, format: date-time }
+    SupportTicketCollection:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string, format: uuid }
+              ticketNumber: { type: string }
+              subject: { type: string }
+              status: { type: string }
+              priority: { type: string }
+              updatedAt: { type: string, format: date-time }

@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Oversight — FOLIO Admin</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex bg-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <aside class="hidden lg:flex lg:w-64 shrink-0 flex-col justify-between border-r border-outline bg-surface-white min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-gutter-md p-gutter-md">
+        <div class="flex items-center justify-between px-2 py-1 border-b border-outline pb-3"><a href="../admin-dashboard/AdminDashboard.html" class="flex items-center gap-2"><svg width="78" height="26" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path><text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text></svg><span class="px-2 py-0.5 rounded bg-primary text-on-primary font-label text-label-sm">Admin</span></a></div>
+        <nav class="flex flex-col gap-1">
+          <a href="../admin-dashboard/AdminDashboard.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Overview</span></a>
+          <a href="../admin-support/AdminSupport.html" class="px-3 py-2 rounded bg-surface-hero font-label text-label-md text-on-surface flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]">support_agent</span><span>Support</span></a>
+        </nav>
+      </div>
+      <div class="p-gutter-md border-t border-outline"><div><p class="font-label text-label-md">Vikram Mehta</p><p class="font-body text-body-sm text-on-surface-muted">Owner</p></div></div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0">
+      <header class="sticky top-0 z-30 bg-surface border-b border-outline px-page-margin md:px-gutter-xl h-16 flex items-center justify-between">
+        <span class="font-title text-title-sm text-on-surface">Support Management Oversight</span>
+        <span class="font-label text-label-sm text-on-surface-muted tabular-nums">Avg. First Response: 2h 15m</span>
+      </header>
+      <main class="p-page-margin md:p-gutter-xl flex flex-col gap-gutter-xl max-w-[1360px] w-full mx-auto">
+        <section class="grid grid-cols-1 sm:grid-cols-3 gap-gutter-md">
+          <article class="border border-outline rounded bg-surface-white p-gutter-md"><span class="font-label text-label-sm text-on-surface-muted">Open Tickets</span><p class="font-headline text-headline-md tabular-nums mt-1">14</p></article>
+          <article class="border border-error rounded bg-surface-white p-gutter-md"><span class="font-label text-label-sm text-error">Escalated</span><p class="font-headline text-headline-md text-error tabular-nums mt-1">2</p></article>
+          <article class="border border-outline rounded bg-surface-white p-gutter-md"><span class="font-label text-label-sm text-on-surface-muted">Resolved (7d)</span><p class="font-headline text-headline-md text-success tabular-nums mt-1">49</p></article>
+        </section>
+
+        <section class="border border-outline rounded bg-surface-white overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead><tr class="border-b border-outline bg-surface-secondary font-label text-label-sm text-on-surface-muted"><th class="p-3">Ticket</th><th class="p-3">Subject</th><th class="p-3">Customer</th><th class="p-3">Agent</th><th class="p-3">Priority</th><th class="p-3">Status</th></tr></thead>
+            <tbody class="divide-y divide-outline font-body text-body-sm">
+              <tr><td class="p-3 tabular-nums font-medium">#SUP-4821</td><td class="p-3">EPUB download fails with 403 after UPI payment</td><td class="p-3"><a href="../admin-customer-details/AdminCustomerDetails.html" class="underline">Ananya Rao</a></td><td class="p-3">Riya Deshmukh</td><td class="p-3"><span class="text-error font-medium">Urgent</span></td><td class="p-3">Open</td></tr>
+              <tr><td class="p-3 tabular-nums font-medium">#SUP-4182</td><td class="p-3">Pending NetBanking settlement (<a href="../admin-order-details/AdminOrderDetails.html" class="underline tabular-nums">FOL-2026-8419</a>)</td><td class="p-3"><a href="../admin-customer-details/AdminCustomerDetails.html" class="underline">Ananya Sen</a></td><td class="p-3">Meera K.</td><td class="p-3"><span class="text-error font-medium">Escalated</span></td><td class="p-3">Open</td></tr>
+              <tr><td class="p-3 tabular-nums font-medium">#SUP-4179</td><td class="p-3">EPUB download permission query</td><td class="p-3">Rohan Kulkarni</td><td class="p-3">Arjun D.</td><td class="p-3">Normal</td><td class="p-3 text-success">Resolved</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </div>
+
+
+</body></html>

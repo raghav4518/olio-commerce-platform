@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Bag — FOLIO</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <!-- SHARED HEADER -->
+    <header class="sticky top-0 z-40 bg-surface border-b border-outline">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop h-20 grid grid-cols-3 items-center">
+        <div class="flex items-center gap-gutter-sm">
+          <a href="../explore-books-desktop/ExploreBooksDesktop.html" class="font-label text-label-md text-on-surface-muted hover:text-on-surface inline-flex items-center gap-1">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <span>Continue shopping</span>
+          </a>
+        </div>
+        <div class="flex justify-center">
+          <a href="../home-desktop/FolioHomepageDesktop.html" aria-label="FOLIO Home">
+            <svg width="94" height="32" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+          </a>
+        </div>
+        <div class="flex justify-end items-center gap-2 font-label text-label-md text-on-surface-muted">
+          <span class="material-symbols-outlined text-[18px]">lock</span>
+          <span>Digital Bag</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 py-section-sm">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop">
+        <nav aria-label="Breadcrumb" class="flex items-center gap-2 font-label text-label-md text-on-surface-muted mb-gutter-md">
+          <a href="../home-desktop/FolioHomepageDesktop.html" class="hover:text-on-surface">Home</a>
+          <span>/</span>
+          <span class="text-on-surface">Shopping Bag</span>
+        </nav>
+
+        <h1 class="font-headline text-display-lg text-on-surface mb-gutter-xl" data-design-text-token="display-lg">Your Reading Bag</h1>
+
+        <div id="cart-layout" class="grid grid-cols-1 md:grid-cols-12 gap-gutter-xl items-start">
+          <!-- SELECTED EBOOKS -->
+          <div id="cart-items-col" class="md:col-span-8 flex flex-col gap-gutter-md"></div>
+
+          <!-- SUMMARY & COUPON -->
+          <aside id="cart-summary-col" class="md:col-span-4 bg-surface-white border border-outline rounded p-gutter-xl flex flex-col gap-gutter-lg">
+            <h2 class="font-headline text-title-lg text-on-surface border-b border-outline pb-gutter-sm">Order Summary</h2>
+
+            <!-- Coupon Input -->
+            <form id="coupon-form" class="flex gap-2">
+              <label for="coupon-input" class="sr-only">Coupon code</label>
+              <input id="coupon-input" type="text" placeholder="Coupon (try FOLIO10)" class="flex-1 px-3 py-2 bg-surface-secondary border border-outline rounded text-body-sm focus:border-primary focus:ring-primary">
+              <button type="submit" class="px-4 py-2 border border-outline bg-surface-white rounded font-label text-label-md hover:border-primary">Apply</button>
+            </form>
+            <p id="coupon-msg" class="hidden font-body text-body-sm"></p>
+
+            <div class="flex flex-col gap-2.5 font-body text-body-md border-t border-outline pt-gutter-md">
+              <div class="flex justify-between text-on-surface-muted"><span>Edition Subtotal</span><span id="c-mrp" class="tabular-nums">₹1,249.00</span></div>
+              <div class="flex justify-between text-on-surface-muted"><span>Edition Discount</span><span id="c-disc" class="tabular-nums">-₹151.00</span></div>
+              <div id="c-coupon-row" class="hidden flex justify-between text-success"><span>Coupon (FOLIO10)</span><span id="c-coupon-amt" class="tabular-nums">-₹110.00</span></div>
+              <div class="flex justify-between text-on-surface-muted"><span>Applicable Tax (GST · Configurable)</span><span class="tabular-nums">₹0.00</span></div>
+              <div class="flex justify-between font-headline text-headline-md text-on-surface pt-gutter-sm border-t border-outline">
+                <span>Total</span>
+                <span id="c-total" class="tabular-nums">₹1,098.00</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-gutter-sm">
+              <a href="../checkout/Checkout.html" class="w-full py-3.5 bg-primary text-on-primary rounded font-label text-label-lg text-center hover:bg-on-surface">Proceed to Checkout</a>
+              <a href="../explore-books-desktop/ExploreBooksDesktop.html" class="w-full py-3 bg-surface-white border border-outline rounded font-label text-label-lg text-center text-on-surface hover:border-primary">Continue Shopping</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-surface-secondary border-t border-outline py-gutter-xl">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop flex items-center justify-between font-body text-body-sm text-on-surface-muted">
+        <span>© 2026 FOLIO Digital Bookstore.</span>
+        <span>Instant digital delivery · No shipping fees</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      let items = [
+        { id: 'slow-thinking', title: 'The Art of Slow Thinking', author: 'Clara Vance', mrp: 650, price: 499, img: '../../images/book_thinking.jpg', format: 'EPUB & PDF' },
+        { id: 'attention-craft', title: 'On Attention & Deep Craft', author: 'Julian Mercer', mrp: 599, price: 599, img: '../../images/book_month.jpg', format: 'EPUB & Web Reader' }
+      ];
+      let couponApplied = false;
+
+      const col = document.getElementById('cart-items-col');
+      const sumCol = document.getElementById('cart-summary-col');
+
+      function render() {
+        if (items.length === 0) {
+          sumCol.classList.add('hidden');
+          col.className = 'md:col-span-12 bg-surface-secondary border border-outline rounded p-16 text-center flex flex-col items-center gap-3';
+          col.innerHTML = '<span class="material-symbols-outlined text-[40px] text-on-surface-muted">shopping_bag</span>' +
+            '<h2 class="font-headline text-headline-md text-on-surface">Your reading bag is empty</h2>' +
+            '<p class="font-body text-body-md text-on-surface-muted max-w-md">Explore our curated digital editions to start building your personal library.</p>' +
+            '<a href="../explore-books-desktop/ExploreBooksDesktop.html" class="mt-2 px-gutter-lg py-3 bg-primary text-on-primary rounded font-label text-label-lg">Explore Books</a>';
+          return;
+        }
+
+        col.innerHTML = items.map((it, idx) =>
+          '<article class="bg-surface-white border border-outline rounded p-gutter-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-gutter-lg">' +
+            '<div class="flex items-center gap-gutter-lg min-w-0">' +
+              '<img src="' + it.img + '" alt="' + it.title + '" class="w-20 aspect-[2/3] object-cover rounded-sm border border-outline shadow-sm shrink-0" />' +
+              '<div class="flex flex-col gap-1 min-w-0">' +
+                '<a href="../product-details/ProductDetails.html" class="font-title text-title-lg text-on-surface hover:underline">' + it.title + '</a>' +
+                '<p class="font-body text-body-sm text-on-surface-muted">' + it.author + ' · ' + it.format + '</p>' +
+                '<div class="flex items-center gap-4 pt-2">' +
+                  '<button type="button" data-save-idx="' + idx + '" class="save-wish-btn font-label text-label-md text-on-surface-muted underline underline-offset-4 hover:text-on-surface">Save</button>' +
+                  '<button type="button" data-rm-idx="' + idx + '" class="rm-item-btn font-label text-label-md text-on-surface-muted underline underline-offset-4 hover:text-error">Remove</button>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="flex items-baseline gap-2 shrink-0">' +
+              '<span class="font-headline text-title-lg text-on-surface tabular-nums">₹' + it.price.toFixed(2) + '</span>' +
+              (it.mrp > it.price ? '<span class="font-body text-body-sm text-on-surface-muted line-through tabular-nums">₹' + it.mrp.toFixed(2) + '</span>' : '') +
+            '</div>' +
+          '</article>'
+        ).join('');
+
+        const mrpSum = items.reduce((s, x) => s + x.mrp, 0);
+        const netSum = items.reduce((s, x) => s + x.price, 0);
+        const disc = mrpSum - netSum;
+        const cDisc = couponApplied ? Math.round(netSum * 0.1) : 0;
+        const total = netSum - cDisc;
+
+        document.getElementById('c-mrp').textContent = '₹' + mrpSum.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        document.getElementById('c-disc').textContent = '-₹' + disc.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        document.getElementById('c-coupon-row').classList.toggle('hidden', !couponApplied);
+        document.getElementById('c-coupon-amt').textContent = '-₹' + cDisc.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        document.getElementById('c-total').textContent = '₹' + total.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+
+        col.querySelectorAll('.rm-item-btn, .save-wish-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = Number(btn.dataset.rmIdx ?? btn.dataset.saveIdx);
+            items.splice(idx, 1);
+            render();
+          });
+        });
+      }
+
+      document.getElementById('coupon-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+        const msg = document.getElementById('coupon-msg');
+        msg.classList.remove('hidden', 'text-error', 'text-success');
+        if (code === 'FOLIO10') {
+          couponApplied = true;
+          msg.textContent = 'Coupon FOLIO10 applied (10% off).';
+          msg.classList.add('text-success');
+        } else {
+          couponApplied = false;
+          msg.textContent = 'Invalid code. Try FOLIO10.';
+          msg.classList.add('text-error');
+        }
+        render();
+      });
+
+      render();
+    })();
+  </script>
+
+
+</body></html>

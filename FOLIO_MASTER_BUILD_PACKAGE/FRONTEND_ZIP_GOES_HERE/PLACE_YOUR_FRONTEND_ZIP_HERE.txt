@@ -1,0 +1,14 @@
+PLACE THE ORIGINAL GOOGLE STITCH FRONTEND ZIP IN THIS FOLDER.
+
+Expected archive contents:
+- 83 standalone code.html exports
+- 51 Customer screens
+- 18 Owner/Admin screens
+- 14 Support/Operations screens
+- folio_design_system.md
+
+Do not rename or edit the original archive. The master prompt instructs the coding agent
+to locate the ZIP, verify its contents and extract it into a safe reference folder.
+Alternatively, you may extract the archive here and preserve all original subfolders.
+
+This master backend package intentionally does not contain the frontend ZIP.

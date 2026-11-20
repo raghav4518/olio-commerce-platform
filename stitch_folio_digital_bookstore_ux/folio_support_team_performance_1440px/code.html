@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Performance — FOLIO Support</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex bg-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <aside id="supportSidebar" class="hidden lg:flex lg:w-64 shrink-0 flex-col justify-between border-r border-outline bg-surface-white min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-gutter-md p-gutter-md">
+        <div class="flex items-center justify-between px-2 py-1 border-b border-outline pb-3">
+          <a href="../support-dashboard/SupportDashboard.html" class="flex items-center gap-2" aria-label="FOLIO Support">
+            <svg width="74" height="26" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+            <span class="px-2 py-0.5 rounded bg-primary text-on-primary font-label text-label-sm">Support</span>
+          </a>
+        </div>
+        <nav aria-label="Support primary" class="flex flex-col gap-1">
+          <a href="../support-dashboard/SupportDashboard.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">dashboard</span><span>Dashboard</span></a>
+          <a href="../support-inbox/SupportInbox.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center justify-between"><span class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">inbox</span><span>Ticket Inbox</span></span><span class="px-2 py-0.5 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-on-surface tabular-nums">24</span></a>
+          <a href="../support-customers/SupportCustomers.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">group</span><span>Customers</span></a>
+          <a href="../support-orders/SupportOrderInvestigation.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">receipt_long</span><span>Orders &amp; Payments</span></a>
+          <a href="../support-ebook-access/SupportEbookAccess.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">menu_book</span><span>Ebook Access Issues</span></a>
+          <a href="../support-kb/SupportKnowledgeBase.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">library_books</span><span>Knowledge Base</span></a>
+          <a href="../support-saved-replies/SupportSavedReplies.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">quickreply</span><span>Saved Replies</span></a>
+          <a href="../support-notifications/SupportNotifications.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center justify-between"><span class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">notifications</span><span>Notifications</span></span><span class="px-2 py-0.5 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-on-surface tabular-nums">4</span></a>
+          <a href="../support-team-performance/SupportTeamPerformance.html" class="px-3 py-2 rounded bg-surface-hero font-label text-label-md text-on-surface flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">monitoring</span><span>Team Performance</span></a>
+          <a href="../support-reports/SupportReports.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">bar_chart</span><span>Reports</span></a>
+          <a href="../support-settings/SupportSettings.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted hover:text-on-surface hover:bg-surface-secondary flex items-center gap-2.5"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">settings</span><span>Profile &amp; Settings</span></a>
+        </nav>
+      </div>
+      <div class="p-gutter-md border-t border-outline flex items-center justify-between gap-2">
+        <div class="min-w-0">
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-success shrink-0" aria-hidden="true"></span><p class="font-label text-label-md text-on-surface truncate">Riya Deshmukh</p></div>
+          <p class="font-body text-body-sm text-on-surface-muted truncate">Senior Support Agent</p>
+        </div>
+        <a href="../auth-login-desktop/LoginDesktop.html" aria-label="Log out" class="p-2 rounded hover:bg-surface-hero text-on-surface-muted hover:text-on-surface"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">logout</span></a>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-w-0">
+      <header class="sticky top-0 z-30 bg-surface border-b border-outline px-page-margin md:px-gutter-xl h-16 flex items-center justify-between gap-gutter-md">
+        <div class="flex items-center gap-3 min-w-0">
+          <button type="button" id="openSupportDrawer" aria-label="Open support menu" class="lg:hidden w-10 h-10 rounded flex items-center justify-center border border-outline bg-surface-white shrink-0"><span class="material-symbols-outlined text-[20px]" aria-hidden="true">menu</span></button>
+          <div class="truncate">
+            <span class="font-label text-label-sm text-on-surface-muted hidden md:inline">Support / </span>
+            <span class="font-title text-title-sm text-on-surface">Team Performance</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-gutter-sm">
+          <span class="px-3 py-1 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-on-surface">Manager View</span>
+        </div>
+      </header>
+
+      <main class="p-page-margin md:p-gutter-xl max-w-[1360px] w-full mx-auto flex flex-col gap-gutter-xl">
+        <div>
+          <h1 class="font-headline text-display-lg-mobile md:text-headline-lg text-on-surface" data-design-text-token="headline-lg">Team Performance &amp; SLA Compliance</h1>
+          <p class="font-body text-body-sm text-on-surface-muted">Team-wide workload and SLA metrics (visible to Support Manager &amp; Owner/Admin roles).</p>
+        </div>
+
+        <section class="border border-outline rounded bg-surface-white overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-outline bg-surface-secondary">
+                <th class="p-3 font-label text-label-sm text-on-surface-muted uppercase tracking-wider">Agent</th>
+                <th class="p-3 font-label text-label-sm text-on-surface-muted uppercase tracking-wider">Status</th>
+                <th class="p-3 font-label text-label-sm text-on-surface-muted uppercase tracking-wider">Active Load</th>
+                <th class="p-3 font-label text-label-sm text-on-surface-muted uppercase tracking-wider">Resolved (7d)</th>
+                <th class="p-3 font-label text-label-sm text-on-surface-muted uppercase tracking-wider">Median 1st Response</th>
+                <th class="p-3 font-label text-label-sm text-on-surface-muted uppercase tracking-wider text-right">SLA Met</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline">
+              <tr class="hover:bg-surface-secondary">
+                <td class="p-3"><p class="font-title text-title-sm text-on-surface">Riya Deshmukh</p><p class="font-body text-body-sm text-on-surface-muted">Senior Support Agent</p></td>
+                <td class="p-3"><span class="px-2.5 py-0.5 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-success">Online</span></td>
+                <td class="p-3 font-body text-body-sm text-on-surface tabular-nums">7 tickets</td>
+                <td class="p-3 font-body text-body-sm text-on-surface tabular-nums">64</td>
+                <td class="p-3 font-body text-body-sm text-on-surface tabular-nums">12m</td>
+                <td class="p-3 text-right font-label text-label-sm text-success tabular-nums">97.2%</td>
+              </tr>
+              <tr class="hover:bg-surface-secondary">
+                <td class="p-3"><p class="font-title text-title-sm text-on-surface">Arjun Kulkarni</p><p class="font-body text-body-sm text-on-surface-muted">Support Agent</p></td>
+                <td class="p-3"><span class="px-2.5 py-0.5 rounded-full bg-surface-hero border border-outline font-label text-label-sm text-success">Online</span></td>
+                <td class="p-3 font-body text-body-sm text-on-surface tabular-nums">9 tickets</td>
+                <td class="p-3 font-body text-body-sm text-on-surface tabular-nums">51</td>
+                <td class="p-3 font-body text-body-sm text-on-surface tabular-nums">18m</td>
+                <td class="p-3 text-right font-label text-label-sm text-on-surface tabular-nums">93.8%</td>
+              </tr>
+              <tr class="hover:bg-surface-secondary">
+                <td class="p-3"><p class="font-title text-title-sm text-on-surface">Neha Kapoor</p><p class="font-body text-body-sm text-on-surface-muted">Support Manager</p></td>
+                <td class="p-3"><span class="px-2.5 py-0.5 rounded-full bg-surface-secondary border border-outline font-label text-label-sm text-on-surface-muted">In Review</span></td>
+                <td class="p-3 font-body text-body-sm text-on-surface tabular-nums">3 escalations</td>
+                <td class="p-3 font-body text-body-sm text-on-surface tabular-nums">28</td>
+                <td class="p-3 font-body text-body-sm text-on-surface tabular-nums">15m</td>
+                <td class="p-3 text-right font-label text-label-sm text-success tabular-nums">98.1%</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="supportDrawer" class="m-0 p-0 w-72 max-w-full min-h-[1024px] bg-surface-white border-r border-outline backdrop:bg-primary/30" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <div class="p-gutter-md flex flex-col justify-between min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-gutter-md">
+        <div class="flex items-center justify-between border-b border-outline pb-3">
+          <span class="font-title text-title-md text-on-surface">FOLIO Support</span>
+          <button type="button" id="closeSupportDrawer" aria-label="Close support menu" class="w-9 h-9 rounded flex items-center justify-center border border-outline"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">close</span></button>
+        </div>
+        <nav aria-label="Support mobile" class="flex flex-col gap-1">
+          <a href="../support-dashboard/SupportDashboard.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Dashboard</a>
+          <a href="../support-inbox/SupportInbox.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Ticket Inbox (24)</a>
+          <a href="../support-customers/SupportCustomers.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Customers</a>
+          <a href="../support-orders/SupportOrderInvestigation.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Orders &amp; Payments</a>
+          <a href="../support-ebook-access/SupportEbookAccess.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Ebook Access Issues</a>
+          <a href="../support-kb/SupportKnowledgeBase.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Knowledge Base</a>
+          <a href="../support-saved-replies/SupportSavedReplies.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Saved Replies</a>
+          <a href="../support-notifications/SupportNotifications.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Notifications (4)</a>
+          <a href="../support-team-performance/SupportTeamPerformance.html" class="px-3 py-2 rounded bg-surface-hero font-label text-label-md text-on-surface">Team Performance</a>
+          <a href="../support-reports/SupportReports.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Reports</a>
+          <a href="../support-settings/SupportSettings.html" class="px-3 py-2 rounded font-label text-label-md text-on-surface-muted">Profile &amp; Settings</a>
+        </nav>
+      </div>
+      <div class="pt-4 border-t border-outline">
+        <p class="font-label text-label-sm text-on-surface">Riya Deshmukh</p>
+        <p class="font-body text-body-sm text-on-surface-muted">Senior Support Agent</p>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      const drawer = document.getElementById('supportDrawer');
+      document.getElementById('openSupportDrawer')?.addEventListener('click', () => drawer.showModal());
+      document.getElementById('closeSupportDrawer')?.addEventListener('click', () => drawer.close());
+    })();
+  </script>
+
+
+</body></html>

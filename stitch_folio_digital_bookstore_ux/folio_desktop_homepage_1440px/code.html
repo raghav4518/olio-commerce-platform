@@ -1,0 +1,1239 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FOLIO — Curated Digital Bookstore</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+
+    /* Physically plausible 3D hardcover book geometry */
+    .hero-stage {
+      perspective: 1600px;
+    }
+
+    .book-3d-wrap {
+      transform-style: preserve-3d;
+      transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease;
+    }
+
+    .book-3d-left {
+      transform: rotateY(22deg) rotateZ(-3deg) scale(0.86);
+    }
+
+    .book-3d-center {
+      transform: rotateY(-5deg) rotateZ(0deg) scale(1);
+    }
+
+    .book-3d-right {
+      transform: rotateY(-22deg) rotateZ(3deg) scale(0.86);
+    }
+
+    .book-3d-wrap:hover .book-cover-face {
+      box-shadow: 0 28px 54px -14px rgba(23, 23, 23, 0.22);
+    }
+
+    .book-cover-face {
+      position: relative;
+      box-shadow: 0 22px 44px -12px rgba(23, 23, 23, 0.18);
+      transition: box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Subtle hardcover spine & page-edge thickness */
+    .book-spine-left {
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      left: -12px;
+      width: 12px;
+      background: linear-gradient(90deg, rgba(23, 23, 23, 0.22), rgba(23, 23, 23, 0.08));
+      transform-origin: right center;
+      transform: rotateY(-78deg);
+      border-radius: 2px 0 0 2px;
+    }
+
+    .book-pages-right {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      right: -10px;
+      width: 10px;
+      background: repeating-linear-gradient(
+        90deg,
+        #FAFAF9 0px,
+        #FAFAF9 2px,
+        #DEDEDC 2px,
+        #DEDEDC 3px
+      );
+      transform-origin: left center;
+      transform: rotateY(80deg);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .book-floor-shadow {
+      height: 18px;
+      background: radial-gradient(ellipse at center, rgba(23, 23, 23, 0.16) 0%, rgba(23, 23, 23, 0) 72%);
+      filter: blur(4px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .book-3d-wrap,
+      .book-cover-face {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased selection:bg-primary selection:text-on-primary">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- SECTION 01 — MINIMAL HEADER -->
+    <header class="sticky top-0 z-40 bg-surface border-b border-outline">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop h-20 grid grid-cols-3 items-center">
+        <!-- Left: Hamburger + Search trigger -->
+        <div class="flex items-center gap-gutter-sm">
+          <button id="btn-open-nav" data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Open navigation menu" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface transition-colors duration-state-change hover:bg-surface-hero focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">menu</span>
+          </button>
+          <button id="btn-open-search" data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Search books" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface transition-colors duration-state-change hover:bg-surface-hero focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">search</span>
+          </button>
+        </div>
+
+        <!-- Center: Handwritten-style FOLIO monogram -->
+        <div class="flex justify-center">
+          <a href="#top" aria-label="FOLIO Home" class="inline-flex items-center gap-2 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary rounded">
+            <svg width="94" height="32" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Right: Wishlist, Bag with count, Account -->
+        <div class="flex items-center justify-end gap-gutter-xs">
+          <button id="btn-wishlist-header" data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Wishlist" class="relative inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface transition-colors duration-state-change hover:bg-surface-hero focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">bookmark_border</span>
+            <span id="wishlist-count-badge" class="hidden absolute top-1.5 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-primary text-on-primary text-[10px] font-medium tabular-nums flex items-center justify-center">0</span>
+          </button>
+
+          <button id="btn-open-bag" data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Shopping bag" class="relative inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface transition-colors duration-state-change hover:bg-surface-hero focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">shopping_bag</span>
+            <span id="bag-count-badge" class="absolute top-1.5 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-primary text-on-primary text-[10px] font-medium tabular-nums flex items-center justify-center">0</span>
+          </button>
+
+          <button id="btn-account-header" data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Customer account" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface transition-colors duration-state-change hover:bg-surface-hero focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+            <span class="material-symbols-outlined text-[21px]" aria-hidden="true">person</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top" class="flex-1">
+
+      <!-- SECTION 02 — SIGNATURE HERO EXPERIENCE -->
+      <section class="bg-surface-hero border-b border-outline pt-14 pb-20">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop">
+
+          <!-- 3D Floating Book Trio -->
+          <div class="hero-stage relative flex items-end justify-center gap-12 pt-4 pb-8 min-h-[380px]">
+            <!-- Left Book -->
+            <div id="hero-slot-0" class="flex flex-col items-center">
+              <button type="button" data-hero-index="0" aria-label="Select featured book: Architecture of Quiet Places" class="hero-book-btn book-3d-wrap book-3d-left cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-primary rounded-sm">
+                <div class="book-cover-face w-[184px] aspect-[2/3] rounded-sm overflow-visible bg-surface-white">
+                  <div class="book-spine-left"></div>
+                  <img id="hero-img-0" src="https://lh3.googleusercontent.com/aida/ALJJyrBuIqhxqcI0-f-XDS6ZZBXdrOvh_8dIgRYLlZGAdUTF85Kv4Qm2Yz3bn6M__7B0uptPihDeoyFCQG5ix78cqgqswLOxQDAmFVCo4fXMivRXhT_oKAnZvCCZRDqbHaIUkmvAmyKAix3yc4YskmbjkFrr68nrbEiU0qmX-LD37O6wUXJueSbayjsRVYjnCK-W2fLbExBQPglx-UrnPJMM_3Nf_dJOUMGc0VZM1-vg2BMtd5PNAxvq4EZu4A" alt="Architecture of Quiet Places book cover" class="w-full h-full object-cover rounded-sm">
+                  <div class="book-pages-right"></div>
+                </div>
+              </button>
+              <div class="book-floor-shadow w-36 mt-6"></div>
+            </div>
+
+            <!-- Center Dominant Book -->
+            <div id="hero-slot-1" class="flex flex-col items-center z-10">
+              <button type="button" data-hero-index="1" aria-label="Inspect featured book: The Stillness Ledger" class="hero-book-btn book-3d-wrap book-3d-center cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-primary rounded-sm">
+                <div class="book-cover-face w-[236px] aspect-[2/3] rounded-sm overflow-visible bg-surface-white">
+                  <div class="book-spine-left"></div>
+                  <img id="hero-img-1" src="https://lh3.googleusercontent.com/aida/ALJJyrARaJCYbxEXxC_vQxuTmZGvq0E0qk8WolidDk86uSF2mODbjtaWQkP58RVUtQ_vbCIyeTN6c1rXTR5PLV0lGRLFbQV4j0_cVbKMhan8zzwxLMtiesN3nfa0F8Nj89DM7CK3-cNGi3hFoH_EtmEK0UCZcInhLl7MFx1hXgbstQCapTf9mKKUk-1uQKGfwiuRqvEwLQkkBQgJqO0V-yTiepvz0OoYmqtDqSmDLh7ec6rhY21CdswSCaYJBCU" alt="The Stillness Ledger book cover" class="w-full h-full object-cover rounded-sm">
+                  <div class="book-pages-right"></div>
+                </div>
+              </button>
+              <div class="book-floor-shadow w-48 mt-7"></div>
+            </div>
+
+            <!-- Right Book -->
+            <div id="hero-slot-2" class="flex flex-col items-center">
+              <button type="button" data-hero-index="2" aria-label="Select featured book: Essays on Material &amp; Light" class="hero-book-btn book-3d-wrap book-3d-right cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-primary rounded-sm">
+                <div class="book-cover-face w-[184px] aspect-[2/3] rounded-sm overflow-visible bg-surface-white">
+                  <div class="book-spine-left"></div>
+                  <img id="hero-img-2" src="https://lh3.googleusercontent.com/aida/ALJJyrCfSEf2rAtilb92ud6tHJ84sfJ_nXOQfWn1lTiMJjTAyaiCw-87lzIDxfxxj7iDM1N_1Fy9qijGBb265V4XBkkqVHJ4iI038Hxh_jhnvHPVOg0F8GLbvp_67TrJ6PxEbmtTkRMc-HCsFm0Ozt3bux23mfDP0S1xvaRPYYB1S3Sn7YQGFj0UujeUeSnARiTyRKMXSD0qvjDtHJ7YWHZN78RC9FkJtsdLmsCzQv_Tr7Dxi1nLg-oYK29yXV8" alt="Essays on Material and Light book cover" class="w-full h-full object-cover rounded-sm">
+                  <div class="book-pages-right"></div>
+                </div>
+              </button>
+              <div class="book-floor-shadow w-36 mt-6"></div>
+            </div>
+          </div>
+
+          <!-- Explicit, Stable Hero Position Controls -->
+          <div class="flex items-center justify-center gap-gutter-md mb-10">
+            <button id="hero-prev" type="button" aria-label="Previous featured book" class="w-9 h-9 rounded-full border border-outline bg-surface-white text-on-surface flex items-center justify-center transition-colors duration-state-change hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_back</span>
+            </button>
+
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-white border border-outline">
+              <button type="button" data-hero-dot="0" aria-label="Show book 1 in center" class="hero-dot w-2 h-2 rounded-full bg-outline transition-colors"></button>
+              <button type="button" data-hero-dot="1" aria-label="Show book 2 in center" class="hero-dot w-2.5 h-2.5 rounded-full bg-primary transition-colors"></button>
+              <button type="button" data-hero-dot="2" aria-label="Show book 3 in center" class="hero-dot w-2 h-2 rounded-full bg-outline transition-colors"></button>
+              <span id="hero-active-label" class="ml-2 font-label text-label-md text-on-surface-muted" data-design-text-token="label-md">The Stillness Ledger — Preview</span>
+            </div>
+
+            <button id="hero-next" type="button" aria-label="Next featured book" class="w-9 h-9 rounded-full border border-outline bg-surface-white text-on-surface flex items-center justify-center transition-colors duration-state-change hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+            </button>
+          </div>
+
+          <!-- Centered Editorial Headline & CTAs -->
+          <div class="max-w-2xl mx-auto text-center flex flex-col items-center gap-gutter-md">
+            <h1 class="font-headline text-display-lg text-on-surface text-balance" data-design-text-token="display-lg">
+              Discover Your Next Great Read
+            </h1>
+            <p class="font-body text-body-lg text-on-surface-muted text-pretty max-w-xl" data-design-text-token="body-lg">
+              Curated books, handpicked for every reader. Explore ideas, stories and perspectives worth keeping close.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-gutter-md pt-gutter-sm">
+              <a href="#bestsellers" data-component-id="button-primary" data-component-type="button" data-component-variant="primary" class="inline-flex items-center justify-center h-11 px-gutter-lg bg-primary text-on-primary rounded font-label text-label-lg whitespace-nowrap transition-colors duration-state-change hover:bg-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                <span data-design-text-token="label-lg">Explore Books</span>
+              </a>
+              <a href="#collections" data-component-id="button-secondary" data-component-type="button" data-component-variant="secondary" class="inline-flex items-center justify-center px-gutter-lg py-3 bg-surface-white text-on-surface border border-outline rounded font-label text-label-lg whitespace-nowrap transition-colors duration-state-change hover:border-primary hover:bg-surface-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                <span data-design-text-token="label-lg">Discover Our Collections</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 03 — READER BENEFITS -->
+      <section aria-label="Reader benefits" class="bg-surface border-b border-outline">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop py-6 grid grid-cols-4 gap-gutter-lg">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[20px] text-on-surface-muted" aria-hidden="true">bolt</span>
+            <span class="font-body text-body-sm text-on-surface" data-design-text-token="body-sm">Instant digital access</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[20px] text-on-surface-muted" aria-hidden="true">library_books</span>
+            <span class="font-body text-body-sm text-on-surface" data-design-text-token="body-sm">Your personal ebook library</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[20px] text-on-surface-muted" aria-hidden="true">devices</span>
+            <span class="font-body text-body-sm text-on-surface" data-design-text-token="body-sm">Read across supported devices</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-[20px] text-on-surface-muted" aria-hidden="true">verified_user</span>
+            <span class="font-body text-body-sm text-on-surface" data-design-text-token="body-sm">Secure checkout</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 04 — TRENDING AND BESTSELLING BOOKS -->
+      <section id="bestsellers" class="py-section-lg bg-surface">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop">
+          <div class="flex items-end justify-between border-b border-outline pb-gutter-lg mb-gutter-xl">
+            <div class="flex flex-col gap-gutter-xs">
+              <h2 class="font-headline text-headline-lg text-on-surface" data-design-text-token="headline-lg">Trending &amp; Bestselling Books</h2>
+              <p class="font-body text-body-md text-on-surface-muted" data-design-text-token="body-md">Thoughtful digital editions selected for depth, craft, and lasting relevance.</p>
+            </div>
+            <a href="#categories" class="inline-flex items-center gap-1.5 font-label text-label-lg text-on-surface underline underline-offset-4 hover:text-on-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary rounded">
+              <span data-design-text-token="label-lg">View All Books</span>
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-xl items-stretch">
+            <!-- Book 1 -->
+            <article data-component-id="card-action" data-component-type="card" data-component-variant="action" class="group bg-surface-white border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:border-accent h-full">
+              <div class="flex flex-col gap-gutter-md">
+                <div class="relative bg-surface-hero rounded-sm p-gutter-lg flex items-center justify-center aspect-[4/5]">
+                  <img src="https://lh3.googleusercontent.com/aida/ALJJyrA6lqWrf4A9QWouDya7f-Apz9asEm6LCBwseDOQYqT-yzAuSUO1vH6hyPosHfV_FVdTnmaV3VyQTRmiWiV2lVwIkzAXi89dP2CdF5G3YQ7J1IAklrm7ZI7vnHlwyu9j8lHEumO7rbJP2xsusjxlQmPBscEqVFYEa7jghtwA3dttu-VrsvE1_mOqf3JAB7E3c4wDDVVDPjIdZqMysoq-DbHeaBVu8fiRqekYP3Npb0RdMLC2yi7FAdEN" alt="The Art of Slow Thinking book cover" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow-md transition-transform duration-book-lift ease-book-lift group-hover:-translate-y-1">
+                  <button type="button" data-wishlist-id="slow-thinking" aria-label="Save The Art of Slow Thinking to wishlist" class="wishlist-btn absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-white border border-outline flex items-center justify-center text-on-surface hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bookmark_border</span>
+                  </button>
+                </div>
+                <header class="flex flex-col gap-1">
+                  <h3 class="font-title text-title-lg text-on-surface text-balance" data-design-text-token="title-lg">The Art of Slow Thinking</h3>
+                  <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Clara Vance</p>
+                </header>
+              </div>
+              <footer class="flex flex-col gap-gutter-sm pt-gutter-sm border-t border-outline">
+                <div class="flex items-baseline justify-between">
+                  <div class="flex items-baseline gap-2">
+                    <span class="font-body text-title-sm text-on-surface tabular-nums" data-design-text-token="title-sm">$18.00</span>
+                  </div>
+                  <button type="button" data-preview-id="slow-thinking" class="preview-btn font-label text-label-md text-on-surface-muted underline underline-offset-4 hover:text-on-surface">
+                    <span data-design-text-token="label-md">Preview</span>
+                  </button>
+                </div>
+                <button type="button" data-add-bag="slow-thinking" class="add-bag-btn w-full py-2.5 px-gutter-md bg-primary text-on-primary rounded font-label text-label-lg transition-colors duration-state-change hover:bg-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                  <span data-design-text-token="label-lg">Add to Bag</span>
+                </button>
+              </footer>
+            </article>
+
+            <!-- Book 2 (Genuine discount shown) -->
+            <article data-component-id="card-action" data-component-type="card" data-component-variant="action" class="group bg-surface-white border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:border-accent h-full">
+              <div class="flex flex-col gap-gutter-md">
+                <div class="relative bg-surface-hero rounded-sm p-gutter-lg flex items-center justify-center aspect-[4/5]">
+                  <img src="https://lh3.googleusercontent.com/aida/ALJJyrCgAOPZ9Zl5OI6cUIYB3zmb1_mbIH0_BcZOU09xg6X51iJMzkP4e1hH4m7kOhOn17p8M35c7PSub0lco0KvEKV8ruFun0K71VLd-iwDaQTIOnUQAZaBW02_3VHhm5WEdYfGYjo0_lU7USCcKsQGf9KNgYVtL4mz6v6LhNiArG0RgvVoTescEPuR_C8zkWhVWhbfmhLnmsE7mqhtyQentUS6YgK0vK_P6pAfEVczqPSeinLUDqYzDw" alt="Letters from a Quiet Room book cover" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow-md transition-transform duration-book-lift ease-book-lift group-hover:-translate-y-1">
+                  <button type="button" data-wishlist-id="quiet-room" aria-label="Save Letters from a Quiet Room to wishlist" class="wishlist-btn absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-white border border-outline flex items-center justify-center text-on-surface hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bookmark_border</span>
+                  </button>
+                </div>
+                <header class="flex flex-col gap-1">
+                  <h3 class="font-title text-title-lg text-on-surface text-balance" data-design-text-token="title-lg">Letters from a Quiet Room</h3>
+                  <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Henrik Lindholm</p>
+                </header>
+              </div>
+              <footer class="flex flex-col gap-gutter-sm pt-gutter-sm border-t border-outline">
+                <div class="flex items-baseline justify-between">
+                  <div class="flex items-baseline gap-2">
+                    <span class="font-body text-title-sm text-on-surface tabular-nums" data-design-text-token="title-sm">$14.50</span>
+                    <span class="font-body text-body-sm text-on-surface-muted line-through tabular-nums" data-design-text-token="body-sm">$19.00</span>
+                  </div>
+                  <button type="button" data-preview-id="quiet-room" class="preview-btn font-label text-label-md text-on-surface-muted underline underline-offset-4 hover:text-on-surface">
+                    <span data-design-text-token="label-md">Preview</span>
+                  </button>
+                </div>
+                <button type="button" data-add-bag="quiet-room" class="add-bag-btn w-full py-2.5 px-gutter-md bg-primary text-on-primary rounded font-label text-label-lg transition-colors duration-state-change hover:bg-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                  <span data-design-text-token="label-lg">Add to Bag</span>
+                </button>
+              </footer>
+            </article>
+
+            <!-- Book 3 -->
+            <article data-component-id="card-action" data-component-type="card" data-component-variant="action" class="group bg-surface-white border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:border-accent h-full">
+              <div class="flex flex-col gap-gutter-md">
+                <div class="relative bg-surface-hero rounded-sm p-gutter-lg flex items-center justify-center aspect-[4/5]">
+                  <img src="https://lh3.googleusercontent.com/aida/ALJJyrAWXq1VoteFqXvMtpnhLLzhxDkPeIX13b9HcULUS4_vtLlXPbaukoOLzBzJ4UpmBigVOwBKtmClg_EEfcY5yVGayAs5XA7NV7Kzli26StqgpcyF6cAQWZpQ6tpGG5ccbjyWCtmogxn5hnCeuGt6YlL14yw3tKUL7DA-LKc4d4O32ddMG3BEsWOSXagWppQACHQbqOkJGP_5etfg4Lj5KL9zM_dQsnLJYyVKOEbY1ZFx9EVJ-A" alt="Form, Space and Silence book cover" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow-md transition-transform duration-book-lift ease-book-lift group-hover:-translate-y-1">
+                  <button type="button" data-wishlist-id="form-space" aria-label="Save Form, Space and Silence to wishlist" class="wishlist-btn absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-white border border-outline flex items-center justify-center text-on-surface hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bookmark_border</span>
+                  </button>
+                </div>
+                <header class="flex flex-col gap-1">
+                  <h3 class="font-title text-title-lg text-on-surface text-balance" data-design-text-token="title-lg">Form, Space &amp; Silence</h3>
+                  <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Naomi Takahashi</p>
+                </header>
+              </div>
+              <footer class="flex flex-col gap-gutter-sm pt-gutter-sm border-t border-outline">
+                <div class="flex items-baseline justify-between">
+                  <span class="font-body text-title-sm text-on-surface tabular-nums" data-design-text-token="title-sm">$22.00</span>
+                  <button type="button" data-preview-id="form-space" class="preview-btn font-label text-label-md text-on-surface-muted underline underline-offset-4 hover:text-on-surface">
+                    <span data-design-text-token="label-md">Preview</span>
+                  </button>
+                </div>
+                <button type="button" data-add-bag="form-space" class="add-bag-btn w-full py-2.5 px-gutter-md bg-primary text-on-primary rounded font-label text-label-lg transition-colors duration-state-change hover:bg-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                  <span data-design-text-token="label-lg">Add to Bag</span>
+                </button>
+              </footer>
+            </article>
+
+            <!-- Book 4 -->
+            <article data-component-id="card-action" data-component-type="card" data-component-variant="action" class="group bg-surface-white border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:border-accent h-full">
+              <div class="flex flex-col gap-gutter-md">
+                <div class="relative bg-surface-hero rounded-sm p-gutter-lg flex items-center justify-center aspect-[4/5]">
+                  <img src="https://lh3.googleusercontent.com/aida/ALJJyrCD5PvAxIeg9LedkoZj3uv3w1AtTgCuFwQAhe4EmfscA-E7qXqfTDusq2Hx-XbhnAyecrLph5sokoM6k9GT-cnYer0EZ-OaScWJZKiDphF2RlJ8ZrT29dRW3NgoO-OySPFXQg9S_l_VBoaI7cBZ6a3rarRuTAL_77nqbqmiBzbrGLkJrQn4eL2qgRH9UioHOuV9DNivEIYJ1U-7wNR00E8tqy-qSqmkQys5M2TIX0JnvYoyS42_Mg" alt="Designing Resilient Systems book cover" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow-md transition-transform duration-book-lift ease-book-lift group-hover:-translate-y-1">
+                  <button type="button" data-wishlist-id="resilient-systems" aria-label="Save Designing Resilient Systems to wishlist" class="wishlist-btn absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-white border border-outline flex items-center justify-center text-on-surface hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bookmark_border</span>
+                  </button>
+                </div>
+                <header class="flex flex-col gap-1">
+                  <h3 class="font-title text-title-lg text-on-surface text-balance" data-design-text-token="title-lg">Designing Resilient Systems</h3>
+                  <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">David Okafor</p>
+                </header>
+              </div>
+              <footer class="flex flex-col gap-gutter-sm pt-gutter-sm border-t border-outline">
+                <div class="flex items-baseline justify-between">
+                  <span class="font-body text-title-sm text-on-surface tabular-nums" data-design-text-token="title-sm">$24.00</span>
+                  <button type="button" data-preview-id="resilient-systems" class="preview-btn font-label text-label-md text-on-surface-muted underline underline-offset-4 hover:text-on-surface">
+                    <span data-design-text-token="label-md">Preview</span>
+                  </button>
+                </div>
+                <button type="button" data-add-bag="resilient-systems" class="add-bag-btn w-full py-2.5 px-gutter-md bg-primary text-on-primary rounded font-label text-label-lg transition-colors duration-state-change hover:bg-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                  <span data-design-text-token="label-lg">Add to Bag</span>
+                </button>
+              </footer>
+            </article>
+
+            <!-- Book 5 -->
+            <article data-component-id="card-action" data-component-type="card" data-component-variant="action" class="group bg-surface-white border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:border-accent h-full">
+              <div class="flex flex-col gap-gutter-md">
+                <div class="relative bg-surface-hero rounded-sm p-gutter-lg flex items-center justify-center aspect-[4/5]">
+                  <img src="https://lh3.googleusercontent.com/aida/ALJJyrAbDHCMco2jHDMn8I3y5Xa5y2aWoqoE282Xkew8Vi-uFWxtZj814jLwarH_VGqNps2P9eAmxdGm2-NErU1rpUjt3EicioLEu78WMhJHozswVaQX59xuQGK0FE-KT2nTLkZ8H7Tgm6G_eSsAQgUprDD0lsfnmN_YcirJmx6Fm5l5JV6QrQgdDwQpcfbRzap9DobpouS_Bmrsf25uFIamO0sw4WEW_Q6JEaRPf5WZWWfLJpEwQ1p_" alt="The Memory of Objects book cover" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow-md transition-transform duration-book-lift ease-book-lift group-hover:-translate-y-1">
+                  <button type="button" data-wishlist-id="memory-objects" aria-label="Save The Memory of Objects to wishlist" class="wishlist-btn absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-white border border-outline flex items-center justify-center text-on-surface hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bookmark_border</span>
+                  </button>
+                </div>
+                <header class="flex flex-col gap-1">
+                  <h3 class="font-title text-title-lg text-on-surface text-balance" data-design-text-token="title-lg">The Memory of Objects</h3>
+                  <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Elena Rostova</p>
+                </header>
+              </div>
+              <footer class="flex flex-col gap-gutter-sm pt-gutter-sm border-t border-outline">
+                <div class="flex items-baseline justify-between">
+                  <span class="font-body text-title-sm text-on-surface tabular-nums" data-design-text-token="title-sm">$16.00</span>
+                  <button type="button" data-preview-id="memory-objects" class="preview-btn font-label text-label-md text-on-surface-muted underline underline-offset-4 hover:text-on-surface">
+                    <span data-design-text-token="label-md">Preview</span>
+                  </button>
+                </div>
+                <button type="button" data-add-bag="memory-objects" class="add-bag-btn w-full py-2.5 px-gutter-md bg-primary text-on-primary rounded font-label text-label-lg transition-colors duration-state-change hover:bg-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                  <span data-design-text-token="label-lg">Add to Bag</span>
+                </button>
+              </footer>
+            </article>
+
+            <!-- Book 6 -->
+            <article data-component-id="card-action" data-component-type="card" data-component-variant="action" class="group bg-surface-white border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:border-accent h-full">
+              <div class="flex flex-col gap-gutter-md">
+                <div class="relative bg-surface-hero rounded-sm p-gutter-lg flex items-center justify-center aspect-[4/5]">
+                  <img src="https://lh3.googleusercontent.com/aida/ALJJyrARaJCYbxEXxC_vQxuTmZGvq0E0qk8WolidDk86uSF2mODbjtaWQkP58RVUtQ_vbCIyeTN6c1rXTR5PLV0lGRLFbQV4j0_cVbKMhan8zzwxLMtiesN3nfa0F8Nj89DM7CK3-cNGi3hFoH_EtmEK0UCZcInhLl7MFx1hXgbstQCapTf9mKKUk-1uQKGfwiuRqvEwLQkkBQgJqO0V-yTiepvz0OoYmqtDqSmDLh7ec6rhY21CdswSCaYJBCU" alt="The Stillness Ledger book cover" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow-md transition-transform duration-book-lift ease-book-lift group-hover:-translate-y-1">
+                  <button type="button" data-wishlist-id="stillness-ledger" aria-label="Save The Stillness Ledger to wishlist" class="wishlist-btn absolute top-3 right-3 w-10 h-10 rounded-full bg-surface-white border border-outline flex items-center justify-center text-on-surface hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">bookmark_border</span>
+                  </button>
+                </div>
+                <header class="flex flex-col gap-1">
+                  <h3 class="font-title text-title-lg text-on-surface text-balance" data-design-text-token="title-lg">The Stillness Ledger</h3>
+                  <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Marcus Sterling</p>
+                </header>
+              </div>
+              <footer class="flex flex-col gap-gutter-sm pt-gutter-sm border-t border-outline">
+                <div class="flex items-baseline justify-between">
+                  <span class="font-body text-title-sm text-on-surface tabular-nums" data-design-text-token="title-sm">$19.00</span>
+                  <button type="button" data-preview-id="stillness-ledger" class="preview-btn font-label text-label-md text-on-surface-muted underline underline-offset-4 hover:text-on-surface">
+                    <span data-design-text-token="label-md">Preview</span>
+                  </button>
+                </div>
+                <button type="button" data-add-bag="stillness-ledger" class="add-bag-btn w-full py-2.5 px-gutter-md bg-primary text-on-primary rounded font-label text-label-lg transition-colors duration-state-change hover:bg-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                  <span data-design-text-token="label-lg">Add to Bag</span>
+                </button>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 05 — CURATED COLLECTIONS -->
+      <section id="collections" class="py-section-lg bg-surface-secondary border-y border-outline">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop">
+          <div class="flex items-end justify-between border-b border-outline pb-gutter-lg mb-gutter-xl">
+            <div class="flex flex-col gap-gutter-xs">
+              <h2 class="font-headline text-headline-lg text-on-surface" data-design-text-token="headline-lg">Curated Collections</h2>
+              <p class="font-body text-body-md text-on-surface-muted" data-design-text-token="body-md">Thematic reading shelves assembled by our editorial team.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter-xl">
+            <!-- Collection 1 -->
+            <a href="#bestsellers" class="group bg-surface-white border border-outline rounded p-gutter-xl grid grid-cols-1 md:grid-cols-12 gap-gutter-lg items-center transition-colors duration-state-change hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="md:col-span-5 relative h-44 overflow-hidden flex items-center justify-center bg-surface-hero rounded-sm p-gutter-md">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrA6lqWrf4A9QWouDya7f-Apz9asEm6LCBwseDOQYqT-yzAuSUO1vH6hyPosHfV_FVdTnmaV3VyQTRmiWiV2lVwIkzAXi89dP2CdF5G3YQ7J1IAklrm7ZI7vnHlwyu9j8lHEumO7rbJP2xsusjxlQmPBscEqVFYEa7jghtwA3dttu-VrsvE1_mOqf3JAB7E3c4wDDVVDPjIdZqMysoq-DbHeaBVu8fiRqekYP3Npb0RdMLC2yi7FAdEN" alt class="w-20 aspect-[2/3] object-cover rounded-sm shadow-md -rotate-6 -translate-x-4">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrARaJCYbxEXxC_vQxuTmZGvq0E0qk8WolidDk86uSF2mODbjtaWQkP58RVUtQ_vbCIyeTN6c1rXTR5PLV0lGRLFbQV4j0_cVbKMhan8zzwxLMtiesN3nfa0F8Nj89DM7CK3-cNGi3hFoH_EtmEK0UCZcInhLl7MFx1hXgbstQCapTf9mKKUk-1uQKGfwiuRqvEwLQkkBQgJqO0V-yTiepvz0OoYmqtDqSmDLh7ec6rhY21CdswSCaYJBCU" alt class="w-24 aspect-[2/3] object-cover rounded-sm shadow-lg z-10 translate-x-2">
+              </div>
+              <div class="md:col-span-7 flex flex-col gap-gutter-sm">
+                <h3 class="font-headline text-headline-md text-on-surface group-hover:underline underline-offset-4" data-design-text-token="headline-md">The Art of Thinking</h3>
+                <p class="font-body text-body-md text-on-surface-muted text-pretty" data-design-text-token="body-md">Essays on judgment, mental models, and deliberate clarity in an impatient age.</p>
+                <span class="font-label text-label-md text-on-surface inline-flex items-center gap-1 pt-1" data-design-text-token="label-md">Explore shelf <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_forward</span></span>
+              </div>
+            </a>
+
+            <!-- Collection 2 -->
+            <a href="#bestsellers" class="group bg-surface-white border border-outline rounded p-gutter-xl grid grid-cols-1 md:grid-cols-12 gap-gutter-lg items-center transition-colors duration-state-change hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="md:col-span-5 relative h-44 overflow-hidden flex items-center justify-center bg-surface-hero rounded-sm p-gutter-md">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrCgAOPZ9Zl5OI6cUIYB3zmb1_mbIH0_BcZOU09xg6X51iJMzkP4e1hH4m7kOhOn17p8M35c7PSub0lco0KvEKV8ruFun0K71VLd-iwDaQTIOnUQAZaBW02_3VHhm5WEdYfGYjo0_lU7USCcKsQGf9KNgYVtL4mz6v6LhNiArG0RgvVoTescEPuR_C8zkWhVWhbfmhLnmsE7mqhtyQentUS6YgK0vK_P6pAfEVczqPSeinLUDqYzDw" alt class="w-20 aspect-[2/3] object-cover rounded-sm shadow-md -rotate-6 -translate-x-4">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrAbDHCMco2jHDMn8I3y5Xa5y2aWoqoE282Xkew8Vi-uFWxtZj814jLwarH_VGqNps2P9eAmxdGm2-NErU1rpUjt3EicioLEu78WMhJHozswVaQX59xuQGK0FE-KT2nTLkZ8H7Tgm6G_eSsAQgUprDD0lsfnmN_YcirJmx6Fm5l5JV6QrQgdDwQpcfbRzap9DobpouS_Bmrsf25uFIamO0sw4WEW_Q6JEaRPf5WZWWfLJpEwQ1p_" alt class="w-24 aspect-[2/3] object-cover rounded-sm shadow-lg z-10 translate-x-2">
+              </div>
+              <div class="md:col-span-7 flex flex-col gap-gutter-sm">
+                <h3 class="font-headline text-headline-md text-on-surface group-hover:underline underline-offset-4" data-design-text-token="headline-md">Stories Worth Remembering</h3>
+                <p class="font-body text-body-md text-on-surface-muted text-pretty" data-design-text-token="body-md">Quiet literary fiction, epistolary works, and intimate portraits of human memory.</p>
+                <span class="font-label text-label-md text-on-surface inline-flex items-center gap-1 pt-1" data-design-text-token="label-md">Explore shelf <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_forward</span></span>
+              </div>
+            </a>
+
+            <!-- Collection 3 -->
+            <a href="#bestsellers" class="group bg-surface-white border border-outline rounded p-gutter-xl grid grid-cols-1 md:grid-cols-12 gap-gutter-lg items-center transition-colors duration-state-change hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="md:col-span-5 relative h-44 overflow-hidden flex items-center justify-center bg-surface-hero rounded-sm p-gutter-md">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrCD5PvAxIeg9LedkoZj3uv3w1AtTgCuFwQAhe4EmfscA-E7qXqfTDusq2Hx-XbhnAyecrLph5sokoM6k9GT-cnYer0EZ-OaScWJZKiDphF2RlJ8ZrT29dRW3NgoO-OySPFXQg9S_l_VBoaI7cBZ6a3rarRuTAL_77nqbqmiBzbrGLkJrQn4eL2qgRH9UioHOuV9DNivEIYJ1U-7wNR00E8tqy-qSqmkQys5M2TIX0JnvYoyS42_Mg" alt class="w-20 aspect-[2/3] object-cover rounded-sm shadow-md -rotate-6 -translate-x-4">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrAWXq1VoteFqXvMtpnhLLzhxDkPeIX13b9HcULUS4_vtLlXPbaukoOLzBzJ4UpmBigVOwBKtmClg_EEfcY5yVGayAs5XA7NV7Kzli26StqgpcyF6cAQWZpQ6tpGG5ccbjyWCtmogxn5hnCeuGt6YlL14yw3tKUL7DA-LKc4d4O32ddMG3BEsWOSXagWppQACHQbqOkJGP_5etfg4Lj5KL9zM_dQsnLJYyVKOEbY1ZFx9EVJ-A" alt class="w-24 aspect-[2/3] object-cover rounded-sm shadow-lg z-10 translate-x-2">
+              </div>
+              <div class="md:col-span-7 flex flex-col gap-gutter-sm">
+                <h3 class="font-headline text-headline-md text-on-surface group-hover:underline underline-offset-4" data-design-text-token="headline-md">Build Your Next Big Idea</h3>
+                <p class="font-body text-body-md text-on-surface-muted text-pretty" data-design-text-token="body-md">Foundational texts on architecture, product craft, and durable creative ventures.</p>
+                <span class="font-label text-label-md text-on-surface inline-flex items-center gap-1 pt-1" data-design-text-token="label-md">Explore shelf <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_forward</span></span>
+              </div>
+            </a>
+
+            <!-- Collection 4 -->
+            <a href="#bestsellers" class="group bg-surface-white border border-outline rounded p-gutter-xl grid grid-cols-1 md:grid-cols-12 gap-gutter-lg items-center transition-colors duration-state-change hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="md:col-span-5 relative h-44 overflow-hidden flex items-center justify-center bg-surface-hero rounded-sm p-gutter-md">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrBuIqhxqcI0-f-XDS6ZZBXdrOvh_8dIgRYLlZGAdUTF85Kv4Qm2Yz3bn6M__7B0uptPihDeoyFCQG5ix78cqgqswLOxQDAmFVCo4fXMivRXhT_oKAnZvCCZRDqbHaIUkmvAmyKAix3yc4YskmbjkFrr68nrbEiU0qmX-LD37O6wUXJueSbayjsRVYjnCK-W2fLbExBQPglx-UrnPJMM_3Nf_dJOUMGc0VZM1-vg2BMtd5PNAxvq4EZu4A" alt class="w-20 aspect-[2/3] object-cover rounded-sm shadow-md -rotate-6 -translate-x-4">
+                <img src="https://lh3.googleusercontent.com/aida/ALJJyrCfSEf2rAtilb92ud6tHJ84sfJ_nXOQfWn1lTiMJjTAyaiCw-87lzIDxfxxj7iDM1N_1Fy9qijGBb265V4XBkkqVHJ4iI038Hxh_jhnvHPVOg0F8GLbvp_67TrJ6PxEbmtTkRMc-HCsFm0Ozt3bux23mfDP0S1xvaRPYYB1S3Sn7YQGFj0UujeUeSnARiTyRKMXSD0qvjDtHJ7YWHZN78RC9FkJtsdLmsCzQv_Tr7Dxi1nLg-oYK29yXV8" alt class="w-24 aspect-[2/3] object-cover rounded-sm shadow-lg z-10 translate-x-2">
+              </div>
+              <div class="md:col-span-7 flex flex-col gap-gutter-sm">
+                <h3 class="font-headline text-headline-md text-on-surface group-hover:underline underline-offset-4" data-design-text-token="headline-md">Books for Curious Minds</h3>
+                <p class="font-body text-body-md text-on-surface-muted text-pretty" data-design-text-token="body-md">Cross-disciplinary inquiries spanning science, culture, ecology, and design history.</p>
+                <span class="font-label text-label-md text-on-surface inline-flex items-center gap-1 pt-1" data-design-text-token="label-md">Explore shelf <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_forward</span></span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 06 — BROWSE BY CATEGORY -->
+      <section id="categories" class="py-section-lg bg-surface">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop">
+          <div class="flex items-end justify-between border-b border-outline pb-gutter-lg mb-gutter-xl">
+            <div class="flex flex-col gap-gutter-xs">
+              <h2 class="font-headline text-headline-lg text-on-surface" data-design-text-token="headline-lg">Browse by Category</h2>
+              <p class="font-body text-body-md text-on-surface-muted" data-design-text-token="body-md">Navigate our digital catalogue by discipline and subject.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-gutter-md">
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Fiction</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Literary novels &amp; translations</p>
+            </a>
+
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Business</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Strategy, leadership &amp; craft</p>
+            </a>
+
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Technology</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Computing &amp; digital culture</p>
+            </a>
+
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Programming</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Software architecture &amp; code</p>
+            </a>
+
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Psychology</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Perception, habit &amp; mind</p>
+            </a>
+
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Personal Growth</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Focus, discipline &amp; reflection</p>
+            </a>
+
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Education</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Pedagogy &amp; lifelong study</p>
+            </a>
+
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Creativity</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Visual arts, writing &amp; studio</p>
+            </a>
+
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Finance</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Economics &amp; stewardship</p>
+            </a>
+
+            <a href="#bestsellers" data-component-id="card-interactive" data-component-type="card" data-component-variant="interactive" class="bg-surface-secondary border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md transition-colors duration-state-change hover:bg-surface-white hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <div class="flex items-center justify-between">
+                <h3 class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Philosophy</h3>
+                <span class="material-symbols-outlined text-[18px] text-on-surface-muted" aria-hidden="true">arrow_forward</span>
+              </div>
+              <p class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Ethics, aesthetics &amp; reason</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 07 — FEATURED BOOK OF THE MONTH -->
+      <section class="py-section-lg bg-surface-hero border-y border-outline">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter-xl items-center">
+          <div class="md:col-span-5 flex flex-col items-center justify-center py-gutter-lg">
+            <div class="book-cover-face w-[300px] aspect-[2/3] rounded-sm bg-surface-white">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrBTrwlybMTjYj0IOVf9pG1A-9-YKXcjAOy4EQK-0euLlLE1maWKvdNoLU5RdwmkkmT7vuECLg2wDazpuCx2tfA64dJAz_qcICRExwFxBUN3t_-3_JIJW9L8blQh6kH6IfrOi6UFsbAGC1XEk-JyoKpjDX35kBTqyx7zGHGmmE4QuhUE8C2jo0lUukK4HOHj7ENwIwq-sLV_UY4xxUcOAiRo_axTNIRk3tEq_GyntVurEtiJfLs" alt="On Attention and Deep Craft book cover" class="w-full h-full object-cover rounded-sm">
+            </div>
+            <div class="book-floor-shadow w-60 mt-8"></div>
+          </div>
+
+          <div class="md:col-span-7 flex flex-col gap-gutter-lg max-w-xl">
+            <div class="flex flex-col gap-gutter-xs">
+              <span class="font-label text-label-md uppercase tracking-widest text-on-surface-muted" data-design-text-token="label-md">Featured Book of the Month</span>
+              <h2 class="font-headline text-headline-lg text-on-surface text-balance" data-design-text-token="headline-lg">On Attention &amp; Deep Craft</h2>
+              <p class="font-body text-body-lg text-on-surface-muted" data-design-text-token="body-lg">By Julian Mercer</p>
+            </div>
+
+            <p class="font-body text-body-md text-on-surface text-pretty" data-design-text-token="body-md">
+              A lucid meditation on how patient observation shapes enduring work. Drawing from studio notebooks, typography workshops, and quiet architectural spaces, Mercer examines what happens when we slow down enough to notice detail.
+            </p>
+
+            <div class="border-t border-outline pt-gutter-md flex flex-col gap-gutter-sm">
+              <h3 class="font-label text-label-md uppercase tracking-wider text-on-surface-muted" data-design-text-token="label-md">What readers will discover</h3>
+              <ul class="flex flex-col gap-2 font-body text-body-md text-on-surface">
+                <li class="flex items-start gap-2.5">
+                  <span class="material-symbols-outlined text-[18px] text-on-surface-muted mt-0.5" aria-hidden="true">check</span>
+                  <span>Practical rhythms for protecting uninterrupted creative hours</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="material-symbols-outlined text-[18px] text-on-surface-muted mt-0.5" aria-hidden="true">check</span>
+                  <span>Why restraint and negative space sharpen both writing and design</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="material-symbols-outlined text-[18px] text-on-surface-muted mt-0.5" aria-hidden="true">check</span>
+                  <span>Field notes from independent bookmakers, editors, and builders</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="flex items-center gap-gutter-md pt-gutter-sm">
+              <span class="font-headline text-headline-md text-on-surface tabular-nums" data-design-text-token="headline-md">$21.00</span>
+              <button type="button" data-add-bag="attention-craft" class="add-bag-btn inline-flex items-center justify-center px-gutter-lg py-3 bg-primary text-on-primary rounded font-label text-label-lg transition-colors duration-state-change hover:bg-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                <span data-design-text-token="label-lg">Purchase Digital Edition</span>
+              </button>
+              <button type="button" data-preview-id="attention-craft" class="preview-btn inline-flex items-center justify-center px-gutter-lg py-3 bg-surface-white text-on-surface border border-outline rounded font-label text-label-lg transition-colors duration-state-change hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                <span data-design-text-token="label-lg">Read Sample</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 08 — HOW DIGITAL READING WORKS -->
+      <section class="py-section-lg bg-surface border-b border-outline">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop">
+          <div class="max-w-xl mb-gutter-xl">
+            <h2 class="font-headline text-headline-lg text-on-surface mb-gutter-xs" data-design-text-token="headline-lg">How Digital Reading Works</h2>
+            <p class="font-body text-body-md text-on-surface-muted" data-design-text-token="body-md">From discovery to your personal reading shelf in moments.</p>
+          </div>
+
+          <div class="grid grid-cols-3 gap-gutter-xl">
+            <div class="border-t border-outline pt-gutter-lg flex flex-col gap-gutter-sm">
+              <span class="font-label text-label-md uppercase tracking-widest text-on-surface-muted" data-design-text-token="label-md">First</span>
+              <h3 class="font-title text-title-lg text-on-surface" data-design-text-token="title-lg">Discover a book</h3>
+              <p class="font-body text-body-md text-on-surface-muted text-pretty" data-design-text-token="body-md">Browse curated shelves or read opening chapter previews before deciding what belongs in your library.</p>
+            </div>
+            <div class="border-t border-outline pt-gutter-lg flex flex-col gap-gutter-sm">
+              <span class="font-label text-label-md uppercase tracking-widest text-on-surface-muted" data-design-text-token="label-md">Second</span>
+              <h3 class="font-title text-title-lg text-on-surface" data-design-text-token="title-lg">Purchase securely</h3>
+              <p class="font-body text-body-md text-on-surface-muted text-pretty" data-design-text-token="body-md">Complete checkout in seconds with encrypted payment processing and clear digital edition licensing.</p>
+            </div>
+            <div class="border-t border-outline pt-gutter-lg flex flex-col gap-gutter-sm">
+              <span class="font-label text-label-md uppercase tracking-widest text-on-surface-muted" data-design-text-token="label-md">Third</span>
+              <h3 class="font-title text-title-lg text-on-surface" data-design-text-token="title-lg">Read online or download</h3>
+              <p class="font-body text-body-md text-on-surface-muted text-pretty" data-design-text-token="body-md">Open your book immediately in our web reader or download standard EPUB and PDF files where permitted.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 09 — READER REVIEWS (VERIFIED PLACEHOLDERS ONLY) -->
+      <section class="py-section-lg bg-surface-secondary border-b border-outline">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop">
+          <div class="flex items-end justify-between border-b border-outline pb-gutter-lg mb-gutter-xl">
+            <div class="flex flex-col gap-gutter-xs">
+              <h2 class="font-headline text-headline-lg text-on-surface" data-design-text-token="headline-lg">Reader Reviews</h2>
+              <p class="font-body text-body-md text-on-surface-muted" data-design-text-token="body-md">Reserved for genuine, verified-purchase reader notes. No fabricated ratings are shown.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-gutter-lg items-stretch">
+            <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="bg-surface-white border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md">
+              <div class="flex flex-col gap-gutter-sm">
+                <span class="font-label text-label-sm uppercase tracking-wider text-on-surface-muted" data-design-text-token="label-sm">Verified Purchase Placeholder</span>
+                <p class="font-body text-body-md text-on-surface-muted italic" data-design-text-token="body-md">“Space reserved for a verified reader’s reflection on The Art of Slow Thinking once published orders are reviewed.”</p>
+              </div>
+              <footer class="pt-gutter-sm border-t border-outline flex items-center justify-between">
+                <span class="font-label text-label-md text-on-surface" data-design-text-token="label-md">Verified Reader</span>
+                <span class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Awaiting review</span>
+              </footer>
+            </article>
+
+            <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="bg-surface-white border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md">
+              <div class="flex flex-col gap-gutter-sm">
+                <span class="font-label text-label-sm uppercase tracking-wider text-on-surface-muted" data-design-text-token="label-sm">Verified Purchase Placeholder</span>
+                <p class="font-body text-body-md text-on-surface-muted italic" data-design-text-token="body-md">“Space reserved for a verified reader’s reflection on Letters from a Quiet Room once published orders are reviewed.”</p>
+              </div>
+              <footer class="pt-gutter-sm border-t border-outline flex items-center justify-between">
+                <span class="font-label text-label-md text-on-surface" data-design-text-token="label-md">Verified Reader</span>
+                <span class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Awaiting review</span>
+              </footer>
+            </article>
+
+            <article data-component-id="card-elevated" data-component-type="card" data-component-variant="elevated" class="bg-surface-white border border-outline rounded p-gutter-lg flex flex-col justify-between gap-gutter-md">
+              <div class="flex flex-col gap-gutter-sm">
+                <span class="font-label text-label-sm uppercase tracking-wider text-on-surface-muted" data-design-text-token="label-sm">Verified Purchase Placeholder</span>
+                <p class="font-body text-body-md text-on-surface-muted italic" data-design-text-token="body-md">“Space reserved for a verified reader’s reflection on On Attention &amp; Deep Craft once published orders are reviewed.”</p>
+              </div>
+              <footer class="pt-gutter-sm border-t border-outline flex items-center justify-between">
+                <span class="font-label text-label-md text-on-surface" data-design-text-token="label-md">Verified Reader</span>
+                <span class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Awaiting review</span>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 10 — NEWSLETTER -->
+      <section class="py-section-lg bg-surface">
+        <div class="max-w-xl mx-auto px-page-margin-desktop text-center flex flex-col items-center gap-gutter-md">
+          <h2 class="font-headline text-headline-lg text-on-surface text-balance" data-design-text-token="headline-lg">Good books find their way to you.</h2>
+          <p class="font-body text-body-md text-on-surface-muted text-pretty" data-design-text-token="body-md">
+            Receive an unhurried weekly note when new editions, essays, and curated reading lists arrive.
+          </p>
+          <form id="newsletter-form" class="w-full flex items-stretch gap-gutter-sm pt-gutter-sm" novalidate>
+            <label for="newsletter-email" class="sr-only">Email address</label>
+            <input id="newsletter-email" type="email" required placeholder="reader@domain.com" class="flex-1 px-gutter-md py-3 bg-surface-white border border-outline rounded text-body-md text-on-surface placeholder:text-on-surface-muted focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+            <button type="submit" data-component-id="button-primary" data-component-type="button" data-component-variant="primary" class="inline-flex items-center justify-center h-11 px-gutter-lg bg-primary text-on-primary rounded font-label text-label-lg whitespace-nowrap transition-colors duration-state-change hover:bg-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <span data-design-text-token="label-lg">Subscribe</span>
+            </button>
+          </form>
+          <p id="newsletter-feedback" class="hidden font-body text-body-sm" role="status"></p>
+        </div>
+      </section>
+    </main>
+
+    <!-- SECTION 11 — FOOTER -->
+    <footer class="bg-surface-secondary border-t border-outline pt-section-sm pb-gutter-xl">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop">
+        <div class="grid grid-cols-12 gap-gutter-xl pb-section-sm border-b border-outline">
+          <div class="col-span-4 flex flex-col gap-gutter-md">
+            <a href="#top" aria-label="FOLIO Home" class="inline-flex items-center">
+              <svg width="86" height="30" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+                <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+              </svg>
+            </a>
+            <p class="font-body text-body-sm text-on-surface-muted max-w-xs" data-design-text-token="body-sm">
+              An independent digital bookstore dedicated to enduring books, quiet reading spaces, and thoughtful curation.
+            </p>
+          </div>
+
+          <div class="col-span-2 flex flex-col gap-gutter-sm">
+            <h3 class="font-label text-label-md uppercase tracking-wider text-on-surface" data-design-text-token="label-md">Bookstore</h3>
+            <ul class="flex flex-col gap-2 font-body text-body-sm text-on-surface-muted">
+              <li><a href="#bestsellers" class="hover:text-on-surface">Explore books</a></li>
+              <li><a href="#categories" class="hover:text-on-surface">Categories</a></li>
+              <li><a href="#collections" class="hover:text-on-surface">Collections</a></li>
+              <li><a href="#top" class="hover:text-on-surface">About</a></li>
+            </ul>
+          </div>
+
+          <div class="col-span-3 flex flex-col gap-gutter-sm">
+            <h3 class="font-label text-label-md uppercase tracking-wider text-on-surface" data-design-text-token="label-md">Reader Care</h3>
+            <ul class="flex flex-col gap-2 font-body text-body-sm text-on-surface-muted">
+              <li><a href="#top" class="hover:text-on-surface">Customer account</a></li>
+              <li><a href="#top" class="hover:text-on-surface">Contact</a></li>
+              <li><a href="#top" class="hover:text-on-surface">FAQ</a></li>
+              <li><a href="#top" class="hover:text-on-surface">Refund policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-span-3 flex flex-col gap-gutter-sm">
+            <h3 class="font-label text-label-md uppercase tracking-wider text-on-surface" data-design-text-token="label-md">Legal &amp; Journal</h3>
+            <ul class="flex flex-col gap-2 font-body text-body-sm text-on-surface-muted">
+              <li><a href="#top" class="hover:text-on-surface">Privacy policy</a></li>
+              <li><a href="#top" class="hover:text-on-surface">Terms and conditions</a></li>
+              <li><a href="#top" class="hover:text-on-surface">Instagram</a></li>
+              <li><a href="#top" class="hover:text-on-surface">Editorial Notes</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-gutter-lg flex items-center justify-between font-body text-body-sm text-on-surface-muted">
+          <span data-design-text-token="body-sm">© 2026 FOLIO Digital Bookstore. All rights reserved.</span>
+          <span data-design-text-token="body-sm">Instant digital editions · EPUB &amp; Web Reader</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- NAVIGATION DRAWER (LEFT) -->
+  <dialog id="nav-drawer" data-component-id="drawer-left" data-component-type="drawer" data-component-variant="left" aria-labelledby="nav-drawer-title" class="m-0 mr-auto h-full max-h-[1024px] w-full max-w-sm bg-surface-white text-on-surface p-0 border-r border-outline backdrop:bg-on-surface/30" data-stitch-vh="max-h-[1024px]===max-h-screen">
+    <div class="flex flex-col h-full">
+      <header class="flex items-center justify-between px-gutter-lg py-gutter-md border-b border-outline">
+        <h2 id="nav-drawer-title" class="font-headline text-title-lg text-on-surface" data-design-text-token="title-lg">Browse FOLIO</h2>
+        <button id="btn-close-nav" type="button" aria-label="Close navigation" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-hero">
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span>
+        </button>
+      </header>
+
+      <div class="p-gutter-lg border-b border-outline">
+        <button id="drawer-search-trigger" type="button" class="w-full flex items-center gap-3 px-gutter-md py-2.5 bg-surface-secondary border border-outline rounded text-body-sm text-on-surface-muted hover:border-primary">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">search</span>
+          <span>Search titles, authors, subjects...</span>
+        </button>
+      </div>
+
+      <nav class="p-gutter-lg flex flex-col gap-1 flex-1 overflow-y-auto">
+        <a href="#top" class="nav-link py-2.5 font-body text-body-lg text-on-surface hover:text-on-surface-muted">Home</a>
+        <a href="#bestsellers" class="nav-link py-2.5 font-body text-body-lg text-on-surface hover:text-on-surface-muted">Explore Books</a>
+        <a href="#categories" class="nav-link py-2.5 font-body text-body-lg text-on-surface hover:text-on-surface-muted">Categories</a>
+        <a href="#collections" class="nav-link py-2.5 font-body text-body-lg text-on-surface hover:text-on-surface-muted">Collections</a>
+        <a href="#bestsellers" class="nav-link py-2.5 font-body text-body-lg text-on-surface hover:text-on-surface-muted">Bestsellers</a>
+        <a href="#bestsellers" class="nav-link py-2.5 font-body text-body-lg text-on-surface hover:text-on-surface-muted">New Releases</a>
+        <div class="my-gutter-sm border-t border-outline"></div>
+        <a href="#top" class="nav-link py-2 font-body text-body-md text-on-surface-muted hover:text-on-surface">About</a>
+        <a href="#top" class="nav-link py-2 font-body text-body-md text-on-surface-muted hover:text-on-surface">Help</a>
+      </nav>
+    </div>
+  </dialog>
+
+  <!-- SHOPPING BAG DRAWER (RIGHT) -->
+  <dialog id="bag-drawer" data-component-id="drawer-right" data-component-type="drawer" data-component-variant="right" aria-labelledby="bag-drawer-title" class="m-0 ml-auto h-full max-h-[1024px] w-full max-w-md bg-surface-white text-on-surface p-0 border-l border-outline backdrop:bg-on-surface/30" data-stitch-vh="max-h-[1024px]===max-h-screen">
+    <div class="flex flex-col h-full">
+      <header class="flex items-center justify-between px-gutter-lg py-gutter-md border-b border-outline">
+        <h2 id="bag-drawer-title" class="font-headline text-title-lg text-on-surface" data-design-text-token="title-lg">Your Bag</h2>
+        <button id="btn-close-bag" type="button" aria-label="Close bag" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-hero">
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span>
+        </button>
+      </header>
+      <div id="bag-items-container" class="flex-1 overflow-y-auto p-gutter-lg flex flex-col gap-gutter-md">
+        <!-- Empty state or items injected by JS -->
+      </div>
+      <footer id="bag-footer" class="hidden p-gutter-lg border-t border-outline bg-surface-secondary flex flex-col gap-gutter-md">
+        <div class="flex items-baseline justify-between">
+          <span class="font-body text-body-md text-on-surface-muted">Subtotal</span>
+          <span id="bag-subtotal" class="font-headline text-title-lg text-on-surface tabular-nums">$0.00</span>
+        </div>
+        <button type="button" class="w-full py-3 bg-primary text-on-primary rounded font-label text-label-lg hover:bg-on-surface">Proceed to Checkout</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- SAMPLE PREVIEW MODAL -->
+  <dialog id="preview-modal" data-component-id="modal-standard" data-component-type="modal" data-component-variant="standard" aria-labelledby="preview-modal-title" class="m-auto w-full max-w-xl bg-surface-white text-on-surface border border-outline rounded p-0 shadow-2xl backdrop:bg-on-surface/30">
+    <header class="flex items-start justify-between gap-gutter-md px-gutter-lg py-gutter-md border-b border-outline">
+      <div>
+        <h2 id="preview-modal-title" class="font-headline text-title-lg text-on-surface" data-design-text-token="title-lg">Sample Excerpt</h2>
+        <p id="preview-modal-author" class="font-body text-body-sm text-on-surface-muted" data-design-text-token="body-sm">Chapter I — Opening Pages</p>
+      </div>
+      <button id="btn-close-preview" type="button" aria-label="Close preview" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-hero">
+        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span>
+      </button>
+    </header>
+    <div class="p-gutter-lg max-h-[614px] overflow-y-auto" data-stitch-vh="max-h-[614px]===max-h-[60vh]">
+      <p id="preview-modal-excerpt" class="font-body text-body-md text-on-surface leading-relaxed"></p>
+    </div>
+    <footer class="flex items-center justify-end gap-gutter-sm px-gutter-lg py-gutter-md border-t border-outline bg-surface-secondary">
+      <button id="btn-close-preview-footer" type="button" class="px-gutter-md py-2 border border-outline bg-surface-white text-on-surface rounded font-label text-label-lg">Close</button>
+      <button id="btn-preview-add-bag" type="button" class="px-gutter-md py-2 bg-primary text-on-primary rounded font-label text-label-lg">Add to Bag</button>
+    </footer>
+  </dialog>
+
+  <!-- SEARCH MODAL -->
+  <dialog id="search-modal" aria-labelledby="search-modal-title" class="m-auto mt-20 w-full max-w-lg bg-surface-white text-on-surface border border-outline rounded p-0 shadow-2xl backdrop:bg-on-surface/30">
+    <div class="p-gutter-lg flex flex-col gap-gutter-md">
+      <div class="flex items-center justify-between">
+        <h2 id="search-modal-title" class="font-headline text-title-md text-on-surface">Search Catalog</h2>
+        <button id="btn-close-search" type="button" aria-label="Close search" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-surface-hero">
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <div class="relative flex items-center">
+        <span class="material-symbols-outlined text-[20px] text-on-surface-muted absolute left-3.5 pointer-events-none" aria-hidden="true">search</span>
+        <input id="search-input" type="search" placeholder="Search by title or author..." class="w-full pl-11 pr-gutter-md py-2.5 bg-surface-secondary border border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+      </div>
+      <div id="search-results" class="flex flex-col divide-y divide-outline max-h-64 overflow-y-auto"></div>
+    </div>
+  </dialog>
+
+  <!-- SUBTLE TOAST -->
+  <div id="toast" role="status" aria-live="polite" class="hidden fixed bottom-6 right-6 z-50 bg-primary text-on-primary px-gutter-md py-3 rounded shadow-lg font-body text-body-sm pointer-events-none"></div>
+
+  <script>
+    (function () {
+      const books = {
+        'slow-thinking': {
+          title: 'The Art of Slow Thinking',
+          author: 'Clara Vance',
+          price: 18.00,
+          img: '../../images/book_thinking.jpg',
+          excerpt: 'Chapter I: Speed is an illusion of progress. When we allow an idea a full afternoon to settle—unhurried by notifications or immediate verdicts—its true geometry begins to surface.'
+        },
+        'quiet-room': {
+          title: 'Letters from a Quiet Room',
+          author: 'Henrik Lindholm',
+          price: 14.50,
+          img: '../../images/book_letters.jpg',
+          excerpt: 'Chapter I: North of Gothenburg, the winter light arrives at ten and departs by three. In those five hours of pale slate sky, every sentence written on paper carries the weight of a promise.'
+        },
+        'form-space': {
+          title: 'Form, Space & Silence',
+          author: 'Naomi Takahashi',
+          price: 22.00,
+          img: '../../images/book_craft.jpg',
+          excerpt: 'Chapter I: Before a single wall is raised, an architect must decide what will remain empty. Empty space is not absence; it is the vessel that gives proportion to everything inside it.'
+        },
+        'resilient-systems': {
+          title: 'Designing Resilient Systems',
+          author: 'David Okafor',
+          price: 24.00,
+          img: '../../images/book_systems.jpg',
+          excerpt: 'Chapter I: Complex software rarely fails because of a single dramatic flaw. It erodes at the seams—where assumptions between teams go unspoken and interfaces grow brittle.'
+        },
+        'memory-objects': {
+          title: 'The Memory of Objects',
+          author: 'Elena Rostova',
+          price: 16.00,
+          img: '../../images/book_memory.jpg',
+          excerpt: 'Chapter I: A chipped stoneware bowl on a kitchen shelf remembers more about a family’s mornings than any photograph album ever kept in a drawer.'
+        },
+        'stillness-ledger': {
+          title: 'The Stillness Ledger',
+          author: 'Marcus Sterling',
+          price: 19.00,
+          img: '../../images/hero_book_center.jpg',
+          excerpt: 'Chapter I: Every morning begins with an unwritten ledger. What we choose to read in the first quiet hour sets the cadence for every conversation that follows.'
+        },
+        'attention-craft': {
+          title: 'On Attention & Deep Craft',
+          author: 'Julian Mercer',
+          price: 21.00,
+          img: '../../images/book_month.jpg',
+          excerpt: 'Chapter I: Craft begins the moment you stop rushing past the joinery. Whether setting type or shaping prose, attention is the only material that cannot be counterfeited.'
+        }
+      };
+
+      const heroRotation = [
+        { id: 'quiet-places', title: 'Architecture of Quiet Places', img: '../../images/hero_book_left.jpg' },
+        { id: 'stillness-ledger', title: 'The Stillness Ledger', img: '../../images/hero_book_center.jpg' },
+        { id: 'material-light', title: 'Essays on Material & Light', img: '../../images/hero_book_right.jpg' }
+      ];
+      let heroCenterIdx = 1;
+
+      function updateHeroTrio() {
+        const leftIdx = (heroCenterIdx + 2) % 3;
+        const rightIdx = (heroCenterIdx + 1) % 3;
+        document.getElementById('hero-img-0').src = heroRotation[leftIdx].img;
+        document.getElementById('hero-img-1').src = heroRotation[heroCenterIdx].img;
+        document.getElementById('hero-img-2').src = heroRotation[rightIdx].img;
+        document.getElementById('hero-active-label').textContent = heroRotation[heroCenterIdx].title + ' — Preview';
+        document.querySelectorAll('.hero-dot').forEach((dot, i) => {
+          dot.classList.toggle('bg-primary', i === heroCenterIdx);
+          dot.classList.toggle('bg-outline', i !== heroCenterIdx);
+          dot.classList.toggle('w-2.5', i === heroCenterIdx);
+          dot.classList.toggle('h-2.5', i === heroCenterIdx);
+          dot.classList.toggle('w-2', i !== heroCenterIdx);
+          dot.classList.toggle('h-2', i !== heroCenterIdx);
+        });
+      }
+
+      document.getElementById('hero-prev').addEventListener('click', () => {
+        heroCenterIdx = (heroCenterIdx + 2) % 3;
+        updateHeroTrio();
+      });
+      document.getElementById('hero-next').addEventListener('click', () => {
+        heroCenterIdx = (heroCenterIdx + 1) % 3;
+        updateHeroTrio();
+      });
+      document.querySelectorAll('.hero-dot').forEach((dot) => {
+        dot.addEventListener('click', () => {
+          heroCenterIdx = Number(dot.dataset.heroDot);
+          updateHeroTrio();
+        });
+      });
+      document.querySelectorAll('.hero-book-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const slot = Number(btn.dataset.heroIndex);
+          if (slot === 0) { heroCenterIdx = (heroCenterIdx + 2) % 3; updateHeroTrio(); }
+          else if (slot === 2) { heroCenterIdx = (heroCenterIdx + 1) % 3; updateHeroTrio(); }
+          else { openPreview('stillness-ledger'); }
+        });
+      });
+
+      const toastEl = document.getElementById('toast');
+      let toastTimer;
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.remove('hidden');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.add('hidden'), 2600);
+      }
+
+      const wishlist = new Set();
+      document.querySelectorAll('.wishlist-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.wishlistId;
+          const icon = btn.querySelector('.material-symbols-outlined');
+          if (wishlist.has(id)) {
+            wishlist.delete(id);
+            icon.textContent = 'bookmark_border';
+            showToast('Removed from wishlist');
+          } else {
+            wishlist.add(id);
+            icon.textContent = 'bookmark';
+            showToast('Saved to wishlist');
+          }
+          const badge = document.getElementById('wishlist-count-badge');
+          badge.textContent = wishlist.size;
+          badge.classList.toggle('hidden', wishlist.size === 0);
+        });
+      });
+
+      const bag = [];
+      function renderBag() {
+        const container = document.getElementById('bag-items-container');
+        const footer = document.getElementById('bag-footer');
+        const badge = document.getElementById('bag-count-badge');
+        badge.textContent = bag.length;
+
+        if (bag.length === 0) {
+          footer.classList.add('hidden');
+          container.innerHTML = '<div class="h-full flex flex-col items-center justify-center text-center py-16 gap-3"><span class="material-symbols-outlined text-[36px] text-on-surface-muted">shopping_bag</span><p class="font-headline text-title-md text-on-surface">Your bag is empty</p><p class="font-body text-body-sm text-on-surface-muted max-w-xs">Select any digital edition to begin building your personal library.</p></div>';
+          return;
+        }
+
+        footer.classList.remove('hidden');
+        let total = 0;
+        container.innerHTML = bag.map((id, idx) => {
+          const b = books[id];
+          total += b.price;
+          return '<div class="flex items-center gap-4 border-b border-outline pb-4">' +
+            '<img src="' + b.img + '" alt="" class="w-14 aspect-[2/3] object-cover rounded-sm border border-outline" />' +
+            '<div class="flex-1 min-w-0">' +
+            '<p class="font-title text-title-sm text-on-surface truncate">' + b.title + '</p>' +
+            '<p class="font-body text-body-sm text-on-surface-muted">' + b.author + '</p>' +
+            '<p class="font-body text-body-sm text-on-surface tabular-nums mt-1">$' + b.price.toFixed(2) + '</p>' +
+            '</div>' +
+            '<button type="button" data-remove-idx="' + idx + '" aria-label="Remove ' + b.title + '" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-muted hover:bg-surface-hero hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">close</span></button>' +
+            '</div>';
+        }).join('');
+        document.getElementById('bag-subtotal').textContent = '$' + total.toFixed(2);
+        container.querySelectorAll('[data-remove-idx]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            bag.splice(Number(btn.dataset.removeIdx), 1);
+            renderBag();
+          });
+        });
+      }
+
+      document.querySelectorAll('.add-bag-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.addBag;
+          bag.push(id);
+          renderBag();
+          showToast('Added "' + books[id].title + '" to bag');
+        });
+      });
+      renderBag();
+
+      // Drawers & Modals
+      const navDrawer = document.getElementById('nav-drawer');
+      const bagDrawer = document.getElementById('bag-drawer');
+      const previewModal = document.getElementById('preview-modal');
+      const searchModal = document.getElementById('search-modal');
+
+      document.getElementById('btn-open-nav').addEventListener('click', () => navDrawer.showModal());
+      document.getElementById('btn-close-nav').addEventListener('click', () => navDrawer.close());
+      navDrawer.querySelectorAll('.nav-link').forEach((a) => a.addEventListener('click', () => navDrawer.close()));
+
+      document.getElementById('btn-open-bag').addEventListener('click', () => bagDrawer.showModal());
+      document.getElementById('btn-close-bag').addEventListener('click', () => bagDrawer.close());
+
+      let currentPreviewId = 'stillness-ledger';
+      function openPreview(id) {
+        const b = books[id];
+        if (!b) return;
+        currentPreviewId = id;
+        document.getElementById('preview-modal-title').textContent = b.title;
+        document.getElementById('preview-modal-author').textContent = 'By ' + b.author + ' · Sample Excerpt';
+        document.getElementById('preview-modal-excerpt').textContent = b.excerpt;
+        previewModal.showModal();
+      }
+
+      document.querySelectorAll('.preview-btn').forEach((btn) => {
+        btn.addEventListener('click', () => openPreview(btn.dataset.previewId));
+      });
+      document.getElementById('btn-close-preview').addEventListener('click', () => previewModal.close());
+      document.getElementById('btn-close-preview-footer').addEventListener('click', () => previewModal.close());
+      document.getElementById('btn-preview-add-bag').addEventListener('click', () => {
+        bag.push(currentPreviewId);
+        renderBag();
+        previewModal.close();
+        showToast('Added "' + books[currentPreviewId].title + '" to bag');
+      });
+
+      // Search modal
+      function renderSearch(query) {
+        const q = (query || '').trim().toLowerCase();
+        const matches = Object.entries(books).filter(([, b]) =>
+          !q || b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q)
+        );
+        const container = document.getElementById('search-results');
+        if (matches.length === 0) {
+          container.innerHTML = '<p class="py-6 text-center font-body text-body-sm text-on-surface-muted">No matching titles found.</p>';
+          return;
+        }
+        container.innerHTML = matches.map(([id, b]) =>
+          '<button type="button" data-search-pick="' + id + '" class="py-3 px-2 flex items-center justify-between text-left hover:bg-surface-secondary rounded">' +
+          '<div><p class="font-title text-title-sm text-on-surface">' + b.title + '</p><p class="font-body text-body-sm text-on-surface-muted">' + b.author + '</p></div>' +
+          '<span class="font-body text-body-sm text-on-surface tabular-nums">$' + b.price.toFixed(2) + '</span>' +
+          '</button>'
+        ).join('');
+        container.querySelectorAll('[data-search-pick]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            searchModal.close();
+            openPreview(btn.dataset.searchPick);
+          });
+        });
+      }
+
+      document.getElementById('btn-open-search').addEventListener('click', () => { renderSearch(''); searchModal.showModal(); });
+      document.getElementById('drawer-search-trigger').addEventListener('click', () => { navDrawer.close(); renderSearch(''); searchModal.showModal(); });
+      document.getElementById('btn-close-search').addEventListener('click', () => searchModal.close());
+      document.getElementById('search-input').addEventListener('input', (e) => renderSearch(e.target.value));
+
+      // Newsletter
+      document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('newsletter-email').value.trim();
+        const feedback = document.getElementById('newsletter-feedback');
+        feedback.classList.remove('hidden', 'text-error', 'text-success');
+        if (!email || !email.includes('@')) {
+          feedback.textContent = 'Please enter a valid email address.';
+          feedback.classList.add('text-error');
+          return;
+        }
+        feedback.textContent = 'Thank you. Your reading notes subscription is confirmed.';
+        feedback.classList.add('text-success');
+        document.getElementById('newsletter-email').value = '';
+      });
+    })();
+  </script>
+
+
+</body></html>

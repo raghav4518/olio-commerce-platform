@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Sign-In — FOLIO</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+    <header class="bg-surface border-b border-outline">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop h-20 flex items-center justify-between">
+        <a href="../auth-login-desktop/LoginDesktop.html" class="font-label text-label-md text-on-surface-muted hover:text-on-surface inline-flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          <span>Password Sign In</span>
+        </a>
+        <a href="../home-desktop/FolioHomepageDesktop.html" aria-label="FOLIO Home">
+          <svg width="94" height="32" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+            <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+          </svg>
+        </a>
+        <div class="w-28"></div>
+      </div>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center px-page-margin py-section-md">
+      <div class="max-w-md w-full bg-surface-white border border-outline rounded p-10 flex flex-col gap-gutter-lg">
+        <header class="flex flex-col gap-1">
+          <span class="font-label text-label-sm uppercase tracking-widest text-on-surface-muted">Optional · Configurable OTP</span>
+          <h1 class="font-headline text-headline-lg text-on-surface">Sign in with a one-time code</h1>
+          <p class="font-body text-body-sm text-on-surface-muted">Receive a 6-digit verification code via phone or email.</p>
+        </header>
+
+        <!-- Channel Toggle -->
+        <div class="grid grid-cols-2 gap-1 p-1 bg-surface-secondary border border-outline rounded">
+          <button id="otp-tab-phone" type="button" class="py-2 rounded-sm bg-surface-white font-label text-label-md text-on-surface shadow-sm">Phone (SMS)</button>
+          <button id="otp-tab-email" type="button" class="py-2 rounded-sm font-label text-label-md text-on-surface-muted">Email</button>
+        </div>
+
+        <form id="otp-request-form" class="flex flex-col gap-gutter-md">
+          <label class="flex flex-col gap-1.5">
+            <span id="otp-channel-label" class="font-label text-label-md text-on-surface">Mobile number</span>
+            <input id="otp-target" type="tel" placeholder="+91 98765 43210" required class="w-full px-gutter-md py-3 bg-surface-white border border-outline rounded text-body-md focus:border-primary focus:ring-1 focus:ring-primary">
+          </label>
+          <button type="submit" class="w-full py-3.5 bg-primary text-on-primary rounded font-label text-label-lg hover:bg-on-surface">Send One-Time Code</button>
+        </form>
+
+        <form id="otp-verify-form" class="hidden flex flex-col gap-gutter-md pt-gutter-md border-t border-outline">
+          <label class="flex flex-col gap-1.5">
+            <span class="font-label text-label-md text-on-surface">Enter 6-digit code</span>
+            <input id="otp-code" type="text" maxlength="6" inputmode="numeric" placeholder="000000" class="w-full px-gutter-md py-3 bg-surface-white border border-outline rounded text-center tracking-widest text-title-md tabular-nums focus:border-primary focus:ring-1 focus:ring-primary">
+          </label>
+          <p id="otp-feedback" class="hidden font-body text-body-sm"></p>
+          <button type="submit" class="w-full py-3.5 bg-primary text-on-primary rounded font-label text-label-lg hover:bg-on-surface">Verify &amp; Sign In</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const pTab = document.getElementById('otp-tab-phone');
+      const eTab = document.getElementById('otp-tab-email');
+      const lbl = document.getElementById('otp-channel-label');
+      const inp = document.getElementById('otp-target');
+      pTab.addEventListener('click', () => {
+        pTab.className = 'py-2 rounded-sm bg-surface-white font-label text-label-md text-on-surface shadow-sm';
+        eTab.className = 'py-2 rounded-sm font-label text-label-md text-on-surface-muted';
+        lbl.textContent = 'Mobile number'; inp.type = 'tel'; inp.placeholder = '+91 98765 43210';
+      });
+      eTab.addEventListener('click', () => {
+        eTab.className = 'py-2 rounded-sm bg-surface-white font-label text-label-md text-on-surface shadow-sm';
+        pTab.className = 'py-2 rounded-sm font-label text-label-md text-on-surface-muted';
+        lbl.textContent = 'Email address'; inp.type = 'email'; inp.placeholder = 'reader@domain.com';
+      });
+      document.getElementById('otp-request-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('otp-verify-form').classList.remove('hidden');
+      });
+      document.getElementById('otp-verify-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fb = document.getElementById('otp-feedback');
+        fb.classList.remove('hidden', 'text-error', 'text-success');
+        if (document.getElementById('otp-code').value.trim().length < 6) {
+          fb.textContent = 'Please enter the 6-digit verification code.';
+          fb.classList.add('text-error');
+          return;
+        }
+        fb.textContent = 'Verified. Signing you in...';
+        fb.classList.add('text-success');
+      });
+    })();
+  </script>
+
+
+</body></html>

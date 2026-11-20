@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — FOLIO Mobile</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[884px] flex flex-col max-w-[390px] mx-auto" data-stitch-vh="min-h-[884px]===min-h-screen">
+    <header class="px-page-margin h-16 flex items-center justify-between border-b border-outline bg-surface">
+      <a href="../home-mobile/FolioHomepageMobile.html" class="inline-flex items-center gap-1 font-label text-label-md text-on-surface-muted">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        <span>Store</span>
+      </a>
+      <a href="../home-mobile/FolioHomepageMobile.html" aria-label="FOLIO Home">
+        <svg width="82" height="28" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+          <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+        </svg>
+      </a>
+      <div class="w-12"></div>
+    </header>
+
+    <main class="flex-1 px-page-margin py-8 flex flex-col gap-gutter-lg">
+      <div class="bg-surface-hero border border-outline rounded p-4 flex items-center gap-4">
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrARaJCYbxEXxC_vQxuTmZGvq0E0qk8WolidDk86uSF2mODbjtaWQkP58RVUtQ_vbCIyeTN6c1rXTR5PLV0lGRLFbQV4j0_cVbKMhan8zzwxLMtiesN3nfa0F8Nj89DM7CK3-cNGi3hFoH_EtmEK0UCZcInhLl7MFx1hXgbstQCapTf9mKKUk-1uQKGfwiuRqvEwLQkkBQgJqO0V-yTiepvz0OoYmqtDqSmDLh7ec6rhY21CdswSCaYJBCU" alt class="w-12 aspect-[2/3] object-cover rounded-sm shadow">
+        <p class="font-body text-body-sm text-on-surface-muted">Sign in to access your digital library across devices.</p>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <h1 class="font-headline text-headline-lg-mobile text-on-surface" data-design-text-token="headline-lg-mobile">Sign in to FOLIO</h1>
+        <p class="font-body text-body-sm text-on-surface-muted">Welcome back, reader.</p>
+      </div>
+
+      <form class="flex flex-col gap-gutter-md">
+        <label class="flex flex-col gap-1.5">
+          <span class="font-label text-label-md">Email address</span>
+          <input type="email" placeholder="reader@domain.com" required class="w-full px-3.5 py-3 bg-surface-white border border-outline rounded text-body-md">
+        </label>
+        <label class="flex flex-col gap-1.5">
+          <span class="font-label text-label-md">Password</span>
+          <div class="relative flex items-center">
+            <input id="m-login-pw" type="password" placeholder="Enter password" required class="w-full pl-3.5 pr-11 py-3 bg-surface-white border border-outline rounded text-body-md">
+            <button id="m-toggle-pw" type="button" aria-label="Show password" class="absolute right-3 w-9 h-9 flex items-center justify-center text-on-surface-muted"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+          </div>
+        </label>
+        <div class="flex items-center justify-between">
+          <label class="flex items-center gap-2 font-body text-body-sm"><input type="checkbox" class="rounded-sm border-outline"> Remember me</label>
+          <a href="../auth-forgot-password-desktop/ForgotPasswordDesktop.html" class="font-label text-label-md underline">Forgot password?</a>
+        </div>
+        <button type="submit" class="w-full py-3.5 bg-primary text-on-primary rounded font-label text-label-lg">Sign In</button>
+      </form>
+
+      <div class="pt-4 border-t border-outline text-center flex flex-col gap-2">
+        <a href="../auth-otp-desktop/OtpSignInDesktop.html" class="font-label text-label-md underline">Sign in with OTP</a>
+        <p class="font-body text-body-sm text-on-surface-muted">New to FOLIO? <a href="../auth-register-mobile/RegisterMobile.html" class="text-on-surface font-medium underline">Create account</a></p>
+      </div>
+    </main>
+  </div>
+  <script>
+    document.getElementById('m-toggle-pw').addEventListener('click', (e) => {
+      const inp = document.getElementById('m-login-pw');
+      const s = inp.type === 'password';
+      inp.type = s ? 'text' : 'password';
+      e.currentTarget.querySelector('.material-symbols-outlined').textContent = s ? 'visibility_off' : 'visibility';
+    });
+  </script>
+
+
+</body></html>

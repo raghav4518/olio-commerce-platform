@@ -1,0 +1,527 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Books — FOLIO Digital Bookstore</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#202321',
+        'on-primary': '#FFFFFF',
+        'surface': '#FAFAF9',
+        'on-surface': '#171717',
+        'surface-hero': '#F1F1F0',
+        'surface-secondary': '#F6F6F4',
+        'surface-white': '#FFFFFF',
+        'on-surface-muted': '#5C5D5A',
+        'secondary-typography': '#777875',
+        'outline': '#DEDEDC',
+        'accent': '#777F86',
+        'on-accent': '#141414',
+        'success': '#2F5E44',
+        'on-success': '#FFFFFF',
+        'error': '#8C2D2D',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '2px',
+        'DEFAULT': '4px',
+        'md': '6px',
+        'lg': '8px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section-sm': '48px',
+        'section-md': '72px',
+        'section-lg': '96px',
+        'page-margin': '20px',
+        'page-margin-desktop': '60px',
+      },
+      fontFamily: {
+        'display': ['"Cormorant Garamond"', 'sans-serif'],
+        'headline': ['"Cormorant Garamond"', 'sans-serif'],
+        'title': ['"Cormorant Garamond"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '62px', letterSpacing: '-0.5px', fontWeight: '500' }],
+        'display-lg-mobile': ['32px', { lineHeight: '38px', letterSpacing: '-0.25px', fontWeight: '500' }],
+        'headline-lg': ['40px', { lineHeight: '46px', letterSpacing: '-0.3px', fontWeight: '500' }],
+        'headline-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.2px', fontWeight: '500' }],
+        'headline-md': ['30px', { lineHeight: '36px', letterSpacing: '-0.15px', fontWeight: '500' }],
+        'title-lg': ['24px', { lineHeight: '30px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['20px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-sm': ['15px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['17px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.15px', fontWeight: '500' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.3px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.5px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'book-lift': '280ms',
+        'surface-enter': '300ms',
+        'surface-exit': '180ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'book-lift': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'book-lift': 'cubic-bezier(0.22, 1, 0.36, 1)',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>.material-symbols-outlined { display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle; }</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased selection:bg-primary selection:text-on-primary">
+  <div class="min-h-[1024px] flex flex-col" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- SHARED HEADER -->
+    <header class="sticky top-0 z-40 bg-surface border-b border-outline">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop h-20 grid grid-cols-3 items-center">
+        <div class="flex items-center gap-gutter-sm">
+          <button id="btn-open-nav" data-component-id="button-icon" data-component-type="button" data-component-variant="icon" type="button" aria-label="Open navigation menu" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[22px]" aria-hidden="true">menu</span>
+          </button>
+          <a href="../search-results-desktop/SearchResultsDesktop.html" aria-label="Search books" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">search</span>
+          </a>
+        </div>
+        <div class="flex justify-center">
+          <a href="../home-desktop/FolioHomepageDesktop.html" aria-label="FOLIO Home" class="inline-flex items-center py-1">
+            <svg width="94" height="32" viewBox="0 0 94 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 25C13.5 16 15.8 8.5 18.5 5.5C20.2 3.6 24.5 3.8 26.5 4.8M11 15.5C15.2 14.8 19.2 14.5 22.8 14.8" stroke="#171717" stroke-width="1.65" stroke-linecap="round"></path>
+              <text x="30" y="23" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-style="italic" font-size="23" font-weight="600" letter-spacing="1.8" fill="#171717">folio</text>
+            </svg>
+          </a>
+        </div>
+        <div class="flex items-center justify-end gap-gutter-xs">
+          <button type="button" aria-label="Wishlist" class="relative inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">bookmark_border</span>
+            <span id="wishlist-count-badge" class="hidden absolute top-1.5 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-primary text-on-primary text-[10px] font-medium tabular-nums flex items-center justify-center">0</span>
+          </button>
+          <button id="btn-open-bag" type="button" aria-label="Shopping bag" class="relative inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">shopping_bag</span>
+            <span id="bag-count-badge" class="absolute top-1.5 right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-primary text-on-primary text-[10px] font-medium tabular-nums flex items-center justify-center">0</span>
+          </button>
+          <button type="button" aria-label="Customer account" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface hover:bg-surface-hero">
+            <span class="material-symbols-outlined text-[21px]" aria-hidden="true">person</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <!-- BREADCRUMB & PAGE HEADER -->
+      <section class="bg-surface-hero border-b border-outline py-10">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop flex flex-col gap-gutter-md">
+          <nav aria-label="Breadcrumb" class="flex items-center gap-2 font-label text-label-md text-on-surface-muted">
+            <a href="../home-desktop/FolioHomepageDesktop.html" class="hover:text-on-surface">Home</a>
+            <span aria-hidden="true">/</span>
+            <span class="text-on-surface">Explore Books</span>
+          </nav>
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter-lg">
+            <div class="flex flex-col gap-gutter-xs max-w-xl">
+              <h1 class="font-headline text-display-lg text-on-surface" data-design-text-token="display-lg">Explore Books</h1>
+              <p class="font-body text-body-md text-on-surface-muted" data-design-text-token="body-md">
+                Browse the complete FOLIO digital catalogue. Filter by discipline, author, or price to find your next edition.
+              </p>
+            </div>
+            <!-- Prominent Search -->
+            <div class="w-full md:w-96 relative flex items-center">
+              <span class="material-symbols-outlined text-[20px] text-on-surface-muted absolute left-3.5 pointer-events-none" aria-hidden="true">search</span>
+              <input id="catalog-search" type="search" placeholder="Search by title, author, or topic..." class="w-full pl-11 pr-10 py-3 bg-surface-white border border-outline rounded text-body-md text-on-surface placeholder:text-on-surface-muted focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+              <button id="clear-catalog-search" type="button" aria-label="Clear search" class="hidden absolute right-3 text-on-surface-muted hover:text-on-surface">
+                <span class="material-symbols-outlined text-[18px]">close</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATALOG WORKSPACE -->
+      <section class="py-section-sm bg-surface">
+        <div class="max-w-[1320px] mx-auto px-page-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter-xl items-start">
+
+          <!-- LEFT FILTER SIDEBAR -->
+          <aside class="md:col-span-3 flex flex-col gap-gutter-lg border-r border-outline pr-gutter-lg">
+            <div class="flex items-center justify-between border-b border-outline pb-gutter-sm">
+              <h2 class="font-title text-title-md text-on-surface">Filters</h2>
+              <button id="reset-filters" type="button" class="font-label text-label-md text-on-surface-muted underline underline-offset-4 hover:text-on-surface">Reset all</button>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="flex flex-col gap-gutter-sm">
+              <h3 class="font-label text-label-md uppercase tracking-wider text-on-surface-muted">Category</h3>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-2.5 cursor-pointer font-body text-body-sm text-on-surface">
+                  <input type="checkbox" value="Philosophy" class="filter-cat rounded-sm border-outline text-primary focus:ring-primary">
+                  <span>Philosophy &amp; Thinking</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer font-body text-body-sm text-on-surface">
+                  <input type="checkbox" value="Fiction" class="filter-cat rounded-sm border-outline text-primary focus:ring-primary">
+                  <span>Fiction</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer font-body text-body-sm text-on-surface">
+                  <input type="checkbox" value="Creativity" class="filter-cat rounded-sm border-outline text-primary focus:ring-primary">
+                  <span>Creativity &amp; Design</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer font-body text-body-sm text-on-surface">
+                  <input type="checkbox" value="Technology" class="filter-cat rounded-sm border-outline text-primary focus:ring-primary">
+                  <span>Technology &amp; Systems</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer font-body text-body-sm text-on-surface">
+                  <input type="checkbox" value="Personal Growth" class="filter-cat rounded-sm border-outline text-primary focus:ring-primary">
+                  <span>Personal Growth</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Author Filter -->
+            <div class="flex flex-col gap-gutter-sm pt-gutter-sm border-t border-outline">
+              <h3 class="font-label text-label-md uppercase tracking-wider text-on-surface-muted">Author</h3>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-2.5 cursor-pointer font-body text-body-sm text-on-surface">
+                  <input type="checkbox" value="Clara Vance" class="filter-author rounded-sm border-outline text-primary focus:ring-primary">
+                  <span>Clara Vance</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer font-body text-body-sm text-on-surface">
+                  <input type="checkbox" value="Julian Mercer" class="filter-author rounded-sm border-outline text-primary focus:ring-primary">
+                  <span>Julian Mercer</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer font-body text-body-sm text-on-surface">
+                  <input type="checkbox" value="Naomi Takahashi" class="filter-author rounded-sm border-outline text-primary focus:ring-primary">
+                  <span>Naomi Takahashi</span>
+                </label>
+                <label class="flex items-center gap-2.5 cursor-pointer font-body text-body-sm text-on-surface">
+                  <input type="checkbox" value="Henrik Lindholm" class="filter-author rounded-sm border-outline text-primary focus:ring-primary">
+                  <span>Henrik Lindholm</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="flex flex-col gap-gutter-sm pt-gutter-sm border-t border-outline">
+              <div class="flex items-center justify-between">
+                <h3 class="font-label text-label-md uppercase tracking-wider text-on-surface-muted">Max Price</h3>
+                <span id="price-cap-label" class="font-body text-body-sm text-on-surface tabular-nums">$30.00</span>
+              </div>
+              <input id="filter-price" type="range" min="12" max="30" value="30" step="1" class="w-full accent-primary cursor-pointer">
+              <div class="flex justify-between font-body text-body-sm text-on-surface-muted tabular-nums">
+                <span>$12</span>
+                <span>$30</span>
+              </div>
+            </div>
+          </aside>
+
+          <!-- RIGHT CATALOG GRID -->
+          <div class="md:col-span-9 flex flex-col gap-gutter-lg">
+            <!-- Toolbar: Result Count, Active Chips, Sort, View Toggle -->
+            <div class="flex flex-wrap items-center justify-between gap-gutter-md border-b border-outline pb-gutter-md">
+              <div class="flex flex-wrap items-center gap-gutter-sm">
+                <span id="catalog-count" class="font-body text-body-sm text-on-surface-muted tabular-nums">Showing 8 editions</span>
+                <div id="active-filter-chips" class="flex flex-wrap items-center gap-1.5"></div>
+              </div>
+
+              <div class="flex items-center gap-gutter-md">
+                <label class="flex items-center gap-2 font-body text-body-sm text-on-surface-muted">
+                  <span>Sort by</span>
+                  <select id="catalog-sort" class="py-1.5 pl-3 pr-8 bg-surface-white border border-outline rounded text-body-sm text-on-surface focus:border-primary focus:ring-primary">
+                    <option value="relevance">Relevance</option>
+                    <option value="popularity">Popularity</option>
+                    <option value="newest">Newest</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                  </select>
+                </label>
+
+                <div class="flex items-center border border-outline rounded bg-surface-white overflow-hidden" role="group" aria-label="View mode">
+                  <button id="view-grid-btn" type="button" aria-label="Grid view" class="p-2 bg-surface-hero text-on-surface">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">grid_view</span>
+                  </button>
+                  <button id="view-list-btn" type="button" aria-label="List view" class="p-2 bg-surface-white text-on-surface-muted hover:text-on-surface">
+                    <span class="material-symbols-outlined text-[18px]" aria-hidden="true">view_list</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Books Container -->
+            <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter-lg items-stretch"></div>
+
+            <!-- Pagination / Load More -->
+            <div class="pt-gutter-lg border-t border-outline flex items-center justify-between">
+              <span id="pagination-status" class="font-body text-body-sm text-on-surface-muted tabular-nums">Page 1 of 2 · Sample catalogue</span>
+              <div class="flex items-center gap-gutter-sm">
+                <button id="btn-load-more" type="button" class="px-gutter-lg py-2.5 bg-surface-white border border-outline rounded font-label text-label-lg text-on-surface hover:border-primary">Load More Editions</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- SHARED FOOTER -->
+    <footer class="bg-surface-secondary border-t border-outline pt-section-sm pb-gutter-xl">
+      <div class="max-w-[1320px] mx-auto px-page-margin-desktop flex flex-col md:flex-row items-center justify-between gap-gutter-md font-body text-body-sm text-on-surface-muted">
+        <span>© 2026 FOLIO Digital Bookstore. All rights reserved.</span>
+        <div class="flex items-center gap-gutter-lg">
+          <a href="../home-desktop/FolioHomepageDesktop.html" class="hover:text-on-surface">Home</a>
+          <a href="../category-desktop/CategoryPageDesktop.html" class="hover:text-on-surface">Categories</a>
+          <a href="../collection-desktop/CollectionPageDesktop.html" class="hover:text-on-surface">Collections</a>
+          <a href="../author-profile-desktop/AuthorProfileDesktop.html" class="hover:text-on-surface">Authors</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- NAVIGATION DRAWER -->
+  <dialog id="nav-drawer" aria-labelledby="nav-drawer-title" class="m-0 mr-auto h-full max-h-[1024px] w-full max-w-sm bg-surface-white text-on-surface p-0 border-r border-outline backdrop:bg-on-surface/30" data-stitch-vh="max-h-[1024px]===max-h-screen">
+    <div class="flex flex-col h-full">
+      <header class="flex items-center justify-between px-gutter-lg py-gutter-md border-b border-outline">
+        <h2 id="nav-drawer-title" class="font-headline text-title-lg text-on-surface">Browse FOLIO</h2>
+        <button id="btn-close-nav" type="button" aria-label="Close navigation" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-hero"><span class="material-symbols-outlined text-[20px]">close</span></button>
+      </header>
+      <nav class="p-gutter-lg flex flex-col gap-1 flex-1 overflow-y-auto">
+        <a href="../home-desktop/FolioHomepageDesktop.html" class="py-2.5 font-body text-body-lg text-on-surface">Home</a>
+        <a href="../explore-books-desktop/ExploreBooksDesktop.html" class="py-2.5 font-body text-body-lg text-on-surface font-medium">Explore Books</a>
+        <a href="../category-desktop/CategoryPageDesktop.html" class="py-2.5 font-body text-body-lg text-on-surface">Categories</a>
+        <a href="../collection-desktop/CollectionPageDesktop.html" class="py-2.5 font-body text-body-lg text-on-surface">Collections</a>
+        <a href="../author-profile-desktop/AuthorProfileDesktop.html" class="py-2.5 font-body text-body-lg text-on-surface">Authors</a>
+        <a href="../search-results-desktop/SearchResultsDesktop.html" class="py-2.5 font-body text-body-lg text-on-surface">Search</a>
+      </nav>
+    </div>
+  </dialog>
+
+  <!-- BOOK DETAIL / PREVIEW MODAL -->
+  <dialog id="preview-modal" aria-labelledby="preview-modal-title" class="m-auto w-full max-w-xl bg-surface-white text-on-surface border border-outline rounded p-0 shadow-2xl backdrop:bg-on-surface/30">
+    <header class="flex items-start justify-between gap-gutter-md px-gutter-lg py-gutter-md border-b border-outline">
+      <div>
+        <h2 id="preview-modal-title" class="font-headline text-title-lg text-on-surface"></h2>
+        <p id="preview-modal-author" class="font-body text-body-sm text-on-surface-muted"></p>
+      </div>
+      <button id="btn-close-preview" type="button" aria-label="Close detail" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-hero"><span class="material-symbols-outlined text-[20px]">close</span></button>
+    </header>
+    <div class="p-gutter-lg flex gap-gutter-lg">
+      <img id="preview-modal-img" src alt class="w-28 aspect-[2/3] object-cover rounded-sm border border-outline shrink-0">
+      <div class="flex flex-col gap-gutter-sm">
+        <p id="preview-modal-excerpt" class="font-body text-body-md text-on-surface leading-relaxed"></p>
+        <span id="preview-modal-price" class="font-headline text-title-lg text-on-surface tabular-nums"></span>
+      </div>
+    </div>
+    <footer class="flex items-center justify-end gap-gutter-sm px-gutter-lg py-gutter-md border-t border-outline bg-surface-secondary">
+      <button id="btn-close-preview-2" type="button" class="px-gutter-md py-2 border border-outline bg-surface-white rounded font-label text-label-lg">Close</button>
+      <button id="btn-preview-add" type="button" class="px-gutter-md py-2 bg-primary text-on-primary rounded font-label text-label-lg">Add to Bag</button>
+    </footer>
+  </dialog>
+
+  <script>
+    (function () {
+      const catalog = [
+        { id: 'slow-thinking', title: 'The Art of Slow Thinking', author: 'Clara Vance', category: 'Philosophy', price: 18.00, pop: 95, date: 202609, img: '../../images/book_thinking.jpg', desc: 'On judgment, patience, and deep reflection.' },
+        { id: 'quiet-room', title: 'Letters from a Quiet Room', author: 'Henrik Lindholm', category: 'Fiction', price: 14.50, orig: 19.00, pop: 88, date: 202607, img: '../../images/book_letters.jpg', desc: 'An intimate epistolary novel set in coastal Sweden.' },
+        { id: 'form-space', title: 'Form, Space & Silence', author: 'Naomi Takahashi', category: 'Creativity', price: 22.00, pop: 92, date: 202610, img: '../../images/book_craft.jpg', desc: 'Architectural essays on proportion and restraint.' },
+        { id: 'resilient-systems', title: 'Designing Resilient Systems', author: 'David Okafor', category: 'Technology', price: 24.00, pop: 84, date: 202606, img: '../../images/book_systems.jpg', desc: 'Durable software architecture and human teams.' },
+        { id: 'memory-objects', title: 'The Memory of Objects', author: 'Elena Rostova', category: 'Fiction', price: 16.00, pop: 79, date: 202605, img: '../../images/book_memory.jpg', desc: 'Stories of craft, heirlooms, and quiet rooms.' },
+        { id: 'stillness-ledger', title: 'The Stillness Ledger', author: 'Marcus Sterling', category: 'Personal Growth', price: 19.00, pop: 90, date: 202608, img: '../../images/hero_book_center.jpg', desc: 'Morning notebooks on clarity and deliberate work.' },
+        { id: 'attention-craft', title: 'On Attention & Deep Craft', author: 'Julian Mercer', category: 'Creativity', price: 21.00, pop: 98, date: 202611, img: '../../images/book_month.jpg', desc: 'How patient observation shapes enduring work.' },
+        { id: 'quiet-places', title: 'Architecture of Quiet Places', author: 'Clara Vance', category: 'Philosophy', price: 20.00, pop: 82, date: 202604, img: '../../images/hero_book_left.jpg', desc: 'Spatial calm and the contemplative life.' }
+      ];
+
+      let viewMode = 'grid';
+      let extraLoaded = false;
+      const wishlist = new Set();
+      let bagCount = 0;
+
+      const gridEl = document.getElementById('catalog-grid');
+      const searchEl = document.getElementById('catalog-search');
+      const clearBtn = document.getElementById('clear-catalog-search');
+      const priceEl = document.getElementById('filter-price');
+      const sortEl = document.getElementById('catalog-sort');
+      const chipsEl = document.getElementById('active-filter-chips');
+
+      function getFiltered() {
+        const q = searchEl.value.trim().toLowerCase();
+        const cats = [...document.querySelectorAll('.filter-cat:checked')].map(c => c.value);
+        const authors = [...document.querySelectorAll('.filter-author:checked')].map(a => a.value);
+        const maxP = Number(priceEl.value);
+
+        let items = catalog.filter(b => {
+          if (q && !b.title.toLowerCase().includes(q) && !b.author.toLowerCase().includes(q)) return false;
+          if (cats.length && !cats.includes(b.category)) return false;
+          if (authors.length && !authors.includes(b.author)) return false;
+          if (b.price > maxP) return false;
+          return true;
+        });
+
+        const s = sortEl.value;
+        if (s === 'popularity') items.sort((a, b) => b.pop - a.pop);
+        else if (s === 'newest') items.sort((a, b) => b.date - a.date);
+        else if (s === 'price-asc') items.sort((a, b) => a.price - b.price);
+        else if (s === 'price-desc') items.sort((a, b) => b.price - a.price);
+
+        return items;
+      }
+
+      function renderChips() {
+        const chips = [];
+        document.querySelectorAll('.filter-cat:checked, .filter-author:checked').forEach(el => {
+          chips.push({ label: el.value, el });
+        });
+        if (Number(priceEl.value) < 30) chips.push({ label: 'Under $' + priceEl.value, isPrice: true });
+
+        chipsEl.innerHTML = chips.map((c, i) =>
+          '<button type="button" data-chip-idx="' + i + '" class="inline-flex items-center gap-1 px-2.5 py-1 bg-surface-secondary border border-outline rounded-full font-label text-label-sm text-on-surface hover:border-primary">' +
+          c.label + ' <span aria-hidden="true">×</span></button>'
+        ).join('');
+
+        chipsEl.querySelectorAll('[data-chip-idx]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const c = chips[Number(btn.dataset.chipIdx)];
+            if (c.isPrice) { priceEl.value = 30; document.getElementById('price-cap-label').textContent = '$30.00'; }
+            else { c.el.checked = false; }
+            render();
+          });
+        });
+      }
+
+      function render() {
+        clearBtn.classList.toggle('hidden', !searchEl.value.trim());
+        renderChips();
+        const items = getFiltered();
+        const visible = extraLoaded ? items : items.slice(0, 6);
+        document.getElementById('catalog-count').textContent = 'Showing ' + visible.length + ' of ' + items.length + ' editions';
+
+        if (items.length === 0) {
+          gridEl.className = 'block';
+          gridEl.innerHTML = '<div class="py-16 text-center bg-surface-secondary border border-outline rounded"><p class="font-headline text-title-lg text-on-surface">No matching editions</p><p class="font-body text-body-sm text-on-surface-muted mt-1">Try clearing one or more filters.</p></div>';
+          return;
+        }
+
+        if (viewMode === 'grid') {
+          gridEl.className = 'grid grid-cols-1 md:grid-cols-3 gap-gutter-lg items-stretch';
+          gridEl.innerHTML = visible.map(b => {
+            const saved = wishlist.has(b.id);
+            return '<article data-book-id="' + b.id + '" class="book-card group bg-surface-white border border-outline rounded p-gutter-md flex flex-col justify-between gap-gutter-md hover:border-accent h-full cursor-pointer">' +
+              '<div class="flex flex-col gap-gutter-md">' +
+                '<div class="relative bg-surface-hero rounded-sm p-gutter-lg flex items-center justify-center aspect-[4/5]">' +
+                  '<img src="' + b.img + '" alt="' + b.title + ' cover" class="w-2/3 aspect-[2/3] object-cover rounded-sm shadow-md" />' +
+                  '<button type="button" data-wish="' + b.id + '" aria-label="Toggle wishlist" class="wish-btn absolute top-2.5 right-2.5 w-9 h-9 rounded-full bg-surface-white border border-outline flex items-center justify-center">' +
+                    '<span class="material-symbols-outlined text-[18px]">' + (saved ? 'bookmark' : 'bookmark_border') + '</span>' +
+                  '</button>' +
+                '</div>' +
+                '<div><h3 class="font-title text-title-md text-on-surface">' + b.title + '</h3><p class="font-body text-body-sm text-on-surface-muted">' + b.author + '</p></div>' +
+              '</div>' +
+              '<footer class="flex items-center justify-between pt-gutter-sm border-t border-outline">' +
+                '<div class="flex items-baseline gap-2"><span class="font-body text-title-sm text-on-surface tabular-nums">$' + b.price.toFixed(2) + '</span>' + (b.orig ? '<span class="font-body text-body-sm text-on-surface-muted line-through tabular-nums">$' + b.orig.toFixed(2) + '</span>' : '') + '</div>' +
+                '<button type="button" data-prev="' + b.id + '" class="prev-btn font-label text-label-md text-on-surface underline underline-offset-4">Preview</button>' +
+              '</footer>' +
+            '</article>';
+          }).join('');
+        } else {
+          gridEl.className = 'flex flex-col gap-gutter-md';
+          gridEl.innerHTML = visible.map(b => {
+            const saved = wishlist.has(b.id);
+            return '<article data-book-id="' + b.id + '" class="book-card bg-surface-white border border-outline rounded p-gutter-md flex items-center justify-between gap-gutter-lg hover:border-accent cursor-pointer">' +
+              '<div class="flex items-center gap-gutter-md">' +
+                '<img src="' + b.img + '" alt="' + b.title + ' cover" class="w-16 aspect-[2/3] object-cover rounded-sm border border-outline" />' +
+                '<div><h3 class="font-title text-title-md text-on-surface">' + b.title + '</h3><p class="font-body text-body-sm text-on-surface-muted">' + b.author + ' · ' + b.category + '</p><p class="font-body text-body-sm text-on-surface-muted mt-1">' + b.desc + '</p></div>' +
+              '</div>' +
+              '<div class="flex items-center gap-gutter-md shrink-0">' +
+                '<span class="font-body text-title-sm text-on-surface tabular-nums">$' + b.price.toFixed(2) + '</span>' +
+                '<button type="button" data-wish="' + b.id + '" aria-label="Toggle wishlist" class="wish-btn w-9 h-9 rounded-full border border-outline flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">' + (saved ? 'bookmark' : 'bookmark_border') + '</span></button>' +
+                '<button type="button" data-prev="' + b.id + '" class="prev-btn px-3 py-1.5 bg-primary text-on-primary rounded font-label text-label-md">Preview</button>' +
+              '</div>' +
+            '</article>';
+          }).join('');
+        }
+
+        gridEl.querySelectorAll('.wish-btn').forEach(btn => btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = btn.dataset.wish;
+          if (wishlist.has(id)) wishlist.delete(id); else wishlist.add(id);
+          const badge = document.getElementById('wishlist-count-badge');
+          badge.textContent = wishlist.size;
+          badge.classList.toggle('hidden', wishlist.size === 0);
+          render();
+        }));
+
+        gridEl.querySelectorAll('.book-card').forEach(card => card.addEventListener('click', () => openDetail(card.dataset.bookId)));
+      }
+
+      const modal = document.getElementById('preview-modal');
+      function openDetail(id) {
+        const b = catalog.find(x => x.id === id);
+        if (!b) return;
+        document.getElementById('preview-modal-title').textContent = b.title;
+        document.getElementById('preview-modal-author').textContent = 'By ' + b.author + ' · ' + b.category;
+        document.getElementById('preview-modal-img').src = b.img;
+        document.getElementById('preview-modal-excerpt').textContent = b.desc + ' — Sample edition preview ready for instant digital access.';
+        document.getElementById('preview-modal-price').textContent = '$' + b.price.toFixed(2);
+        modal.showModal();
+      }
+
+      document.getElementById('btn-close-preview').addEventListener('click', () => modal.close());
+      document.getElementById('btn-close-preview-2').addEventListener('click', () => modal.close());
+      document.getElementById('btn-preview-add').addEventListener('click', () => {
+        bagCount += 1;
+        document.getElementById('bag-count-badge').textContent = bagCount;
+        modal.close();
+      });
+
+      searchEl.addEventListener('input', render);
+      clearBtn.addEventListener('click', () => { searchEl.value = ''; render(); });
+      document.querySelectorAll('.filter-cat, .filter-author').forEach(el => el.addEventListener('change', render));
+      priceEl.addEventListener('input', () => { document.getElementById('price-cap-label').textContent = '$' + Number(priceEl.value).toFixed(2); render(); });
+      sortEl.addEventListener('change', render);
+      document.getElementById('reset-filters').addEventListener('click', () => {
+        searchEl.value = '';
+        document.querySelectorAll('.filter-cat, .filter-author').forEach(el => el.checked = false);
+        priceEl.value = 30;
+        document.getElementById('price-cap-label').textContent = '$30.00';
+        render();
+      });
+      document.getElementById('view-grid-btn').addEventListener('click', () => { viewMode = 'grid'; render(); });
+      document.getElementById('view-list-btn').addEventListener('click', () => { viewMode = 'list'; render(); });
+      document.getElementById('btn-load-more').addEventListener('click', (e) => {
+        extraLoaded = true;
+        e.target.textContent = 'All Editions Loaded';
+        e.target.disabled = true;
+        e.target.classList.add('opacity-50');
+        render();
+      });
+
+      const navDrawer = document.getElementById('nav-drawer');
+      document.getElementById('btn-open-nav').addEventListener('click', () => navDrawer.showModal());
+      document.getElementById('btn-close-nav').addEventListener('click', () => navDrawer.close());
+
+      render();
+    })();
+  </script>
+
+
+</body></html>
